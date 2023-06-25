@@ -13,6 +13,8 @@
       <div class="user-box" v-show="isLogin">
         <span class="user">{{ currUsername }}</span>
         <div class="dropdown-content">
+          <a @click="goRegistration">申请报名</a>
+          <a @click="goDisplayDataPage">个人信息</a>
           <a @click="goLogout">登出</a>
         </div>
       </div>
@@ -44,6 +46,12 @@ export default {
     },
     goSignUp() {
       this.$router.push({ name: "SignUp" });
+    },
+    goRegistration() {
+      this.$router.push({ name: "Registration"})
+    },
+    goDisplayDataPage() {
+      this.$router.push({name:"DisplayDataPage"})
     },
     goLogout(){
       this.$store.commit("logout");
@@ -153,7 +161,7 @@ export default {
       display: -webkit-flex;
       align-items: center;
       cursor: pointer;
-      padding: 12px 12px 12px 28px;
+      padding: 12px 30px 12px 28px;
       &::after {
         content: "";
         width: 0;

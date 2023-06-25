@@ -5,6 +5,9 @@ import Content from '../views/Content.vue'
 import Publish from '../views/Publish.vue'
 import Login from '../views/Login.vue'
 import SignUp from '../views/SignUp.vue'
+import Registration from '../views/Registration.vue'
+import DisplayDataPage from '../views/DisplayDataPage.vue'
+
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err);
@@ -37,6 +40,17 @@ Vue.use(VueRouter)
     path: '/signup',
     name:"SignUp",
     component: SignUp
+  },
+  {
+    path: '/registration',
+    name:"Registration",
+    component: Registration
+    },
+  {
+    path: '/display',
+    name: "DisplayDataPage",
+    component: DisplayDataPage,
+    props:true
   }
 ]
 
