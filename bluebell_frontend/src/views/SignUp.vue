@@ -139,7 +139,7 @@ a {
 }
 
 .form-container form {
-  background: rgba(45, 52, 54, 1);
+  background: rgb(18, 21, 21);
   display: flex;
   flex-direction: column;
   padding: 0 50px;
