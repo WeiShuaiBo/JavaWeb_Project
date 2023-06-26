@@ -6,15 +6,17 @@ import (
 )
 
 type User struct {
-	UserID   uint64 `json:"user_id" db:"user_id"`
-	UserName string `json:"username" db:"username"`
-	Password string `json:"password" db:"password"`
+	UserID    uint64 `json:"user_id" db:"user_id"`
+	UserName  string `json:"username" db:"username"`
+	Password  string `json:"password" db:"password"`
+	CaptchaId string `json:"captchaId"`
 }
 
 func (u *User) UnmarshalJSON(data []byte) (err error) {
 	required := struct {
 		UserName string `json:"username" db:"username"`
 		Password string `json:"password" db:"password"`
+		Captcha  string `json:"captchaId"`
 	}{}
 	err = json.Unmarshal(data, &required)
 	if err != nil {
@@ -23,9 +25,12 @@ func (u *User) UnmarshalJSON(data []byte) (err error) {
 		err = errors.New("缺少必填字段username")
 	} else if len(required.Password) == 0 {
 		err = errors.New("缺少必填字段password")
+	} else if len(required.Captcha) == 0 {
+		err = errors.New("缺少验证码字段captchaid")
 	} else {
 		u.UserName = required.UserName
 		u.Password = required.Password
+		u.CaptchaId = required.Captcha
 	}
 	return
 }

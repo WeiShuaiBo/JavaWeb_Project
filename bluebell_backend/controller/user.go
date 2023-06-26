@@ -4,6 +4,7 @@ import (
 	"bluebell_backend/dao/mysql"
 	"bluebell_backend/models"
 	"bluebell_backend/pkg/jwt"
+	"bluebell_backend/utils"
 	"errors"
 	"fmt"
 	"net/http"
@@ -51,16 +52,22 @@ func LoginHandler(c *gin.Context) {
 	}
 	if err := mysql.Login(&u); err != nil {
 		zap.L().Error("mysql.Login(&u) failed", zap.Error(err))
-		ResponseError(c, CodeInvalidPassword)
+		ResponseErrorWithMsg(c, CodeInvalidParams, err.Error())
 		return
 	}
-	// 生成Token
+	if flag := utils.CaptchaVerify(u.CaptchaId); flag == false {
+		zap.L().Error("验证码输入错误")
+		ResponseErrorWithMsg(c, CodeParam, "验证码错误")
+		return
+	}
+	//生成Token
 	aToken, rToken, _ := jwt.GenToken(u.UserID)
 	ResponseSuccess(c, gin.H{
 		"accessToken":  aToken,
 		"refreshToken": rToken,
 		"userID":       u.UserID,
 		"username":     u.UserName,
+		"code":         http.StatusOK,
 	})
 }
 

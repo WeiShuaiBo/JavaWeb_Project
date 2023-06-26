@@ -8,7 +8,7 @@ import (
 )
 
 var (
-	client *redis.Client
+	Client *redis.Client
 	Nil    = redis.Nil
 )
 
@@ -17,7 +17,7 @@ type StringStringMapCmd = redis.StringStringMapCmd
 
 // Init 初始化连接
 func Init(cfg *settings.RedisConfig) (err error) {
-	client = redis.NewClient(&redis.Options{
+	Client = redis.NewClient(&redis.Options{
 		Addr:         fmt.Sprintf("%s:%d", cfg.Host, cfg.Port),
 		Password:     cfg.Password, // no password set
 		DB:           cfg.DB,       // use default DB
@@ -25,7 +25,7 @@ func Init(cfg *settings.RedisConfig) (err error) {
 		MinIdleConns: cfg.MinIdleConns,
 	})
 
-	_, err = client.Ping().Result()
+	_, err = Client.Ping().Result()
 	if err != nil {
 		return err
 	}
@@ -33,5 +33,5 @@ func Init(cfg *settings.RedisConfig) (err error) {
 }
 
 func Close() {
-	_ = client.Close()
+	_ = Client.Close()
 }

@@ -20,35 +20,42 @@ const (
 
 */
 
-/* PostVote 为帖子投票
+/*
+	PostVote 为帖子投票
+
 投票分为四种情况：1.投赞成票 2.投反对票 3.取消投票 4.反转投票
 
 记录文章参与投票的人
 更新文章分数：赞成票要加分；反对票减分
 
 v=1时，有两种情况
+
 	1.之前没投过票，现在要投赞成票
 	2.之前投过反对票，现在要改为赞成票
+
 v=0时，有两种情况
+
 	1.之前投过赞成票，现在要取消
 	2.之前投过反对票，现在要取消
+
 v=-1时，有两种情况
+
 	1.之前没投过票，现在要投反对票
 	2.之前投过赞成票，现在要改为反对票
 */
 func PostVote(postID, userID string, v float64) (err error) {
 	// 1. 取帖子发布时间
-	postTime := client.ZScore(KeyPostTimeZSet, postID).Val()
+	postTime := Client.ZScore(KeyPostTimeZSet, postID).Val()
 	if float64(time.Now().Unix())-postTime > OneWeekInSeconds {
 		// 不允许投票了
 		return ErrorVoteTimeExpire
 	}
 	// 判断是否已经投过票
 	key := KeyPostVotedZSetPrefix + postID
-	ov := client.ZScore(key, userID).Val() // 获取当前分数
+	ov := Client.ZScore(key, userID).Val() // 获取当前分数
 
 	diffAbs := math.Abs(ov - v)
-	pipeline := client.TxPipeline()
+	pipeline := Client.TxPipeline()
 	pipeline.ZAdd(key, redis.Z{ // 记录已投票
 		Score:  v,
 		Member: userID,
@@ -91,7 +98,7 @@ func CreatePost(postID, userID, title, summary, communityName string) (err error
 	}
 
 	// 事务操作
-	pipeline := client.TxPipeline()
+	pipeline := Client.TxPipeline()
 	pipeline.ZAdd(votedKey, redis.Z{ // 作者默认投赞成票
 		Score:  1,
 		Member: userID,
@@ -120,10 +127,10 @@ func GetPost(order string, page int64) []map[string]string {
 	}
 	start := (page - 1) * PostPerAge
 	end := start + PostPerAge - 1
-	ids := client.ZRevRange(key, start, end).Val()
+	ids := Client.ZRevRange(key, start, end).Val()
 	postList := make([]map[string]string, 0, len(ids))
 	for _, id := range ids {
-		postData := client.HGetAll(KeyPostInfoHashPrefix + id).Val()
+		postData := Client.HGetAll(KeyPostInfoHashPrefix + id).Val()
 		postData["id"] = id
 		postList = append(postList, postData)
 	}
@@ -134,11 +141,11 @@ func GetPost(order string, page int64) []map[string]string {
 func GetCommunityPost(communityName, orderKey string, page int64) []map[string]string {
 	key := orderKey + communityName // 创建缓存键
 
-	if client.Exists(key).Val() < 1 {
-		client.ZInterStore(key, redis.ZStore{
+	if Client.Exists(key).Val() < 1 {
+		Client.ZInterStore(key, redis.ZStore{
 			Aggregate: "MAX",
 		}, KeyCommunityPostSetPrefix+communityName, orderKey)
-		client.Expire(key, 60*time.Second)
+		Client.Expire(key, 60*time.Second)
 	}
 	return GetPost(key, page)
 }
