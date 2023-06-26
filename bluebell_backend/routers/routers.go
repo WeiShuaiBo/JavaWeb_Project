@@ -2,9 +2,9 @@ package routers
 
 import (
 	"bluebell_backend/controller"
-	"net/http"
-
+	"bluebell_backend/utils"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 func SetupRouter() *gin.Engine {
@@ -14,6 +14,10 @@ func SetupRouter() *gin.Engine {
 	r := gin.Default()
 	r.Use(Cors())
 	v1 := r.Group("/api/v1")
+	// 生成验证码
+	v1.GET("/captcha", func(c *gin.Context) {
+		utils.Captcha(c, 4)
+	})
 	v1.POST("/login", controller.LoginHandler)
 	v1.POST("/signup", controller.SignUpHandler)
 	v1.GET("/refresh_token", controller.RefreshTokenHandler)
