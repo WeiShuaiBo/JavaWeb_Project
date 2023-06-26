@@ -96,6 +96,8 @@ export default {
                 // 表单提交成功后，跳转到 DisplayDataPage 并传递表单数据
                 this.$router.push({ path: '/display', props: { formData: this.formData } });
             }, 1000);
+
+            this.$store.commit('setFormData', this.formData)
         },
         validateForm() {
             // 进行表单验证，确保所有字段都填写正确

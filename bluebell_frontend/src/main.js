@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Vuex from 'vuex'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -7,6 +8,18 @@ import axios from './service/api'
 Vue.prototype.$axios = axios;
 Vue.config.productionTip = false
 
+Vue.use(Vuex)
+
+// const store = new Vuex.Store({
+//   state: {
+//     formData: {}
+//   },
+//   mutations: {
+//     setFormData(state, data) {
+//       state.formData = data
+//     }
+//   }
+// })
 
 router.beforeEach((to, from, next) => {
   console.log(to);
