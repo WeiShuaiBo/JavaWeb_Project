@@ -1,5 +1,6 @@
 <template>
-    <div class="display-data-page">
+    <div class="display">
+        <div class="display-data-page">
         <h2>已提交申请信息</h2>
         <div v-if="formData" class="data-table">
             <div>
@@ -49,6 +50,13 @@
             暂无数据
         </div>
     </div>
+    <div class="show">
+        <button :disabled="isSubmitting" type="submit" @click="goToHomePage">
+                {{ isSubmitting ? '返回中...' : '返回主页' }}
+        </button>
+    </div>
+    </div>
+    
 </template>
 <script>
 export default {
@@ -58,6 +66,11 @@ export default {
             return this.$store.state.formData;
         },
     },
+    methods: {
+        goToHomePage() {
+            this.$router.push({ name: 'Home' });
+        },
+    }
 };
 </script>
 
@@ -89,5 +102,21 @@ h2 {
     padding: 20px;
     font-size: 16px;
     color: #999;
+}
+
+.show{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+button {
+    padding: 10px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
 }
 </style>
