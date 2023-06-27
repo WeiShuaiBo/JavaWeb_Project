@@ -4,13 +4,21 @@
         <h2>大学生创新创业平台申请报名</h2>
         <form @submit.prevent="submitForm">
             <div class="form-group">
-                <label for="name">姓名：</label>
+                <label for="name" >组长姓名：</label>
                 <input type="text" id="name" v-model.trim="formData.name" required />
             </div>
 
             <div class="form-group">
-                <label for="university">学校：</label>
-                <input type="text" id="university" v-model.trim="formData.university" required />
+                <label for="school">学校：</label>
+              <select id="university" v-model.trim="formData.university" required>
+                <option value="">请选择学校</option>
+                <option value="河南科技学院">河南科技学院</option>
+                <option value="新乡医学院">新乡医学院</option>
+                <option value="新乡学院">新乡学院</option>
+                <option value="河南师范大学">河南师范大学</option>
+                <option value="985名校">985名校</option>
+                <option value="211名校">211名校</option>
+              </select>
             </div>
 
             <div class="form-group">
@@ -47,8 +55,15 @@
             </div>
 
             <div class="form-group">
-                <label for="projectIdea">项目创意：</label>
-                <textarea id="projectIdea" v-model.trim="formData.projectIdea" required></textarea>
+                <label for="projectIdea">申报类型：</label>
+               <select id="projectIdea" v-model.trim="formData.projectIdea" required>
+                <option value="">请选择方向</option>
+                <option value="科技创新">科技创新</option>
+                <option value="社会企业">社会企业</option>
+                <option value="数字经济">数字经济</option>
+                <option value="乡村振兴">乡村振兴</option>
+                <!-- 其他专业选项 -->
+              </select>
             </div>
 
             <button :disabled="isSubmitting" type="submit">
@@ -62,6 +77,8 @@
 
 
 <script>
+import axios from "axios";
+
 export default {
     name:"Registration",
     data() {
@@ -81,6 +98,7 @@ export default {
     },
     methods: {
         submitForm() {
+
             // 表单验证逻辑，确保字段填写正确
             if (!this.validateForm()) {
                 return;
@@ -107,6 +125,11 @@ export default {
 };
 </script>
 <style scoped>
+label {
+  font-family: Arial, sans-serif; /* 设置字体为 Arial 或者 sans-serif */
+  font-size: 16px; /* 设置字体大小为 16 像素 */
+  /* 其他样式属性，例如字体颜色、字体加粗等，也可以在这里添加 */
+}
 .background{
     width: 100%;
     height: 100%;
@@ -131,10 +154,28 @@ form {
 }
 
 .form-group {
-    display: grid;
-    grid-template-columns: 100px 1fr;
-    align-items: center;
+
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  align-items: center;
+  margin-bottom: 15px;
 }
+
+.form-group label {
+  text-align: right;
+  padding-right: 10px;
+  font-weight: bold;
+}
+
+.form-group select,
+.form-group input,
+.form-group textarea {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
 
 label {
     font-weight: bold;

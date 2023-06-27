@@ -98,7 +98,7 @@ export default {
 <style  scoped>
 #login {
   font-family: "Montserrat", sans-serif;
-  background: #f6f5f7;
+  background: rgba(47, 74, 212, 0.7);
   display: flex;
   flex-direction: column;
   justify-content: center;

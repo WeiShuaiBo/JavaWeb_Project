@@ -38,6 +38,7 @@ func SetupRouter() *gin.Engine {
 		v1.POST("/comment", controller.CommentHandler)
 		v1.GET("/comment", controller.CommentListHandler)
 
+		v1.POST("/createProject", controller.CreateProjext)
 		v1.GET("/ping", func(c *gin.Context) {
 			c.String(http.StatusOK, "pong")
 		})
