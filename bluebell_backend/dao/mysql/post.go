@@ -24,7 +24,7 @@ func CreatePost(post *models.Post) (err error) {
 	return
 }
 
-//GetPostByID
+// GetPostByID
 func GetPostByID(idStr string) (post *models.ApiPostDetail, err error) {
 	post = new(models.ApiPostDetail)
 	sqlStr := `select post_id, title, content, author_id, community_id, create_time
@@ -61,7 +61,7 @@ func GetPostListByIDs(ids []string) (postList []*models.Post, err error) {
 func GetPostList() (posts []*models.ApiPostDetail, err error) {
 	sqlStr := `select post_id, title, content, author_id, community_id, create_time
 	from post
-	limit 2
+	limit 8
 	`
 	posts = make([]*models.ApiPostDetail, 0, 2)
 	err = db.Select(&posts, sqlStr)
