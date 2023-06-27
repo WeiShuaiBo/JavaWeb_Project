@@ -4,7 +4,7 @@
         <h2>大学生创新创业平台申请报名</h2>
         <form @submit.prevent="submitForm">
             <div class="form-group">
-                <label for="name">姓名：</label>
+                <label for="name">组长姓名：</label>
                 <input type="text" id="name" v-model.trim="formData.name" required />
             </div>
 
@@ -20,6 +20,7 @@
                     <option value="计算机科学与技术学院">计算机学院</option>
                     <option value="信息工程学院">信息工程学院</option>
                     <option value="软件学院">软件学院</option>
+                    <option value="其他">其他</option>
                     <!-- 其他学院选项 -->
                 </select>
             </div>
@@ -32,6 +33,7 @@
                     <option value="数据科学与大数据技术">数据科学与大数据技术</option>
                     <option value="软件工程">软件工程</option>
                     <option value="人工智能">人工智能</option>
+                    <option value="其他">其他</option>
                     <!-- 其他专业选项 -->
                 </select>
             </div>
@@ -47,8 +49,16 @@
             </div>
 
             <div class="form-group">
-                <label for="projectIdea">项目创意：</label>
-                <textarea id="projectIdea" v-model.trim="formData.projectIdea" required></textarea>
+                <label for="projectType">申报类型：</label>
+                <!-- <textarea id="projectIdea" v-model.trim="formData.projectIdea" required></textarea> -->
+                <select id="projectType" v-model.trim="formData.projectType" required>
+                        <option value="">请选择方向</option>
+                        <option value="科技创新">科技创新</option>
+                        <option value="社会企业">社会企业</option>
+                        <option value="数字经济">数字经济</option>
+                        <option value="乡村振兴">乡村振兴</option>
+                        <option value="其他">其他</option>
+                </select>
             </div>
 
             <button :disabled="isSubmitting" type="submit">
@@ -94,10 +104,10 @@ export default {
                 this.isSubmitted = true;
 
                 // 表单提交成功后，跳转到 DisplayDataPage 并传递表单数据
-                this.$router.push({ path: '/display', props: { formData: this.formData } });
+                this.$router.push({ path: '/declaration', props: { formData: this.formData } });
             }, 1000);
 
-            this.$store.commit('setFormData', this.formData)
+            this.$stores.commit('setFormData', this.formData)
         },
         validateForm() {
             // 进行表单验证，确保所有字段都填写正确

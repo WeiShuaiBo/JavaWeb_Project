@@ -26,8 +26,8 @@
         </ul>
         <div class="post-sub-container">
           <div class="post-sub-header">
-            <textarea class="post-title" id cols="30" rows="10" v-model="title" placeholder="标题"></textarea>
-            <span class="textarea-num">0/300</span>
+            <textarea class="post-title" id cols="30" rows="10" v-model="title" placeholder="标题" @input="updateCharCount"></textarea>
+            <span class="textarea-num">{{ charCount }}/300</span>
           </div>
           <!---此处放置富文本--->
           <div class="post-text-con">
@@ -79,7 +79,17 @@ export default {
       communityList: []
     };
   },
+  computed: {
+    charCount() {
+      return this.title.length;
+    },
+  },
   methods: {
+    updateCharCount() {
+      if (this.title.length > 300) {
+        this.title = this.title.slice(0, 300);
+      }
+    },
     submit() {
       this.$axios({
         method: "post",
