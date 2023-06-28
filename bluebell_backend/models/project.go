@@ -6,15 +6,17 @@ import (
 )
 
 type Project struct {
-	ProjectID        uint64 `db:"project_id"`
-	UserName         string `json:"username" db:"project_user_name"`
-	University       string `json:"university" db:"project_university"`
-	College          string `json:"college" db:"project_college"`
-	Major            string `json:"major" db:"project_major"`
-	Email            string `json:"email" db:"project_email"`
-	Phone            string `json:"phone" db:"project_phone"`
-	ProjectDirection string `json:"projectDirection" db:"project_projectdirection"`
-	Status           string `json:"status" db:"project_status"`
+	ProjectID        uint64 `gorm:"column:id"`
+	UserName         string `json:"username" gorm:"column:project_user_name"`
+	University       string `json:"university" gorm:"column:project_university"`
+	College          string `json:"college" gorm:"column:project_college"`
+	Major            string `json:"major" gorm:"column:project_major"`
+	Email            string `json:"email" gorm:"column:project_email"`
+	Phone            string `json:"phone" gorm:"column:project_phone"`
+	ProjectDirection string `json:"projectDirection" gorm:"column:project_projectdirection"`
+}
+type ProjectDetail struct {
+	ProjectDetailID uint64 `gorm:""`
 }
 
 func (p *Project) UnmarshalJSON(data []byte) error {
@@ -39,6 +41,8 @@ func (p *Project) UnmarshalJSON(data []byte) error {
 	p.Email = required.Email
 	p.Phone = required.Phone
 	p.ProjectDirection = required.ProjectDirection
-	p.Status = required.Status
 	return nil
+}
+func (p Project) TableName() string {
+	return "project"
 }

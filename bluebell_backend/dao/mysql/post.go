@@ -2,41 +2,31 @@ package mysql
 
 import (
 	"bluebell_backend/models"
-	"database/sql"
-
-	"github.com/jmoiron/sqlx"
+	"gorm.io/gorm"
 
 	"go.uber.org/zap"
 )
 
 // CreatePost 创建帖子
 func CreatePost(post *models.Post) (err error) {
-	sqlStr := `insert into post(
-	post_id, title, content, author_id, community_id)
-	values(?,?,?,?,?)`
-	_, err = db.Exec(sqlStr, post.PostID, post.Title,
-		post.Content, post.AuthorId, post.CommunityID)
-	if err != nil {
-		zap.L().Error("insert post failed", zap.Error(err))
+	result := DB.Create(post)
+	if result.Error != nil {
+		zap.L().Error("insert post failed", zap.Error(result.Error))
 		err = ErrorInsertFailed
 		return
 	}
 	return
 }
 
-// GetPostByID
 func GetPostByID(idStr string) (post *models.ApiPostDetail, err error) {
 	post = new(models.ApiPostDetail)
-	sqlStr := `select post_id, title, content, author_id, community_id, create_time
-	from post
-	where post_id = ?`
-	err = db.Get(post, sqlStr, idStr)
-	if err == sql.ErrNoRows {
+	err = DB.Table("post").Select("post_id, title, content, author_id, community_id, create_time").Where("post_id = ?", idStr).First(post).Error
+	if err == gorm.ErrRecordNotFound {
 		err = ErrorInvalidID
 		return
 	}
 	if err != nil {
-		zap.L().Error("query post failed", zap.String("sql", sqlStr), zap.Error(err))
+		zap.L().Error("query post failed", zap.String("sql", err.Error()), zap.Error(err))
 		err = ErrorQueryFailed
 		return
 	}
@@ -44,27 +34,33 @@ func GetPostByID(idStr string) (post *models.ApiPostDetail, err error) {
 }
 
 func GetPostListByIDs(ids []string) (postList []*models.Post, err error) {
-	sqlStr := `select post_id, title, content, author_id, community_id, create_time
-	from post
-	where post_id in (?)`
-	// 动态填充id
-	query, args, err := sqlx.In(sqlStr, ids)
-	if err != nil {
-		return
-	}
-	// sqlx.In 返回带 `?` bindvar的查询语句, 我们使用Rebind()重新绑定它
-	query = db.Rebind(query)
-	err = db.Select(&postList, query, args...)
+	err = DB.Table("post").Select("post_id, title, content, author_id, community_id, create_time").
+		Where("post_id IN (?)", ids).
+		Find(&postList).Error
 	return
 }
 
-func GetPostList() (posts []*models.ApiPostDetail, err error) {
-	sqlStr := `select post_id, title, content, author_id, community_id, create_time
-	from post
-	limit 8
-	`
-	posts = make([]*models.ApiPostDetail, 0, 2)
-	err = db.Select(&posts, sqlStr)
-	return
+func GetPostList() ([]*models.ApiPostDetail, error) {
+	var posts []*models.Post
+	err := DB.Table("post").
+		Select("post_id, title, content, author_id, community_id, create_time").
+		Limit(8).
+		Find(&posts).Error
+	if err != nil {
+		return nil, err
+	}
 
+	apiPosts := make([]*models.ApiPostDetail, len(posts))
+	for i, post := range posts {
+		var user models.User
+		var community models.Community
+		DB.Where("user_id=?", post.AuthorId).First(&user)
+		DB.Where("community_id", post.CommunityID).First(&community)
+		apiPosts[i] = &models.ApiPostDetail{
+			Post:          post,
+			AuthorName:    user.UserName,
+			CommunityName: community.CommunityName,
+		}
+	}
+	return apiPosts, nil
 }

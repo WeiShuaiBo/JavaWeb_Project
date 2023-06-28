@@ -2,28 +2,36 @@ package mysql
 
 import (
 	"bluebell_backend/models"
-	"database/sql"
 	"go.uber.org/zap"
+	"gorm.io/gorm"
 )
 
-func MCreateProject(p *models.Project) (error, bool) {
-	sqlStr := `SELECT username,user_status FROM user WHERE username=?`
-	userName := p.UserName
-	var previousStatus string
-	var test1 *models.User
-	if err := db.Get(&test1, sqlStr, userName); err == sql.ErrNoRows {
+func MCreateProject1(p *models.Project) (error, bool) {
+	var test1 models.User
+	result := DB.Where("username = ?", p.UserName).First(&test1)
+	if result.Error == gorm.ErrRecordNotFound {
 		zap.L().Error("该用户尚未注册信息，请先完成注册。")
-		return err, false
+		return result.Error, false
 	}
 
-	previousStatus = test1.Status
+	previousStatus := test1.Status
 	if previousStatus == "未申请" {
-		sqlStr1 := `insert into project(
-	           project_user_name,project_university,project_college,project_major,project_email,project_phone,project_projectdirection)
-		values(?,?,?,?,?,?,?)`
-		if _, err := db.Exec(sqlStr1, p.UserName, p.University, p.College, p.Major, p.Email, p.Phone, p.ProjectDirection); err != nil {
-			zap.L().Error("insert project failed", zap.Error(err))
-			return err, false
+		project := models.Project{
+			UserName:         p.UserName,
+			University:       p.University,
+			College:          p.College,
+			Major:            p.Major,
+			Email:            p.Email,
+			Phone:            p.Phone,
+			ProjectDirection: p.ProjectDirection,
+		}
+		err1 := DB.Create(&project).Error
+		if err1 != nil {
+			zap.L().Error("create project failed", zap.Error(err1))
+			return result.Error, false
+		}
+		if err2 := DB.Model(&models.User{}).Where("username=?", test1.UserName).Update("Status", "已申请").Error; err2 != nil {
+			zap.L().Error("修改用户状态失败", zap.Error(err2))
 		}
 	}
 	return nil, true

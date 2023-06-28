@@ -13,9 +13,11 @@ const (
 	CodeInvalidAuthFormat MyCode = 1007
 	CodeNotLogin          MyCode = 1008
 	CodeParam             MyCode = 1009
+	CodeError             MyCode = 1100
 )
 
 var msgFlags = map[MyCode]string{
+	CodeError:           "false",
 	CodeSuccess:         "success",
 	CodeInvalidParams:   "请求参数错误",
 	CodeUserExist:       "用户名重复",

@@ -4,8 +4,8 @@ import (
 	"bluebell_backend/models"
 	"bluebell_backend/pkg/snowflake"
 	"crypto/md5"
-	"database/sql"
 	"encoding/hex"
+	"gorm.io/gorm"
 )
 
 const secret = "liwenzhou.com"
@@ -17,54 +17,73 @@ func encryptPassword(data []byte) (result string) {
 	//这行代码计算哈希值，并将其转换为十六进制字符串格式，作为函数的返回值
 	return hex.EncodeToString(h.Sum(nil))
 }
-
-func Register(user *models.User) (err error) {
-	sqlStr := "select count(user_id) from user where username = ?"
-	var count int64
-	err = db.Get(&count, sqlStr, user.UserName)
-	if err != nil && err != sql.ErrNoRows {
+func Register(user *models.User) error {
+	var u models.User
+	if err := DB.Model(&models.User{}).Select("username,user_id").Where("username = ?", user.UserName).First(&u).Error; err != nil {
 		return err
 	}
-	if count > 0 {
-		// 用户已存在
+
+	if u.UserID > 0 {
+		// User already exists
 		return ErrorUserExit
 	}
-	// 生成user_id
+
+	// Generate user_id
 	userID, err := snowflake.GetID()
 	if err != nil {
 		return ErrorGenIDFailed
 	}
-	// 生成加密密码
+
+	// Generate encrypted password
 	password := encryptPassword([]byte(user.Password))
-	// 把用户插入数据库
-	sqlStr = "insert into user(user_id, username, password) values (?,?,?)"
-	_, err = db.Exec(sqlStr, userID, user.UserName, password)
-	return
+
+	// Insert user into the database
+	err = DB.Create(&models.User{
+		UserID:   userID,
+		UserName: user.UserName,
+		Password: password,
+	}).Error
+
+	return err
 }
 
-func Login(user *models.User) (err error) {
-	originPassword := user.Password // 记录一下原始密码
-	sqlStr := "select user_id, username, password from user where username = ?"
-	err = db.Get(user, sqlStr, user.UserName)
-	if err != nil && err != sql.ErrNoRows {
-		// 查询数据库出错
-		return
+func Login(user *models.User) error {
+	originPassword := user.Password // Record the original password
+
+	var existingUser models.User
+	if err := DB.Where("username = ?", user.UserName).First(&existingUser).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			// User does not exist
+			return ErrorUserExit
+		}
+		// Error querying the database
+		return err
 	}
-	if err == sql.ErrNoRows {
-		// 用户不存在
-		return ErrorUserNotExit
-	}
-	// 生成加密密码与查询到的密码比较
+
+	// Compare encrypted passwords
 	password := encryptPassword([]byte(originPassword))
-	if user.Password != password {
+	if existingUser.Password != password {
 		return ErrorPasswordWrong
 	}
-	return
+
+	// Update the user object with the retrieved data
+	user.UserID = existingUser.UserID
+	user.UserName = existingUser.UserName
+	user.Password = existingUser.Password
+
+	return nil
 }
 
-func GetUserByID(idStr string) (user *models.User, err error) {
-	user = new(models.User)
-	sqlStr := `select user_id, username from user where user_id = ?`
-	err = db.Get(user, sqlStr, idStr)
-	return
+func GetUserByID(idStr string) (*models.User, error) {
+	user := new(models.User)
+	if err := DB.Select("user_id, username").Where("user_id = ?", idStr).First(&user).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			// User not found
+			return nil, ErrorUserNotExit
+		}
+		// Error querying the database
+		return nil, err
+	}
+
+	return user, nil
 }

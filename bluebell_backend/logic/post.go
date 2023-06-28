@@ -65,7 +65,7 @@ func GetPost(postID string) (post *models.ApiPostDetail, err error) {
 func GetPostList2() (data []*models.ApiPostDetail, err error) {
 	postList, err := mysql.GetPostList()
 	if err != nil {
-		fmt.Println(err)
+		zap.L().Error("获取帖子列表出错，请你重新查看")
 		return
 	}
 	data = make([]*models.ApiPostDetail, 0, len(postList))

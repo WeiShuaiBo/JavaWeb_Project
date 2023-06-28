@@ -6,11 +6,11 @@ import (
 )
 
 type User struct {
-	UserID    uint64 `json:"user_id" db:"user_id"`
-	UserName  string `json:"username" db:"username"`
-	Password  string `json:"password" db:"password"`
+	UserID    uint64 `json:"user_id" gorm:"column:user_id"`
+	UserName  string `json:"username" gorm:"column:username"`
+	Password  string `json:"password" gorm:"column:password"`
 	CaptchaId string `json:"captchaId"`
-	Status    string `json:"user_status" db:"user_status"`
+	Status    string `json:"user_status" gorm:"column:user_status"`
 }
 
 func (u *User) UnmarshalJSON(data []byte) (err error) {
@@ -63,4 +63,7 @@ func (r *RegisterForm) UnmarshalJSON(data []byte) (err error) {
 		r.ConfirmPassword = required.ConfirmPassword
 	}
 	return
+}
+func (user User) TableName() string {
+	return "user"
 }
