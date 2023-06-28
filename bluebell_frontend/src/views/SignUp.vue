@@ -50,7 +50,7 @@ export default {
         re_password: this.re_password
       })
         .then((res) => {
-          if (res.data.code === 1000) {
+          if (res.code === 1000) {
             console.log('signup success');
             Swallow.fire({
               icon: 'success',
@@ -139,7 +139,7 @@ a {
 }
 
 .form-container form {
-  background: rgba(45, 52, 54, 1);
+  background: rgb(18, 21, 21);
   display: flex;
   flex-direction: column;
   padding: 0 50px;

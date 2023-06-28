@@ -7,6 +7,7 @@ import Login from '../views/Login.vue'
 import SignUp from '../views/SignUp.vue'
 import Registration from '../views/Registration.vue'
 import DisplayDataPage from '../views/DisplayDataPage.vue'
+import Declaration from "../views/Declaration.vue"
 
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
@@ -51,6 +52,11 @@ Vue.use(VueRouter)
     name: "DisplayDataPage",
     component: DisplayDataPage,
     props:true
+    },
+  {
+    path: '/declaration',
+    name: "Declaration",
+    component: Declaration
   }
 ]
 

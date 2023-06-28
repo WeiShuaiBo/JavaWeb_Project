@@ -10,6 +10,7 @@ type User struct {
 	UserName  string `json:"username" db:"username"`
 	Password  string `json:"password" db:"password"`
 	CaptchaId string `json:"captchaId"`
+	Status    string `json:"user_status" db:"user_status"`
 }
 
 func (u *User) UnmarshalJSON(data []byte) (err error) {

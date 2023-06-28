@@ -154,7 +154,7 @@ a {
 }
 
 .form-container form {
-  background: rgba(45, 52, 54, 1);
+  background: rgba(173, 227, 206, 0.89);
   display: flex;
   flex-direction: column;
   padding: 0 50px;

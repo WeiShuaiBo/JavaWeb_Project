@@ -1,46 +1,93 @@
 <template>
     <div class="display-data-page">
         <h2>已提交申请信息</h2>
-        <table class="data-table">
-            <tr>
-                <th>姓名</th>
-                <th>学校</th>
-                <th>学院</th>
-                <th>专业</th>
-                <th>邮箱</th>
-                <th>手机号码</th>
-                <th>项目创意</th>
-            </tr>
-            <tr v-for="form in formData" v-bind:key="form" >
-                <td>{{ form.text }}</td>
-                <!-- <td>{{ university }}</td>
-                <td>{{ college }}</td>
-                <td>{{ major }}</td>
-                <td>{{ formData.email }}</td>
-                <td>{{ formData.phone }}</td>
-                <td>{{ formData.projectIdea }}</td> -->
-            </tr>
-        </table>
+        <div v-if="formData" class="data-table">
+            <div>
+                <strong>组长姓名：</strong>{{ formData.name }}
+            </div>
+            <div>
+                <strong>学校：</strong>{{ formData.university }}
+            </div>
+            <div>
+                <strong>学院：</strong>{{ formData.college }}
+            </div>
+            <div>
+                <strong>专业：</strong>{{ formData.major }}
+            </div>
+            <div>
+                <strong>邮箱：</strong>{{ formData.email }}
+            </div>
+            <div>
+                <strong>手机号码：</strong>{{ formData.phone }}
+            </div>
+            <div>
+                <strong>申报类型：</strong>{{ formData.projectIdea }}
+            </div>
+            <div>
+                <strong>项目类型：</strong>{{ formData.projectSort }}
+            </div>
+            <div>
+                <strong>项目名称：</strong>{{ formData.projectName }}
+            </div>
+            <div>
+                <strong>项目成员：</strong>{{ formData.Member }}
+            </div>
+            <div>
+                <strong>项目介绍：</strong>{{ formData.Introduction }}
+            </div>
+            <div>
+                <strong>项目创意：</strong>{{ formData.Creativity }}
+            </div>
+            <div>
+                <strong>申请优势：</strong>{{ formData.Advantage }}
+            </div>
+            <div>
+                <strong>指导老师：</strong>{{ formData.Instructor }}
+            </div>
+        </div>
+        <div v-else class="no-data-message">
+            暂无数据
+        </div>
     </div>
 </template>
-
 <script>
 export default {
     name: 'DisplayDataPage',
-    props: ['formData']
+    computed: {
+        formData() {
+            return this.$store.state.formData;
+        },
+    },
 };
 </script>
 
 <style scoped>
-.data-table {
-    width: 100%;
-    border-collapse: collapse;
+.display-data-page {
+    max-width: 600px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 5px;
 }
 
-.data-table th,
-.data-table td {
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.data-table {
+    font-size: 14px;
+}
+
+.data-table>div {
     padding: 10px;
-    text-align: left;
     border-bottom: 1px solid #ddd;
+}
+
+.no-data-message {
+    text-align: center;
+    padding: 20px;
+    font-size: 16px;
+    color: #999;
 }
 </style>
