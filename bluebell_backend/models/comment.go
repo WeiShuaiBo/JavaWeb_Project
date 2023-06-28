@@ -10,3 +10,7 @@ type Comment struct {
 	Content    string    `db:"content" json:"content"`
 	CreateTime time.Time `db:"create_time" json:"create_time"`
 }
+
+func (c Comment) TableName() string {
+	return "comment"
+}

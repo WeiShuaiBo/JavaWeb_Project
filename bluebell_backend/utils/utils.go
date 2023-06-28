@@ -59,7 +59,6 @@ func Serve(w http.ResponseWriter, r *http.Request, id, ext, lang string, downloa
 
 // 验证验证码
 func CaptchaVerify(code string) bool {
-
 	// 对传入的验证码值进行 URL 编码，并使用编码后的值作为 Redis 键来获取验证码值
 	Values, err := redis.Client.Get("bluebell:captcha:1").Result()
 	if err != nil {

@@ -98,7 +98,7 @@ export default {
 <style  scoped>
 #login {
   font-family: "Montserrat", sans-serif;
-  background: #f6f5f7;
+  background: rgba(47, 74, 212, 0.7);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -154,7 +154,7 @@ a {
 }
 
 .form-container form {
-  background: rgb(18, 21, 21);
+  background: rgba(173, 227, 206, 0.89);
   display: flex;
   flex-direction: column;
   padding: 0 50px;

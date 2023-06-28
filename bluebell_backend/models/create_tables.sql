@@ -1,3 +1,4 @@
+use bluebell;
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
     `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -15,7 +16,7 @@ CREATE TABLE `user` (
 
 
 DROP TABLE IF EXISTS `community`;
-CREATE TABLE `community`
+CREATE TABLE `community`(
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `community_id` int(10) unsigned NOT NULL,
   `community_name` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
@@ -64,3 +65,18 @@ CREATE TABLE `comment` (
   UNIQUE KEY `idx_comment_id` (`comment_id`),
   KEY `idx_author_Id` (`author_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `project`(
+    `id` bigint(20) NOT NULL AUTO_INCREMENT,
+    `ProjectId` bigint(20) unsigned NOT NULL,
+    `UserName` varchar(255) NOT NUll,
+    `University` varchar(255) NOT NULL,
+    `College` varchar(255) NOT NULL,
+    `Major` varchar(255) NOT NULL,
+    `Email` varchar(255) NOT NULL,
+    `Phone` int(20) NOT NULL,
+    `ProjectIdea` text COLLATE utf8mb4_general_ci NOT NULL,
+    `Status` varchar(255) DEFAULT '未申请',
+    PRIMARY KEY (`id`),
+    UNIQUE  KEY  `uk_ProjectID` (ProjectId)
+) ENGINE=InnoDB DEFAULT CHARSET= utf8mb4 COLLATE = utf8mb4_general_ci;

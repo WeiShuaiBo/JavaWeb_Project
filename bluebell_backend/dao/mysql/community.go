@@ -2,53 +2,52 @@ package mysql
 
 import (
 	"bluebell_backend/models"
-	"database/sql"
+	"github.com/pkg/errors"
+	"gorm.io/gorm"
 
 	"go.uber.org/zap"
 )
 
-func GetCommunityList() (communityList []*models.Community, err error) {
-	sqlStr := `select community_id, community_name from community`
-	err = db.Select(&communityList, sqlStr)
-	if err == sql.ErrNoRows {
-		err = nil
-		return
+func GetCommunityList() ([]*models.Community, error) {
+	var communityList []*models.Community
+
+	err := DB.Find(&communityList).Error
+	if err != nil && err != gorm.ErrRecordNotFound {
+		return nil, err
 	}
-	return
+
+	return communityList, nil
+}
+func GetCommunityNameByID(idStr string) (*models.Community, error) {
+	var community models.Community
+
+	err := DB.First(&community, "community_id = ?", idStr).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			err = ErrorInvalidID
+		} else {
+			zap.L().Error("query community failed", zap.String("sql", err.Error()), zap.Error(err))
+			err = ErrorQueryFailed
+		}
+		return nil, err
+	}
+
+	return &community, nil
 }
 
-func GetCommunityNameByID(idStr string) (community *models.Community, err error) {
-	community = new(models.Community)
-	sqlStr := `select community_id, community_name
-	from community
-	where community_id = ?`
-	err = db.Get(community, sqlStr, idStr)
-	if err == sql.ErrNoRows {
-		err = ErrorInvalidID
-		return
-	}
-	if err != nil {
-		zap.L().Error("query community failed", zap.String("sql", sqlStr), zap.Error(err))
-		err = ErrorQueryFailed
-		return
-	}
-	return
-}
+func GetCommunityByID(idStr string) (*models.CommunityDetail, error) {
+	var community models.CommunityDetail
 
-func GetCommunityByID(idStr string) (community *models.CommunityDetail, err error) {
-	community = new(models.CommunityDetail)
-	sqlStr := `select community_id, community_name, introduction, create_time
-	from community
-	where community_id = ?`
-	err = db.Get(community, sqlStr, idStr)
-	if err == sql.ErrNoRows {
-		err = ErrorInvalidID
-		return
-	}
+	err := DB.First(&community, "community_id = ?", idStr).Error
 	if err != nil {
-		zap.L().Error("query community failed", zap.String("sql", sqlStr), zap.Error(err))
-		err = ErrorQueryFailed
-		return
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			err = ErrorInvalidID
+		} else {
+			zap.L().Error("query community failed", zap.String("sql", err.Error()), zap.Error(err))
+			err = ErrorQueryFailed
+		}
+		return nil, err
 	}
-	return
+
+	return &community, nil
 }
