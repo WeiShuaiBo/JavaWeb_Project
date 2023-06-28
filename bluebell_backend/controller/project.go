@@ -23,6 +23,8 @@ func CreateProjext1(c *gin.Context) {
 	}
 }
 
-func ()  {
-	
+func CreateProject2(c *gin.Context) {
+	var p models.ProjectDetail
+	err := c.BindJSON()
+
 }

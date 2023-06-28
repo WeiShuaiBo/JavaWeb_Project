@@ -16,7 +16,19 @@ type Project struct {
 	ProjectDirection string `json:"projectDirection" gorm:"column:project_projectdirection"`
 }
 type ProjectDetail struct {
-	ProjectDetailID uint64 `gorm:""`
+	ProjectDetailID     uint64 `gorm:"column:id"`
+	ProjectDetailName   string `json:"" gorm:"column:project_detail_name"`
+	ProjectDetailPerson Person
+	ProjectDetailIntro  string `gorm:"column:project_detail_intro"`
+	ProjectDetailIdea   string `gorm:"column:project_detail_idea"`
+	ProjectDetailAdve   string `gorm:"column:project_detail_advu"`
+	ProjectDetailTea    TPerson
+}
+type Person struct {
+	Student []string `gorm:"column:project_detail_person"`
+}
+type TPerson struct {
+	Teacher []string `gorm:"column:project_detail_teacher"`
 }
 
 func (p *Project) UnmarshalJSON(data []byte) error {
