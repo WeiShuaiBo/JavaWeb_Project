@@ -6,9 +6,10 @@ CREATE TABLE `user` (
     `username` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
     `password` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
     `email` varchar(64) COLLATE utf8mb4_general_ci,
-    `gender` tinyint(4) NOT NULL DEFAULT '0',
+    `captcha_id` varchar(4) DEFAULT '0',
     `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
     `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `user_status` varchar(64) DEFAULT '未申请' COLLATE utf8mb4_general_ci,
     PRIMARY KEY (`id`),
     UNIQUE KEY `idx_username` (`username`) USING BTREE,
     UNIQUE KEY `idx_user_id` (`user_id`) USING BTREE
@@ -80,3 +81,16 @@ CREATE TABLE `project`(
     PRIMARY KEY (`id`),
     UNIQUE  KEY  `uk_ProjectID` (ProjectId)
 ) ENGINE=InnoDB DEFAULT CHARSET= utf8mb4 COLLATE = utf8mb4_general_ci;
+
+CREATE TABLE `project1`(
+    `id` bigint(20) NOT NULL AUTO_INCREMENT,
+    `project_detail_sort` varchar(255) NOT NULL,
+    `project_detail_name` varchar(255) NOT NULL,
+    `project_detail_person` varchar(255) NOT NULL,
+    `project_detail_intro` varchar(255) NOT NULL,
+    `project_detail_idea` varchar(255) NOT NULL ,
+    `project_detail_advu` varchar(255) NOT NULL ,
+    `project_detail_teacher` varchar(255) NOT NULL ,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uk_ProjectDetail_Name` (project_detail_name)
+)ENGINE = InnoDB DEFAULT CHARSET =utf8mb4 COLLATE = utf8mb4_general_ci;

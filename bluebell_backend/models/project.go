@@ -1,6 +1,7 @@
 package models
 
 import (
+	"database/sql/driver"
 	"encoding/json"
 	"fmt"
 )
@@ -16,21 +17,32 @@ type Project struct {
 	ProjectDirection string `json:"projectDirection" gorm:"column:project_projectdirection"`
 }
 type ProjectDetail struct {
-	ProjectDetailID     uint64 `gorm:"column:id"`
-	ProjectDetailName   string `json:"" gorm:"column:project_detail_name"`
-	ProjectDetailPerson Person
-	ProjectDetailIntro  string `gorm:"column:project_detail_intro"`
-	ProjectDetailIdea   string `gorm:"column:project_detail_idea"`
-	ProjectDetailAdve   string `gorm:"column:project_detail_advu"`
-	ProjectDetailTea    TPerson
+	ProjectDetailID     uint64  `gorm:"column:id"`
+	ProjectDetailSort   string  `json:"projectSort" gorm:"column:project_detail_sort"`
+	ProjectDetailName   string  `json:"projectName" gorm:"column:project_detail_name"`
+	ProjectDetailPerson Person  `json:"Member" gorm:"column:project_detail_person"`
+	ProjectDetailIntro  string  `json:"Introduction" gorm:"column:project_detail_intro"`
+	ProjectDetailIdea   string  `json:"Creativity" gorm:"column:project_detail_idea"`
+	ProjectDetailAdve   string  `json:"Advantage" gorm:"column:project_detail_advu"`
+	ProjectDetailTea    TPerson `json:"Instructor" gorm:"column:project_detail_teacher"`
 }
-type Person struct {
-	Student []string `gorm:"column:project_detail_person"`
-}
-type TPerson struct {
-	Teacher []string `gorm:"column:project_detail_teacher"`
-}
+type Person []string
+type TPerson []string
 
+func (p *Person) Scan(value interface{}) error {
+	byteValue, _ := value.([]byte)
+	return json.Unmarshal(byteValue, p)
+}
+func (p Person) Value() (driver.Value, error) {
+	return json.Marshal(p)
+}
+func (t *TPerson) Scan(value interface{}) error {
+	byteValue, _ := value.([]byte)
+	return json.Unmarshal(byteValue, t)
+}
+func (t *TPerson) Value() (driver.Value, error) {
+	return json.Marshal(t)
+}
 func (p *Project) UnmarshalJSON(data []byte) error {
 	required := struct {
 		UserName         string `json:"username"`
@@ -57,4 +69,7 @@ func (p *Project) UnmarshalJSON(data []byte) error {
 }
 func (p Project) TableName() string {
 	return "project"
+}
+func (p ProjectDetail) TableName() string {
+	return "project1"
 }

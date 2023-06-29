@@ -19,9 +19,7 @@ func encryptPassword(data []byte) (result string) {
 }
 func Register(user *models.User) error {
 	var u models.User
-	if err := DB.Model(&models.User{}).Select("username,user_id").Where("username = ?", user.UserName).First(&u).Error; err != nil {
-		return err
-	}
+	DB.Model(&models.User{}).Select("username").Where("username = ?", user.UserName).First(&u)
 
 	if u.UserID > 0 {
 		// User already exists
@@ -39,9 +37,11 @@ func Register(user *models.User) error {
 
 	// Insert user into the database
 	err = DB.Create(&models.User{
-		UserID:   userID,
-		UserName: user.UserName,
-		Password: password,
+		UserID:    userID,
+		UserName:  user.UserName,
+		Password:  password,
+		CaptchaId: "",
+		Status:    "未申请",
 	}).Error
 
 	return err
