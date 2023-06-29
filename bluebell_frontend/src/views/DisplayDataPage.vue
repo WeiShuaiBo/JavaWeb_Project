@@ -51,7 +51,7 @@
         </div>
     </div>
     <div class="show">
-        <button :disabled="isSubmitting" type="submit" @click="goToHomePage">
+        <button :disabled="isSubmitting" type="submit">
                 {{ isSubmitting ? '返回中...' : '返回主页' }}
         </button>
     </div>
@@ -66,11 +66,6 @@ export default {
             return this.$store.state.formData;
         },
     },
-    methods: {
-        goToHomePage() {
-            this.$router.push({ name: 'Home' });
-        },
-    }
 };
 </script>
 
@@ -116,7 +111,6 @@ button {
     border: none;
     border-radius: 3px;
     cursor: pointer;
-    justify-content: center;
-    align-items: center;
+    display: flex;
 }
 </style>

@@ -23,6 +23,4 @@ func CreateProjext1(c *gin.Context) {
 	}
 }
 
-func ()  {
-	
-}
+

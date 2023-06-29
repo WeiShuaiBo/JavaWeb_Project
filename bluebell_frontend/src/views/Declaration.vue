@@ -51,9 +51,6 @@
             </form>
             <div v-if="isSubmitted" class="success-message">申请提交成功！</div>
         </div>
-        <div>
-            <button>回到主页</button>
-        </div>
     </div>
 </template>
 
