@@ -42,7 +42,7 @@ func MCreateProject2(p *models.ProjectDetail) (error, bool) {
 	result := DB.Where("project_detail_sort=? AND project_detail_name=?", p.ProjectDetailSort, p.ProjectDetailName).First(&project)
 	//如果记录不存在  就创建数据
 	if result.Error == gorm.ErrRecordNotFound {
-		if err := DB.Create(&project).Error; err != nil {
+		if err := DB.Create(&p).Error; err != nil {
 			zap.L().Error("McreateProject2（）创建 数据失败")
 			return err, false
 		}

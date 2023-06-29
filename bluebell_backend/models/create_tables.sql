@@ -67,6 +67,7 @@ CREATE TABLE `comment` (
   KEY `idx_author_Id` (`author_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+DROP TABLE IF EXISTS `project`;
 CREATE TABLE `project`(
     `id` bigint(20) NOT NULL AUTO_INCREMENT,
     `ProjectId` bigint(20) unsigned NOT NULL,
@@ -82,6 +83,7 @@ CREATE TABLE `project`(
     UNIQUE  KEY  `uk_ProjectID` (ProjectId)
 ) ENGINE=InnoDB DEFAULT CHARSET= utf8mb4 COLLATE = utf8mb4_general_ci;
 
+DROP TABLE IF EXISTS `project1`;
 CREATE TABLE `project1`(
     `id` bigint(20) NOT NULL AUTO_INCREMENT,
     `project_detail_sort` varchar(255) NOT NULL,
