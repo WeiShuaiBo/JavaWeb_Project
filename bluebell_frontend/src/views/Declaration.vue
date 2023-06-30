@@ -66,6 +66,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "Registration",
   data() {
@@ -91,16 +93,29 @@ export default {
       }
 
       this.isSubmitting = true;
-      setTimeout(() => {
-        // 在这里可以发送请求到服务器保存用户输入的信息
+      axios.post("/createProject2",this.formData)
+          .then(response =>{
+            this.isSubmitting = false;
+            if(response.code === 1000){
+                this.showSuccessMessage();
+                setTimeout(() => {
+                // 在这里可以发送请求到服务器保存用户输入的信息
 
-        this.isSubmitting = false;
-        this.isSubmitted = true;
+                this.isSubmitting = false;
+                this.isSubmitted = true;
 
-        // 表单提交成功后，跳转到 DisplayDataPage 并传递表单数据
-        this.$router.push({ path: "/display", props: { formData: this.formData } });
-      }, 1000);
-
+                // 表单提交成功后，跳转到 DisplayDataPage 并传递表单数据
+                this.$router.push({ path: "/display", props: { formData: this.formData } });
+              }, 1000);
+            }else{
+              this.showErrorMessage(response.message);
+            }
+          })
+          .catch(error => {
+            this.isSubmitting = false;
+            this.showErrorMessage("An error occurred. Please try again.");
+            console.log(error); // Log the error for debugging
+          });
       this.$stores.commit("setFormData", this.formData);
     },
     validateForm() {
@@ -108,6 +123,20 @@ export default {
       // ...
 
       return true; // 返回true表示验证通过，可以提交表单
+    },
+    showSuccessMessage() {
+      this.showMessage = true;
+      setTimeout(() => {
+        this.showMessage = false;
+      }, 3000); // Show the success message for 3 seconds
+    },
+    showErrorMessage(message) {
+      this.errorMessage = message;
+      this.showMessage = true;
+      setTimeout(() => {
+        this.showMessage = false;
+        this.errorMessage = "";
+      }, 3000); // Show the error message for 3 seconds
     },
     addMember() {
       this.formData.Member.push('');

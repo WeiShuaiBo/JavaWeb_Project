@@ -21,6 +21,7 @@ func CreateProjext1(c *gin.Context) {
 		ResponseSuccess(c, project)
 	} else {
 		ResponseErrorWithMsg(c, CodeError, err.Error())
+
 	}
 }
 
@@ -38,4 +39,7 @@ func CreateProject2(c *gin.Context) {
 	} else {
 		ResponseErrorWithMsg(c, CodeError, err.Error())
 	}
+}
+func Project() {
+
 }

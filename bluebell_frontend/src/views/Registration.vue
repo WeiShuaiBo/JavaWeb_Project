@@ -76,23 +76,25 @@
     </div>
   </div>
 </template>
-
 <script>
+import axios from 'axios';
+
 export default {
-  name:"Registration",
+  name: "Registration",
   data() {
     return {
       formData: {
-        name: '',
-        university: '',
-        college:'',
-        major: '',
-        email: '',
-        phone: '',
-        projectIdea: ''
+        username: "",
+        university: "",
+        college: "",
+        major: "",
+        email: "",
+        phone: "",
+        projectDirection: ""
       },
       isSubmitting: false,
-      isSubmitted: false
+      errorMessage: "",
+      showMessage: false
     };
   },
   methods: {
@@ -103,28 +105,51 @@ export default {
       }
 
       this.isSubmitting = true;
-      setTimeout(() => {
-        // 在这里可以发送请求到服务器保存用户输入的信息
 
-        this.isSubmitting = false;
-        this.isSubmitted = true;
-
-        // 表单提交成功后，跳转到 DisplayDataPage 并传递表单数据
-        this.$router.push({ path: '/declaration', props: { formData: this.formData } });
-      }, 1000);
-
-      this.$stores.commit('setFormData', this.formData)
+      axios.post('/createProject', this.formData)
+          .then(response => {
+            this.isSubmitting = false;
+            if (response.code === 1000) {
+              // Success
+              this.showSuccessMessage();
+              setTimeout(() => {
+                // 表单提交成功后，跳转到 DisplayDataPage 并传递表单数据
+                this.$router.push({ path: "/declaration", props: { formData: this.formData } });
+              }, 1000); // Wait for 1 second (1000 milliseconds) before redirecting
+            } else {
+              // Error
+              this.showErrorMessage(response.message);
+            }
+          })
+          .catch(error => {
+            this.isSubmitting = false;
+            this.showErrorMessage("An error occurred. Please try again.");
+            console.log(error); // Log the error for debugging
+          });
     },
     validateForm() {
       // 进行表单验证，确保所有字段都填写正确
       // ...
 
       return true; // 返回true表示验证通过，可以提交表单
+    },
+    showSuccessMessage() {
+      this.showMessage = true;
+      setTimeout(() => {
+        this.showMessage = false;
+      }, 3000); // Show the success message for 3 seconds
+    },
+    showErrorMessage(message) {
+      this.errorMessage = message;
+      this.showMessage = true;
+      setTimeout(() => {
+        this.showMessage = false;
+        this.errorMessage = "";
+      }, 3000); // Show the error message for 3 seconds
     }
   }
 };
-</script>
-<style scoped>
+</script><style scoped>
 label {
   font-family: Arial, sans-serif; /* 设置字体为 Arial 或者 sans-serif */
   font-size: 16px; /* 设置字体大小为 16 像素 */
