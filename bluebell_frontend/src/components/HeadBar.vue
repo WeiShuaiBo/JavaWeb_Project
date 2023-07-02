@@ -13,8 +13,9 @@
       <div class="user-box" v-show="isLogin">
         <span class="user">{{ currUsername }}</span>
         <div class="dropdown-content">
-          <a @click="goRegistration">申请报名</a>
-          <a @click="goDisplayDataPage">个人信息</a>
+          <a @click="goRegistration">点击报名</a>
+          <a @click="goDisplayDataPage">报名信息</a>
+          <a @click="goDisplayInformation">个人信息</a>
           <a @click="goLogout">登出</a>
         </div>
       </div>
@@ -23,11 +24,14 @@
 </template>
 
 <script>
+//将组件导出
 export default {
   name: "HeadBar",
+  //created生命周期钩子函数用于在组件创建时调用this.$store.commit("init")来初始化一些数据
   created(){
     this.$store.commit("init");
   },
+  //computed属性中的isLogin和currUsername用于获取和计算一些数据
   computed: {
     isLogin() {
       return this.$store.getters.isLogin;
@@ -37,6 +41,7 @@ export default {
       return this.$store.getters.username;
     }
   },
+  //methods部分定义了一些方法，如goIndex，用于路由跳转。
   methods: {
     goIndex(){
       this.$router.push({ name: "Home" });
@@ -53,6 +58,9 @@ export default {
     goDisplayDataPage() {
       this.$router.push({name:"DisplayDataPage"})
     },
+    goDisplayInformation(){
+      this.$router.push({name:"DisplayInformation"})
+    },
     goLogout(){
       this.$store.commit("logout");
     }
@@ -60,7 +68,7 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+<!--这段代码定义了组件的样式部分-->
 <style scoped lang="less">
 .header {
   width: 100%;

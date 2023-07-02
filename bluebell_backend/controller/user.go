@@ -2,6 +2,7 @@ package controller
 
 import (
 	"bluebell_backend/dao/mysql"
+	"bluebell_backend/dao/redis"
 	"bluebell_backend/models"
 	"bluebell_backend/pkg/jwt"
 	"bluebell_backend/utils"
@@ -9,6 +10,7 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -60,6 +62,7 @@ func LoginHandler(c *gin.Context) {
 		ResponseErrorWithMsg(c, CodeParam, "验证码错误")
 		return
 	}
+	redis.Client.Set("bluebell:userID:", u.UserID, 12*time.Hour)
 	//生成Token
 	aToken, rToken, _ := jwt.GenToken(u.UserID)
 	ResponseSuccess(c, gin.H{
@@ -95,4 +98,21 @@ func RefreshTokenHandler(c *gin.Context) {
 		"access_token":  aToken,
 		"refresh_token": rToken,
 	})
+}
+
+// 展示用户信息
+func ListUserInformation(c *gin.Context) {
+	userid, err := redis.Client.Get("bluebell:userID:").Result()
+	fmt.Println(userid)
+	if err != nil {
+		zap.L().Error("从redis中拿取数据失败，ListUserInformaiton，请重新尝试")
+		ResponseErrorWithMsg(c, CodeInvalidParams, "从redis中拿取数据失败，ListUserInformaiton，请重新尝试")
+		return
+	}
+	var u models.User
+	if err1 := mysql.DB.Where("user_id=?", userid).First(&u).Error; err1 != nil {
+		ResponseErrorWithMsg(c, CodeError, "从数据库中拿取相应的用户信息失败")
+		return
+	}
+	ResponseSuccess(c, u)
 }

@@ -40,10 +40,10 @@ func SetupRouter() *gin.Engine {
 
 		v1.POST("/createProject", controller.CreateProjext1)
 		v1.POST("/createProject2", controller.CreateProject2)
+		v1.GET("/userInformation", controller.ListUserInformation)
 		v1.GET("/ping", func(c *gin.Context) {
 			c.String(http.StatusOK, "pong")
 		})
-
 	}
 
 	r.NoRoute(func(c *gin.Context) {

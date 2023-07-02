@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import Content from '../views/Content.vue'
-import Publish from '../views/Publish.vue'
-import Login from '../views/Login.vue'
-import SignUp from '../views/SignUp.vue'
-import Registration from '../views/Registration.vue'
-import DisplayDataPage from '../views/DisplayDataPage.vue'
-import Declaration from "../views/Declaration.vue"
+import Home from '../views/user_Home.vue'
+import Content from '../views/user_Content.vue'
+import Publish from '../views/user_Publish.vue'
+import Login from '../views/user_Login.vue'
+import SignUp from '../views/user_SignUp.vue'
+import Registration from '../views/user_Registration.vue'
+import DisplayDataPage from '../views/user_DisplayDataPage.vue'
+import Declaration from "../views/user_Declaration.vue"
+import UserInformation from '../views/user_Information.vue'
 
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
@@ -15,12 +16,18 @@ VueRouter.prototype.push = function push(location) {
 }
 Vue.use(VueRouter)
 
-  const routes = [
+const routes = [
   {
     path: '/',
     name: 'Home',
     component: Home
   },
+    //添加用户个人信息页面
+   {
+      path:'/userInformation',
+      name: 'UserInformation',
+      component: UserInformation,
+   },
   {
     path: '/post/:id',
     name: 'Content',
@@ -57,7 +64,7 @@ Vue.use(VueRouter)
     path: '/declaration',
     name: "Declaration",
     component: Declaration
-  }
+  },
 ]
 
 const router = new VueRouter({
