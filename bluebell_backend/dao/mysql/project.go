@@ -2,6 +2,7 @@ package mysql
 
 import (
 	"bluebell_backend/models"
+	"fmt"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 )
@@ -37,13 +38,15 @@ func MCreateProject1(p *models.Project) (error, bool) {
 	return nil, true
 }
 
-func MCreateProject2(p *models.ProjectDetail) (error, bool) {
+func MCreateProject2(p models.ProjectDetail) (error, bool) {
 	var project models.ProjectDetail
 	result := DB.Where("project_detail_sort=? AND project_detail_name=?", p.ProjectDetailSort, p.ProjectDetailName).First(&project)
 	//如果记录不存在  就创建数据
+	fmt.Println(p)
 	if result.Error == gorm.ErrRecordNotFound {
+
 		if err := DB.Create(&p).Error; err != nil {
-			zap.L().Error("McreateProject2（）创建 数据失败")
+			zap.L().Error("createProject2（）创建 数据失败" + err.Error())
 			return err, false
 		}
 		return nil, true

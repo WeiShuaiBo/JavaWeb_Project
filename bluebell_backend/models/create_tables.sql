@@ -74,17 +74,14 @@ CREATE TABLE `comment` (
 DROP TABLE IF EXISTS `project`;
 CREATE TABLE `project`(
     `id` bigint(20) NOT NULL AUTO_INCREMENT,
-    `ProjectId` bigint(20) unsigned NOT NULL,
-    `UserName` varchar(255) NOT NUll,
-    `University` varchar(255) NOT NULL,
-    `College` varchar(255) NOT NULL,
-    `Major` varchar(255) NOT NULL,
-    `Email` varchar(255) NOT NULL,
-    `Phone` int(20) NOT NULL,
-    `ProjectIdea` text COLLATE utf8mb4_general_ci NOT NULL,
-    `Status` varchar(255) DEFAULT '未申请',
-    PRIMARY KEY (`id`),
-    UNIQUE  KEY  `uk_ProjectID` (ProjectId)
+    `project_user_name` varchar(255) NOT NUll,
+    `project_university` varchar(255) NOT NULL,
+    `project_college` varchar(255) NOT NULL,
+    `project_major` varchar(255) NOT NULL,
+    `project_email` varchar(255) NOT NULL,
+    `project_phone` bigint NOT NULL,
+    `projectDirection` varchar(255) NOT NULL,
+    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET= utf8mb4 COLLATE = utf8mb4_general_ci;
 
 DROP TABLE IF EXISTS `project1`;
@@ -92,11 +89,11 @@ CREATE TABLE `project1`(
     `id` bigint(20) NOT NULL AUTO_INCREMENT,
     `project_detail_sort` varchar(255) NOT NULL,
     `project_detail_name` varchar(255) NOT NULL,
-    `project_detail_person` varchar(255) NOT NULL,
+    `project_detail_person` text NOT NULL,
     `project_detail_intro` varchar(255) NOT NULL,
     `project_detail_idea` varchar(255) NOT NULL ,
-    `project_detail_advu` varchar(255) NOT NULL ,
-    `project_detail_teacher` varchar(255) NOT NULL ,
+    `project_detail_adv` varchar(255) NOT NULL ,
+    `project_detail_teacher` text NOT NULL ,
     PRIMARY KEY (`id`),
     UNIQUE KEY `uk_ProjectDetail_Name` (project_detail_name)
 )ENGINE = InnoDB DEFAULT CHARSET =utf8mb4 COLLATE = utf8mb4_general_ci;

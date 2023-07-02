@@ -3,6 +3,7 @@ package models
 import (
 	"database/sql/driver"
 	"encoding/json"
+	"errors"
 	"fmt"
 )
 
@@ -14,17 +15,17 @@ type Project struct {
 	Major            string `json:"major" gorm:"column:project_major"`
 	Email            string `json:"email" gorm:"column:project_email"`
 	Phone            string `json:"phone" gorm:"column:project_phone"`
-	ProjectDirection string `json:"projectDirection" gorm:"column:project_projectdirection"`
+	ProjectDirection string `json:"projectDirection" gorm:"column:projectDirection"`
 }
 type ProjectDetail struct {
 	ProjectDetailID     uint64  `gorm:"column:id"`
 	ProjectDetailSort   string  `json:"projectSort" gorm:"column:project_detail_sort"`
 	ProjectDetailName   string  `json:"projectName" gorm:"column:project_detail_name"`
-	ProjectDetailPerson Person  `json:"Member" gorm:"column:project_detail_person"`
+	ProjectDetailPerson Person  `json:"Member" gorm:"column:project_detail_person;type:text"`
 	ProjectDetailIntro  string  `json:"Introduction" gorm:"column:project_detail_intro"`
 	ProjectDetailIdea   string  `json:"Creativity" gorm:"column:project_detail_idea"`
-	ProjectDetailAdve   string  `json:"Advantage" gorm:"column:project_detail_advu"`
-	ProjectDetailTea    TPerson `json:"Instructor" gorm:"column:project_detail_teacher"`
+	ProjectDetailAdv    string  `json:"Advantage" gorm:"column:project_detail_adv"`
+	ProjectDetailTea    TPerson `json:"Instructor" gorm:"column:project_detail_teacher;type:text"`
 }
 type Person []string
 type TPerson []string
@@ -36,13 +37,22 @@ func (p *Person) Scan(value interface{}) error {
 func (p Person) Value() (driver.Value, error) {
 	return json.Marshal(p)
 }
+
+// 实现 Scanner 接口方法
 func (t *TPerson) Scan(value interface{}) error {
-	byteValue, _ := value.([]byte)
+	byteValue, ok := value.([]byte)
+	if !ok {
+		return errors.New("invalid TPerson value")
+	}
+
 	return json.Unmarshal(byteValue, t)
 }
-func (t *TPerson) Value() (driver.Value, error) {
+
+// 实现 Valuer 接口方法
+func (t TPerson) Value() (driver.Value, error) {
 	return json.Marshal(t)
 }
+
 func (p *Project) UnmarshalJSON(data []byte) error {
 	required := struct {
 		UserName         string `json:"username"`
