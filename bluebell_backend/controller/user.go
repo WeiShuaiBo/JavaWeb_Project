@@ -17,13 +17,13 @@ import (
 )
 
 func SignUpHandler(c *gin.Context) {
-	// 1.获取请求参数 2.校验数据有效性
+	// 拿到用户输入的注册信息 存储到 fo 结构体中
 	var fo models.RegisterForm
 	if err := c.ShouldBindJSON(&fo); err != nil {
-		ResponseErrorWithMsg(c, CodeInvalidParams, err.Error())
+		ResponseErrorWithMsg(c, CodeInvalidParams, "注册时候，出错，无法将用户输入信息存储到结构体中")
 		return
 	}
-	// 3.注册用户
+	// 查询用户是否存在
 	err := mysql.Register(&models.User{
 		UserName: fo.UserName,
 		Password: fo.Password,
@@ -45,10 +45,11 @@ func SignUpHandler(c *gin.Context) {
 	ResponseSuccess(c, Rd)
 }
 
+// 登录页面
 func LoginHandler(c *gin.Context) {
 	var u models.User
 	if err := c.ShouldBindJSON(&u); err != nil {
-		zap.L().Error("invalid params", zap.Error(err))
+		zap.L().Error("用户登录时，信息绑定到结构体失败", zap.Error(err))
 		ResponseErrorWithMsg(c, CodeInvalidParams, err.Error())
 		return
 	}

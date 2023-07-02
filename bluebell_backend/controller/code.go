@@ -28,7 +28,7 @@ var msgFlags = map[MyCode]string{
 	CodeInvalidToken:      "无效的Token",
 	CodeInvalidAuthFormat: "认证格式有误",
 	CodeNotLogin:          "未登录",
-	CodeParam:             "验证码不存在",
+	CodeParam:             "验证码错误",
 }
 
 func (c MyCode) Msg() string {
