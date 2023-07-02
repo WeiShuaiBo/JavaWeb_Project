@@ -7,8 +7,13 @@ import (
 
 type User struct {
 	UserID    uint64 `json:"user_id" gorm:"column:user_id"`
-	UserName  string `json:"username" gorm:"column:username"`
-	Password  string `json:"password" gorm:"column:password"`
+	UserName  string `json:"user_name" gorm:"column:username"`
+	Password  string `json:"user_password" gorm:"column:password"`
+	Sex       string `json:"user_sex" gorm:"column:sex"`
+	Age       uint64 `json:"user_age" gorm:"column:age"`
+	Address   string `json:"user_address" gorm:"column:address"`
+	PostId    uint64 `json:"user_postId" gorm:"column:postId"`
+	Email     string `json:"user_email" gorm:"column:email"`
 	CaptchaId string `json:"captchaId" gorm:"column:captcha_id"`
 	Status    string `json:"user_status" gorm:"column:user_status"`
 }

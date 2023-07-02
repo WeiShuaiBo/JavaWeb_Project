@@ -76,22 +76,24 @@
     </div>
   </div>
 </template>
-
 <script>
 import axios from "axios";
 export default {
-  name:"Registration",
+  name: "Registration",
   data() {
     return {
-        name: '',
-        university: '',
-        college:'',
-        major: '',
-        email: '',
-        phone: '',
-        projectIdea: '',
+      formData: {
+        username: "",
+        university: "",
+        college: "",
+        major: "",
+        email: "",
+        phone: "",
+        projectDirection: ""
+      },
       isSubmitting: false,
-      isSubmitted: false
+      errorMessage: "",
+      showMessage: false
     };
   },
   methods: {
@@ -133,11 +135,24 @@ export default {
       // ...
 
       return true; // 返回true表示验证通过，可以提交表单
+    },
+    showSuccessMessage() {
+      this.showMessage = true;
+      setTimeout(() => {
+        this.showMessage = false;
+      }, 3000); // Show the success message for 3 seconds
+    },
+    showErrorMessage(message) {
+      this.errorMessage = message;
+      this.showMessage = true;
+      setTimeout(() => {
+        this.showMessage = false;
+        this.errorMessage = "";
+      }, 3000); // Show the error message for 3 seconds
     }
   }
 };
-</script>
-<style scoped>
+</script><style scoped>
 label {
   font-family: Arial, sans-serif; /* 设置字体为 Arial 或者 sans-serif */
   font-size: 16px; /* 设置字体大小为 16 像素 */

@@ -5,6 +5,10 @@ CREATE TABLE `user` (
     `user_id` bigint(20) NOT NULL,
     `username` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
     `password` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
+    `age` int(20) collate utf8mb4_general_ci NULL,
+    `sex` varchar(20) collate utf8mb4_general_ci NULL,
+    `address` varchar(64) COLLATE utf8mb4_general_ci NULL,
+    `postId` int(20) collate utf8mb4_general_ci NULL,
     `email` varchar(64) COLLATE utf8mb4_general_ci,
     `captcha_id` varchar(4) DEFAULT '0',
     `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -70,15 +74,13 @@ CREATE TABLE `comment` (
 DROP TABLE IF EXISTS `project`;
 CREATE TABLE `project`(
     `id` bigint(20) NOT NULL AUTO_INCREMENT,
-    `ProjectId` bigint(20) unsigned NOT NULL,
-    `UserName` varchar(255) NOT NUll,
-    `University` varchar(255) NOT NULL,
-    `College` varchar(255) NOT NULL,
-    `Major` varchar(255) NOT NULL,
-    `Email` varchar(255) NOT NULL,
-    `Phone` int(20) NOT NULL,
-    `ProjectIdea` text COLLATE utf8mb4_general_ci NOT NULL,
-    `Status` varchar(255) DEFAULT '未申请',
+    `project_user_name` varchar(255) NOT NUll,
+    `project_university` varchar(255) NOT NULL,
+    `project_college` varchar(255) NOT NULL,
+    `project_major` varchar(255) NOT NULL,
+    `project_email` varchar(255) NOT NULL,
+    `project_phone` int(20) NOT NULL,
+    `project_projectdirection` text COLLATE utf8mb4_general_ci NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE  KEY  `uk_ProjectID` (ProjectId)
 ) ENGINE=InnoDB DEFAULT CHARSET= utf8mb4 COLLATE = utf8mb4_general_ci;

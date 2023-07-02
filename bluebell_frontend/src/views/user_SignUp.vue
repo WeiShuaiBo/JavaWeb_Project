@@ -61,7 +61,7 @@ export default {
             });
           } else {
             alert("注册失败")
-            console.log(res.data.msg);
+            console.log(res.msg);
             Swallow.fire({
               icon: 'error',
               title: '注册失败',
