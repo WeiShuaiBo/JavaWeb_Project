@@ -62,7 +62,6 @@ export default {
             captchaId: this.captchaId // 将 captchaId 作为参数传递给后端
           })
           .then((res) => {
-            console.log(res.data);
             if (res.code == 1000) {
               localStorage.setItem("loginResult", JSON.stringify(res.data));
               this.$store.commit("login", res.data);

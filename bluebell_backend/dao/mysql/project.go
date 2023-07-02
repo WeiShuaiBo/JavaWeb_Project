@@ -36,3 +36,18 @@ func MCreateProject1(p *models.Project) (error, bool) {
 	}
 	return nil, true
 }
+
+func MCreateProject2(p *models.ProjectDetail) (error, bool) {
+	var project models.ProjectDetail
+	result := DB.Where("project_detail_sort=? AND project_detail_name=?", p.ProjectDetailSort, p.ProjectDetailName).First(&project)
+	//如果记录不存在  就创建数据
+	if result.Error == gorm.ErrRecordNotFound {
+		if err := DB.Create(&project).Error; err != nil {
+			zap.L().Error("McreateProject2（）创建 数据失败")
+			return err, false
+		}
+		return nil, true
+	}
+	//如果存在的话
+	return result.Error, false
+}

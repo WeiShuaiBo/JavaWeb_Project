@@ -9,7 +9,7 @@ type User struct {
 	UserID    uint64 `json:"user_id" gorm:"column:user_id"`
 	UserName  string `json:"username" gorm:"column:username"`
 	Password  string `json:"password" gorm:"column:password"`
-	CaptchaId string `json:"captchaId"`
+	CaptchaId string `json:"captchaId" gorm:"column:captcha_id"`
 	Status    string `json:"user_status" gorm:"column:user_status"`
 }
 
