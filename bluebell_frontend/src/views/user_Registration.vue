@@ -162,6 +162,8 @@ label {
     width: 100%;
     height: 100%;
     background-image: url("../img/background.png");
+    background-size: cover;
+  background-position: center;
 }
 .registration-page {
     max-width: 600px;
