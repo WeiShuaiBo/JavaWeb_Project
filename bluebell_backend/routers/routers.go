@@ -12,6 +12,21 @@ func SetupRouter() *gin.Engine {
 	//r := gin.New()
 	//r.Use(logger.GinLogger(), logger.GinRecovery(true))
 	r := gin.Default()
+	//if err := endless.ListenAndServe(, r); err != nil {
+	//	log.Fatalf("listen: %s\n", err)
+	//}
+	//srv := &http.Server{
+	//	Addr:    ":8080",
+	//	Handler: r,
+	//}
+	//
+	//go func() {
+	//	//开启一个goroutine 启动服务
+	//	if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+	//		log.Fatalf("listen: %s\n", err)
+	//	}
+	//}()
+
 	r.Use(Cors())
 	v1 := r.Group("/api/v1")
 	// 生成验证码
@@ -46,11 +61,23 @@ func SetupRouter() *gin.Engine {
 		})
 	}
 
-	r.NoRoute(func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"msg": "404",
-		})
-	})
+	//quit := make(chan os.Signal, 1)
+	//signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	//<-quit
+	//zap.L().Info("shutdown server ...")
+	////创建一个5s超市的context
+	//ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	//defer cancel()
+	//if err := srv.Shutdown(ctx); err != nil {
+	//	zap.L().Fatal("server shutdownL: ")
+	//}
+	//log.Println("server exiting")
+	//
+	//r.NoRoute(func(c *gin.Context) {
+	//	c.JSON(http.StatusOK, gin.H{
+	//		"msg": "404",
+	//	})
+	//})
 	return r
 }
 
