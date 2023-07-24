@@ -7,9 +7,9 @@ import (
 	"go.uber.org/zap"
 )
 
-func CreateProjext1(c *gin.Context) {
+func CreateProject(c *gin.Context) {
 	var project models.Project
-	err := c.BindJSON(&project)
+	err := c.ShouldBind(&project)
 	if err != nil {
 		zap.L().Error("将项目参数绑定到结构体中失败，请你重新尝试")
 		ResponseErrorWithMsg(c, CodeInvalidParams, err.Error())
@@ -36,7 +36,4 @@ func CreateProject2(c *gin.Context) {
 	} else {
 		ResponseErrorWithMsg(c, CodeError, err.Error())
 	}
-}
-func Project() {
-
 }

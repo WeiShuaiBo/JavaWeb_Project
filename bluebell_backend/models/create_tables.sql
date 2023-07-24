@@ -79,9 +79,16 @@ CREATE TABLE `project`(
     `project_college` varchar(255) NOT NULL,
     `project_major` varchar(255) NOT NULL,
     `project_email` varchar(255) NOT NULL,
+<<<<<<< HEAD
     `project_phone` bigint NOT NULL,
     `projectDirection` varchar(255) NOT NULL,
     PRIMARY KEY (`id`)
+=======
+    `project_phone` int(20) NOT NULL,
+    `project_projectdirection` text COLLATE utf8mb4_general_ci NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE  KEY  `uk_ProjectID` (ProjectId)
+>>>>>>> f8d2bbb13f734beb887a28298977fe42524f9413
 ) ENGINE=InnoDB DEFAULT CHARSET= utf8mb4 COLLATE = utf8mb4_general_ci;
 
 DROP TABLE IF EXISTS `project1`;

@@ -60,7 +60,7 @@ export default {
             });
           } else {
             alert("注册失败")
-            console.log(res.data.msg);
+            console.log(res.msg);
             Swallow.fire({
               icon: 'error',
               title: '注册失败',
@@ -138,7 +138,7 @@ a {
 }
 
 .form-container form {
-  background: rgb(18, 21, 21);
+  background: rgba(45, 52, 54, 1);
   display: flex;
   flex-direction: column;
   padding: 0 50px;

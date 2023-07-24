@@ -7,6 +7,7 @@ import (
 	"fmt"
 )
 
+<<<<<<< HEAD
 type Project struct {
 	ProjectID        uint64 `gorm:"column:id"`
 	UserName         string `json:"username" gorm:"column:project_user_name"`
@@ -17,6 +18,8 @@ type Project struct {
 	Phone            string `json:"phone" gorm:"column:project_phone"`
 	ProjectDirection string `json:"projectDirection" gorm:"column:projectDirection"`
 }
+=======
+>>>>>>> f8d2bbb13f734beb887a28298977fe42524f9413
 type ProjectDetail struct {
 	ProjectDetailID     uint64  `gorm:"column:id"`
 	ProjectDetailSort   string  `json:"projectSort" gorm:"column:project_detail_sort"`
@@ -29,6 +32,17 @@ type ProjectDetail struct {
 }
 type Person []string
 type TPerson []string
+
+type Project struct {
+	ProjectID        uint64 `gorm:"column:id"`
+	UserName         string `json:"username" gorm:"column:project_user_name"`
+	University       string `json:"university" gorm:"column:project_university"`
+	College          string `json:"college" gorm:"column:project_college"`
+	Major            string `json:"major" gorm:"column:project_major"`
+	Email            string `json:"email" gorm:"column:project_email"`
+	Phone            string `json:"phone" gorm:"column:project_phone"`
+	ProjectDirection string `json:"projectDirection" gorm:"column:project_projectdirection"`
+}
 
 func (p *Person) Scan(value interface{}) error {
 	byteValue, _ := value.([]byte)
@@ -62,7 +76,6 @@ func (p *Project) UnmarshalJSON(data []byte) error {
 		Email            string `json:"email"`
 		Phone            string `json:"phone"`
 		ProjectDirection string `json:"projectDirection"`
-		Status           string `json:"status"`
 	}{}
 	err := json.Unmarshal(data, &required)
 	if err != nil {

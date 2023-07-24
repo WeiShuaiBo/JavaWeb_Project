@@ -59,7 +59,7 @@ export default {
       this.$router.push({name:"DisplayDataPage"})
     },
     goDisplayInformation(){
-      this.$router.push({name:"DisplayInformation"})
+      this.$router.push({name:"UserInformation"})
     },
     goLogout(){
       this.$store.commit("logout");

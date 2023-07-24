@@ -63,11 +63,11 @@ import axios from 'axios';
 
 export default {
   name: "DisplayDataPage",
-  props: {
-    formData: {
-      type: Object,
-      required: true
-    }
+
+  computed: {
+    formData() {
+      return this.$store.state.formData;
+    },
   },
   data() {
     return {
@@ -99,7 +99,7 @@ export default {
           });
     },
     goToHomePage() {
-      // Handle the logic to navigate to the home page
+      this.$router.push({ name: 'Home' });
     }
   }
 };

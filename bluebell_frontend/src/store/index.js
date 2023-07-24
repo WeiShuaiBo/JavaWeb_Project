@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+
 const defaultLoginResult = {
   token:null,
   user_id:null,

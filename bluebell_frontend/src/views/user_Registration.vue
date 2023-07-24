@@ -5,12 +5,12 @@
       <form @submit.prevent="submitForm">
         <div class="form-group">
           <label for="username">组长姓名：</label>
-          <input type="text" id="username" v-model.trim="formData.username" required />
+          <input type="text" id="username" v-model.trim="name" required />
         </div>
 
         <div class="form-group">
           <label for="university">学校：</label>
-          <select id="university" v-model.trim="formData.university" required>
+          <select id="university" v-model.trim="university" required>
             <option value="">请选择学校</option>
             <option value="河南科技学院">河南科技学院</option>
             <option value="新乡医学院">新乡医学院</option>
@@ -23,7 +23,7 @@
 
         <div class="form-group">
           <label for="college">学院：</label>
-          <select id="college" v-model.trim="formData.college" required>
+          <select id="college" v-model.trim="college" required>
             <option value="">请选择学院</option>
             <option value="计算机科学与技术学院">计算机学院</option>
             <option value="信息工程学院">信息工程学院</option>
@@ -35,7 +35,7 @@
 
         <div class="form-group">
           <label for="major">专业：</label>
-          <select id="major" v-model.trim="formData.major" required>
+          <select id="major" v-model.trim="major" required>
             <option value="">请选择专业</option>
             <option value="计算机科学与技术">计算机科学与技术</option>
             <option value="数据科学与大数据技术">数据科学与大数据技术</option>
@@ -48,17 +48,17 @@
 
         <div class="form-group">
           <label for="email">邮箱：</label>
-          <input type="email" id="email" v-model.trim="formData.email" required />
+          <input type="email" id="email" v-model.trim="email" required />
         </div>
 
         <div class="form-group">
           <label for="phone">手机号码：</label>
-          <input type="tel" id="phone" v-model.trim="formData.phone" required />
+          <input type="tel" id="phone" v-model.trim="phone" required />
         </div>
 
         <div class="form-group">
           <label for="projectDirection">申报类型：</label>
-          <select id="projectDirection" v-model.trim="formData.projectDirection" required>
+          <select id="projectDirection" v-model.trim="projectDirection" required>
             <option value="">请选择方向</option>
             <option value="科技创新">科技创新</option>
             <option value="社会企业">社会企业</option>
@@ -77,8 +77,7 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
-
+import axios from "axios";
 export default {
   name: "Registration",
   data() {
@@ -104,28 +103,32 @@ export default {
         return;
       }
 
-      this.isSubmitting = true;
+          this.isSubmitting = true;
+            axios.post('/createProject')
+                .then(response => {
+                    // 请求成功后的处理逻辑
+                    console.log(response.data);  // 输出后端返回的数据
 
-      axios.post('/createProject', this.formData)
-          .then(response => {
-            this.isSubmitting = false;
-            if (response.code === 1000) {
-              // Success
-              this.showSuccessMessage();
-              setTimeout(() => {
-                // 表单提交成功后，跳转到 DisplayDataPage 并传递表单数据
-                this.$router.push({ path: "/declaration", props: { formData: this.formData } });
-              }, 1000); // Wait for 1 second (1000 milliseconds) before redirecting
-            } else {
-              // Error
-              this.showErrorMessage(response.message);
-            }
-          })
-          .catch(error => {
-            this.isSubmitting = false;
-            this.showErrorMessage("An error occurred. Please try again.");
-            console.log(error); // Log the error for debugging
-          });
+                    this.isSubmitting = false;
+                    this.isSubmitted = true;
+
+                    // 表单提交成功后，跳转到 DisplayDataPage 并传递表单数据
+                    this.$router.push({ path: '/declaration'});
+                })
+                .catch(error => {
+                    // 处理错误情况
+                    console.error(error);
+                    this.isSubmitting = false;
+                });
+      setTimeout(() => {
+        // 在这里可以发送请求到服务器保存用户输入的信息
+
+        this.isSubmitting = false;
+        this.isSubmitted = true;
+
+        // 表单提交成功后，跳转到 DisplayDataPage 并传递表单数据
+        this.$router.push({ path: '/declaration'});
+      }, 1000);
     },
     validateForm() {
       // 进行表单验证，确保所有字段都填写正确
@@ -159,6 +162,8 @@ label {
     width: 100%;
     height: 100%;
     background-image: url("../img/background.png");
+    background-size: cover;
+  background-position: center;
 }
 .registration-page {
     max-width: 600px;
