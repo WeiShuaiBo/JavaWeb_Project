@@ -71,7 +71,8 @@ export default {
   },
   data() {
     return {
-      isSubmitting: false
+      isSubmitting: false,
+      formData1:[]
     };
   },
   mounted() {

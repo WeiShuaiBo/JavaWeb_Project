@@ -152,7 +152,8 @@ export default {
     }
   }
 };
-</script><style scoped>
+</script>
+<style scoped>
 label {
   font-family: Arial, sans-serif; /* 设置字体为 Arial 或者 sans-serif */
   font-size: 16px; /* 设置字体大小为 16 像素 */

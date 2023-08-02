@@ -5,7 +5,6 @@
         <div class="form-container sign-in-container">
           <form action="#">
             <h1>大学生创新创业平台</h1>
-
             <span>Version 1.0.0</span>
             <input type="text" placeholder="账号" v-model="username" />
             <input type="password" placeholder="密码" v-model="password" />

@@ -9,6 +9,7 @@ import Registration from '../views/user_Registration.vue'
 import DisplayDataPage from '../views/user_DisplayDataPage.vue'
 import Declaration from "../views/user_Declaration.vue"
 import UserInformation from '../views/user_Information.vue'
+import Fu from '../views/Fu.vue'
 
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
@@ -22,12 +23,12 @@ const routes = [
     name: 'Home',
     component: Home
   },
-    //添加用户个人信息页面
-   {
-      path:'/userInformation',
-      name: 'UserInformation',
-      component: UserInformation,
-   },
+  //添加用户个人信息页面
+  {
+    path: '/userInformation',
+    name: 'UserInformation',
+    component: UserInformation,
+  },
   {
     path: '/post/:id',
     name: 'Content',
@@ -41,30 +42,35 @@ const routes = [
   },
   {
     path: '/login',
-    name:"Login",
+    name: "Login",
     component: Login
   },
   {
     path: '/signup',
-    name:"SignUp",
+    name: "SignUp",
     component: SignUp
   },
   {
     path: '/registration',
-    name:"Registration",
+    name: "Registration",
     component: Registration
-    },
+  },
   {
     path: '/display',
     name: "DisplayDataPage",
     component: DisplayDataPage,
-    props:true
-    },
+    props: true
+  },
   {
     path: '/declaration',
     name: "Declaration",
     component: Declaration
   },
+  {
+    path: '/fu',
+    name: "Fu",
+    component: Fu,
+  }
 ]
 
 const router = new VueRouter({
