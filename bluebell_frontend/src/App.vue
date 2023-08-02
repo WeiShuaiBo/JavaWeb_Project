@@ -5,11 +5,14 @@
       <router-view />
     </div>
   </div>
+
+
 </template>
 
 
 <script>
 import HeadBar from "@/components/HeadBar.vue";
+
 export default {
   components: {
     HeadBar

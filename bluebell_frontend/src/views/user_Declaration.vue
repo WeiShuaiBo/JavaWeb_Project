@@ -37,7 +37,6 @@
         <div class="form-group">
           <label for="Creativity">项目创意：</label>
           <textarea id="Creativity" v-model.trim="formData.Creativity" required></textarea>
-
         </div>
 
         <div class="form-group">

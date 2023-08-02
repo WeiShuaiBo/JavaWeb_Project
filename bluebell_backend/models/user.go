@@ -17,6 +17,15 @@ type User struct {
 	CaptchaId string `json:"captchaId" gorm:"column:captcha_id"`
 	Status    string `json:"user_status" gorm:"column:user_status"`
 }
+type UserInformation struct {
+	Name      string `json:"name" form:"name"`
+	Gender    string `json:"gender" form:"gender"`
+	BirthDate string `json:"birthDate" form:"birthDate"`
+	IdCard    string `json:"idCard" form:"idCard"`
+	AdatarUrl string `json:"avatarUrl" form:"avatarUrl"`
+	Address   string `json:"address" form:"address"`
+	Email     string `json:"email" form:"email"`
+}
 
 func (u *User) UnmarshalJSON(data []byte) (err error) {
 	required := struct {
