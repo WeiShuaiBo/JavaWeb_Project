@@ -7,19 +7,6 @@ import (
 	"fmt"
 )
 
-<<<<<<< HEAD
-type Project struct {
-	ProjectID        uint64 `gorm:"column:id"`
-	UserName         string `json:"username" gorm:"column:project_user_name"`
-	University       string `json:"university" gorm:"column:project_university"`
-	College          string `json:"college" gorm:"column:project_college"`
-	Major            string `json:"major" gorm:"column:project_major"`
-	Email            string `json:"email" gorm:"column:project_email"`
-	Phone            string `json:"phone" gorm:"column:project_phone"`
-	ProjectDirection string `json:"projectDirection" gorm:"column:projectDirection"`
-}
-=======
->>>>>>> f8d2bbb13f734beb887a28298977fe42524f9413
 type ProjectDetail struct {
 	ProjectDetailID     uint64  `gorm:"column:id"`
 	ProjectDetailSort   string  `json:"projectSort" gorm:"column:project_detail_sort"`
@@ -35,13 +22,13 @@ type TPerson []string
 
 type Project struct {
 	ProjectID        uint64 `gorm:"column:id"`
-	UserName         string `json:"username" gorm:"column:project_user_name"`
-	University       string `json:"university" gorm:"column:project_university"`
-	College          string `json:"college" gorm:"column:project_college"`
-	Major            string `json:"major" gorm:"column:project_major"`
-	Email            string `json:"email" gorm:"column:project_email"`
-	Phone            string `json:"phone" gorm:"column:project_phone"`
-	ProjectDirection string `json:"projectDirection" gorm:"column:project_projectdirection"`
+	UserName         string `json:"username" gorm:"column:project_user_name" form:"username"`
+	University       string `json:"university" gorm:"column:project_university" form:"university"`
+	College          string `json:"college" gorm:"column:project_college" form:"college"`
+	Major            string `json:"major" gorm:"column:project_major" form:"major"`
+	Email            string `json:"email" gorm:"column:project_email" form:"email"`
+	Phone            string `json:"phone" gorm:"column:project_phone" form:"phone"`
+	ProjectDirection string `json:"projectDirection" gorm:"column:project_project-direction" form:"projectDirection"`
 }
 
 func (p *Person) Scan(value interface{}) error {
@@ -77,10 +64,12 @@ func (p *Project) UnmarshalJSON(data []byte) error {
 		Phone            string `json:"phone"`
 		ProjectDirection string `json:"projectDirection"`
 	}{}
+
 	err := json.Unmarshal(data, &required)
 	if err != nil {
 		return fmt.Errorf("将 JSON 数据解码进入结构体失败: %s", err.Error())
 	}
+	fmt.Println(required)
 	p.UserName = required.UserName
 	p.University = required.University
 	p.College = required.College

@@ -14,7 +14,6 @@ func MCreateProject1(p *models.Project) (error, bool) {
 		zap.L().Error("该用户尚未注册信息，请先完成注册。")
 		return result.Error, false
 	}
-
 	previousStatus := test1.Status
 	if previousStatus == "未申请" {
 		project := models.Project{

@@ -54,9 +54,11 @@ func SetupRouter() *gin.Engine {
 		v1.GET("/comment", controller.CommentListHandler)
 
 		v1.POST("/createProject", controller.CreateProject)
-		v1.GET("/ping", func(c *gin.Context) {
-			c.String(http.StatusOK, "pong")
-		})
+
+		//用户的个人信息
+		v1.GET("/getInf", controller.ListUserInformation)
+		//用户修改个人信息
+		v1.POST("/updateInf", controller.UpdateUserInformation)
 
 	}
 

@@ -19,7 +19,7 @@ import (
 func SignUpHandler(c *gin.Context) {
 	// 拿到用户输入的注册信息 存储到 fo 结构体中
 	var fo models.RegisterForm
-	if err := c.ShouldBindJSON(&fo); err != nil {
+	if err := c.ShouldBind(&fo); err != nil {
 		ResponseErrorWithMsg(c, CodeInvalidParams, "注册时候，出错，无法将用户输入信息存储到结构体中")
 		return
 	}
@@ -48,11 +48,12 @@ func SignUpHandler(c *gin.Context) {
 // 登录页面
 func LoginHandler(c *gin.Context) {
 	var u models.User
-	if err := c.ShouldBindJSON(&u); err != nil {
+	if err := c.ShouldBind(&u); err != nil {
 		zap.L().Error("用户登录时，信息绑定到结构体失败", zap.Error(err))
 		ResponseErrorWithMsg(c, CodeInvalidParams, err.Error())
 		return
 	}
+	fmt.Println(u)
 	if err := mysql.Login(&u); err != nil {
 		zap.L().Error("mysql.Login(&u) failed", zap.Error(err))
 		ResponseErrorWithMsg(c, CodeInvalidParams, err.Error())
@@ -65,7 +66,7 @@ func LoginHandler(c *gin.Context) {
 	}
 	redis.Client.Set("bluebell:userID:", u.UserID, 12*time.Hour)
 	//生成Token
-	aToken, rToken, _ := jwt.GenToken(u.UserID)
+	aToken, rToken, _ := jwt.GenToken(u.UserID, u.UserName)
 	ResponseSuccess(c, gin.H{
 		"accessToken":  aToken,
 		"refreshToken": rToken,
@@ -73,6 +74,8 @@ func LoginHandler(c *gin.Context) {
 		"username":     u.UserName,
 		"code":         http.StatusOK,
 	})
+	fmt.Println(aToken)
+	return
 }
 
 func RefreshTokenHandler(c *gin.Context) {
@@ -103,17 +106,56 @@ func RefreshTokenHandler(c *gin.Context) {
 
 // 展示用户信息
 func ListUserInformation(c *gin.Context) {
-	userid, err := redis.Client.Get("bluebell:userID:").Result()
-	fmt.Println(userid)
-	if err != nil {
-		zap.L().Error("从redis中拿取数据失败，ListUserInformaiton，请重新尝试")
-		ResponseErrorWithMsg(c, CodeInvalidParams, "从redis中拿取数据失败，ListUserInformaiton，请重新尝试")
-		return
-	}
-	var u models.User
-	if err1 := mysql.DB.Where("user_id=?", userid).First(&u).Error; err1 != nil {
+	var user models.User
+	var u models.UserInformation
+	username, _ := c.Get("username")
+	if err1 := mysql.DB.Where("user_name=?", username).First(&user).Error; err1 != nil {
 		ResponseErrorWithMsg(c, CodeError, "从数据库中拿取相应的用户信息失败")
 		return
 	}
+	u.Name = user.UserName
+	u.Gender = user.Sex
+	u.IdCard = user.PostId
+	u.Address = user.Address
+	u.Email = user.Email
+	u.BirthDate = user.Birth
+	zap.L().Info("成功获取用户的信息")
 	ResponseSuccess(c, u)
+	return
+}
+
+// 修改用户信息
+func UpdateUserInformation(c *gin.Context) {
+	var u models.User
+	var user models.UserInformation
+	err := c.ShouldBind(&user)
+	if err != nil {
+		zap.L().Error("修改用户信息失败")
+		ResponseError(c, CodeError)
+		return
+	}
+
+	username, _ := c.Get("username")
+	err1 := mysql.DB.Where("username=?", username).First(&u).Error
+	if err1 != nil {
+		zap.L().Error("获取用户的数据失败")
+		ResponseError(c, CodeError)
+		return
+	}
+	u.UserName = user.Name
+	u.Sex = user.Gender
+	u.PostId = user.IdCard
+	u.Address = user.Address
+	u.Email = user.Email
+	u.Birth = user.BirthDate
+	//保存更改后的数据
+	err2 := mysql.DB.Save(&u).Error
+	if err2 != nil {
+		zap.L().Error("保存数据失败")
+		ResponseError(c, CodeError)
+		return
+	}
+	zap.L().Info("修改成功")
+	ResponseSuccess(c, CodeSuccess)
+	return
 }

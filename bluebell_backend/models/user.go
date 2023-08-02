@@ -10,7 +10,7 @@ type User struct {
 	UserName  string `json:"user_name" gorm:"column:username"`
 	Password  string `json:"user_password" gorm:"column:password"`
 	Sex       string `json:"user_sex" gorm:"column:sex"`
-	Age       uint64 `json:"user_age" gorm:"column:age"`
+	Birth     string `json:"birth" gorm:"column:age"`
 	Address   string `json:"user_address" gorm:"column:address"`
 	PostId    uint64 `json:"user_postId" gorm:"column:postId"`
 	Email     string `json:"user_email" gorm:"column:email"`
@@ -21,7 +21,7 @@ type UserInformation struct {
 	Name      string `json:"name" form:"name"`
 	Gender    string `json:"gender" form:"gender"`
 	BirthDate string `json:"birthDate" form:"birthDate"`
-	IdCard    string `json:"idCard" form:"idCard"`
+	IdCard    uint64 `json:"idCard" form:"idCard"`
 	AdatarUrl string `json:"avatarUrl" form:"avatarUrl"`
 	Address   string `json:"address" form:"address"`
 	Email     string `json:"email" form:"email"`
