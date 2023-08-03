@@ -169,7 +169,7 @@ export default {
       display: -webkit-flex;
       align-items: center;
       cursor: pointer;
-      padding: 12px 30px 12px 28px;
+      padding: 12px 71px 12px 28px;
       &::after {
         content: "";
         width: 0;

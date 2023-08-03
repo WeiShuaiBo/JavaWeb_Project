@@ -9,6 +9,7 @@ import (
 
 type ProjectDetail struct {
 	ProjectDetailID     uint64  `gorm:"column:id"`
+	ProjectCaptain      string  `json:"captain" gorm:"column:project_captain"`
 	ProjectDetailSort   string  `json:"projectSort" gorm:"column:project_detail_sort"`
 	ProjectDetailName   string  `json:"projectName" gorm:"column:project_detail_name"`
 	ProjectDetailPerson Person  `json:"Member" gorm:"column:project_detail_person;type:text"`
@@ -28,7 +29,7 @@ type Project struct {
 	Major            string `json:"major" gorm:"column:project_major" form:"major"`
 	Email            string `json:"email" gorm:"column:project_email" form:"email"`
 	Phone            string `json:"phone" gorm:"column:project_phone" form:"phone"`
-	ProjectDirection string `json:"projectDirection" gorm:"column:project_project-direction" form:"projectDirection"`
+	ProjectDirection string `json:"projectDirection" gorm:"column:projectDirection" form:"projectDirection"`
 }
 
 func (p *Person) Scan(value interface{}) error {

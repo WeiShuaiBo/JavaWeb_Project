@@ -90,7 +90,7 @@ export default {
       }
 
       this.isSubmitting = true;
-      axios.post("/createProject2", this.formData)
+      axios.post("/createProject1", this.formData)
         .then(response => {
           this.isSubmitting = false;
           if (response.code === 1000) {

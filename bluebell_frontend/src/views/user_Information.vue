@@ -6,11 +6,11 @@
         <form @submit.prevent="submitForm">
           <div>
             <label for="name">姓名:</label>
-            <input type="text" id="name" v-model="name" required />
+            <input type="text" id="name" v-model="name" :readonly="!editing" required />
           </div>
           <div>
             <label for="gender">性别:</label>
-            <select id="gender" v-model="gender" required>
+            <select id="gender" v-model="gender" :disabled="!editing" required>
               <option value="">请选择</option>
               <option value="male">男</option>
               <option value="female">女</option>
@@ -18,23 +18,23 @@
           </div>
           <div>
             <label for="birthDate">出生日期:</label>
-            <input type="date" id="birthDate" v-model="birthDate" required />
+            <input type="date" id="birthDate" v-model="birthDate" :disabled="!editing" required />
           </div>
           <div>
             <label for="idCard">身份证号码：</label>
-            <input type="text" id="idCard" v-model="idCard" required />
+            <input type="text" id="idCard" v-model="idCard" :disabled="!editing" required />
           </div>
           <div>
             <label for="address">地址:</label>
-            <textarea id="address" v-model="address" required></textarea>
+            <textarea id="address" v-model="address" :disabled="!editing" required></textarea>
           </div>
           <div>
             <label for="email">邮箱:</label>
-            <input type="email" id="email" v-model="email" required />
+            <input type="email" id="email" v-model="email" :disabled="!editing" required />
           </div>
           <div class="btn-container">
-            <button class="btn">保存</button>
-            <button class="btn">修改</button>
+            <button class="btn" v-if="!editing" @click="editForm">修改</button>
+            <button class="btn" v-else @click="saveForm">保存</button>
           </div>
         </form>
       </div>
@@ -43,11 +43,13 @@
         <button class="btn" @click="selectImage">设置头像</button>
       </div>
     </div>
-    
+
   </div>
 </template>
 
 <script>
+import Axios from 'axios';
+
 export default {
   name: "UserInformation",
   data() {
@@ -58,10 +60,45 @@ export default {
       idCard: '',
       avatarUrl: null,
       address: '',
-      email: ''
+      email: '',
+      editing: false // 添加editing变量
     };
   },
+  created() {
+    this.getData()
+  },
   methods: {
+    getData() {
+      Axios.get("/getInf").then((res) => {
+        console.log(res)
+        this.name = res.data.name;
+        this.gender = res.data.gender;
+        this.birthDate = res.data.birthDate;
+        this.idCard = res.data.idCard;
+        this.avatarUrl = res.data.avatarUrl;
+        this.address = res.data.address;
+        this.email = res.data.email;
+      })
+    },
+    // 点击修改按钮切换编辑状态
+    editForm() {
+      this.editing = true;
+    },
+    // 点击保存按钮保存表单内容并切换回非编辑状态
+    saveForm() {
+      this.editing = false;
+      // 发送保存请求
+      Axios.post("/updateInf", {
+        name: this.name,
+        gender: this.gender,
+        birthDate: this.birthDate,
+        idCard: this.idCard,
+        address: this.address,
+        email: this.email
+      }).then((res) => {
+        console.log(res);
+      });
+    },
     handleFileUpload(event) {
       const file = event.target.files[0];
       this.avatarUrl = URL.createObjectURL(file);
@@ -141,6 +178,7 @@ export default {
   justify-content: center;
   margin-left: 20px;
 }
+
 .avatar {
   width: 300px;
   height: 300px;
@@ -148,6 +186,7 @@ export default {
   object-fit: cover;
   margin-bottom: 10px;
 }
+
 .personal-info form div {
   margin-bottom: 15px;
 }
@@ -187,8 +226,4 @@ export default {
   display: block;
   margin: 0 auto;
 }
-
-
-
-
 </style>

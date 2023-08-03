@@ -104,15 +104,17 @@ func RefreshTokenHandler(c *gin.Context) {
 	})
 }
 
-// 展示用户信息
+// 展示用户信息 /api/v1/getInf
 func ListUserInformation(c *gin.Context) {
 	var user models.User
 	var u models.UserInformation
 	username, _ := c.Get("username")
-	if err1 := mysql.DB.Where("user_name=?", username).First(&user).Error; err1 != nil {
+	fmt.Println(username)
+	if err1 := mysql.DB.Table("user").Where("username=?", username).First(&user).Error; err1 != nil {
 		ResponseErrorWithMsg(c, CodeError, "从数据库中拿取相应的用户信息失败")
 		return
 	}
+	fmt.Println(user)
 	u.Name = user.UserName
 	u.Gender = user.Sex
 	u.IdCard = user.PostId
@@ -124,7 +126,7 @@ func ListUserInformation(c *gin.Context) {
 	return
 }
 
-// 修改用户信息
+// 修改用户信息 /api/v1/updateInf
 func UpdateUserInformation(c *gin.Context) {
 	var u models.User
 	var user models.UserInformation
@@ -134,7 +136,6 @@ func UpdateUserInformation(c *gin.Context) {
 		ResponseError(c, CodeError)
 		return
 	}
-
 	username, _ := c.Get("username")
 	err1 := mysql.DB.Where("username=?", username).First(&u).Error
 	if err1 != nil {
@@ -143,13 +144,15 @@ func UpdateUserInformation(c *gin.Context) {
 		return
 	}
 	u.UserName = user.Name
+	fmt.Println(user.Name)
+	c.Set("username", user.Name)
 	u.Sex = user.Gender
 	u.PostId = user.IdCard
 	u.Address = user.Address
 	u.Email = user.Email
 	u.Birth = user.BirthDate
 	//保存更改后的数据
-	err2 := mysql.DB.Save(&u).Error
+	err2 := mysql.DB.Debug().Table("user").Where("username=?", u.UserName).Save(&u).Error
 	if err2 != nil {
 		zap.L().Error("保存数据失败")
 		ResponseError(c, CodeError)
