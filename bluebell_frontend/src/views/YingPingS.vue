@@ -25,7 +25,7 @@ export default {
             navs: [
                 {
                     id: 1,
-                    src: require("../assets/images/avatar.png"),
+                    src: require("../img/img7.jpg"),
                     name: "网络安全（黑客）自学笔记",
                     title: "1.计算机基础知识了解了计算机的硬件、软件、操作系统和网络结构等基础知识，可以帮助您更好地理解网络安全的概念和技术。2.网络基础知识了解了网络的结构、协议、服务和安全问题，可以帮助您更好地解决网络安全的原理和技术。3.安全基础知识了解了安全的概念、原则、威吓和攻击方式，可以帮助您更好地理解网络安全的意义和必要性。",
                     time: "发布时间:2020-11-27",
@@ -33,7 +33,7 @@ export default {
                 },
                 {
                     id: 2,
-                    src: require("../assets/images/avatar.png"),
+                    src: require("../img/img3.jpg"),
                     name: "SystemServer进程",
                     title: "在systemServer启动文章中我们讲了在SystemServer.java的main方法里面调用new SystemServer().run（）方法启动System_server进程。那么我们接着看一下SystemServer.java具体做了哪些事情？",
                     time: "发布时间:2020-11-27",
@@ -41,7 +41,7 @@ export default {
                 },
                 {
                     id: 3,
-                    src: require("../assets/images/avatar.png"),
+                    src: require("../img/img8.jpg"),
                     name: "基于jackson对bean的序列号和反序列化",
                     title: "通过观察控制台输出的SQL发现页面传递过来的员工id的值和数据库中的id值不一致，这是怎么回事呢?分页查询时服务端响应给页面的数据中id的值为19位数字，类型为long页面中js处理long型数字只能精确到前16位，所以最终通过ajax请求提交给服务端的时候id就改变了前面我们已经发现了问题的原因，即js对long型数据进行处理时丢失精度，导致提交的id和数据库中的id不一致。",
                     time: "发布时间:2020-11-13",

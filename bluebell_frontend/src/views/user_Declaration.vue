@@ -152,18 +152,24 @@ export default {
 </script>
 <style scoped>
 .background {
+  position: absolute;
   width: 100%;
   height: 100%;
   background-image: url("../img/background.png");
+  display: flex;
+  background-position: center;
+  background-size: cover;
+  align-items: center;
+  justify-content: center;
 }
 
 .registration-page {
-  max-width: 600px;
+  text-align: center;
+  min-width: 800px;
   margin: 100px auto;
   padding: 20px;
   background-color: #f8f8f8;
   border-radius: 5px;
-
 }
 
 h2 {
@@ -176,6 +182,26 @@ form {
   gap: 10px;
 }
 
+option {
+  font-size: 20px;
+}
+
+textarea {
+  font-size: 18px;
+}
+
+input {
+  font-size: 18px;
+}
+
+select {
+  font-size: 18px;
+}
+
+button {
+  font-size: 18px;
+}
+
 .form-group {
   display: grid;
   grid-template-columns: 100px 1fr;
@@ -184,6 +210,9 @@ form {
 
 label {
   font-weight: bold;
+  font-family: Arial, sans-serif;
+  /* 设置字体为 Arial 或者 sans-serif */
+  font-size: 20px;
 }
 
 input,
