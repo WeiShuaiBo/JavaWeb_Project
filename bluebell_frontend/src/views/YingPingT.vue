@@ -25,7 +25,7 @@ export default {
             navs: [
                 {
                     id: 1,
-                    src: require("../assets/images/avatar.png"),
+                    src: require("../img/img1.jpg"),
                     name: "2023扩散模型最新技术进展汇总",
                     title: "随着Stable Diffusion和Midjourney等图像生成模型的爆火，今年在模型领域，扩散模型稳占主导地位。因此，与之相关的新技术也层出不穷，短短1个月，扩散模型相关的论文就有上百篇了，可见其发展的火热趋势。这次我整理了一部分最新扩散模型相关论文来和大家分享，有50+ 篇，希望能帮助同学们获取新的思路~",
                     time: "发布时间:2023-07-21",
@@ -33,15 +33,15 @@ export default {
                 },
                 {
                     id: 2,
-                    src: require("../assets/images/avatar.png"),
-                    name: "2023十大最牛编程语言排行榜以及个语言的优缺点",
-                    title: "Tips：TIOBE排行榜 是根据互联网上有经验的程序员、课程和第三方厂商的数量，并使用搜索引擎（如Google、Bing、Yahoo!）以及Wikipedia、Amazon、YouTube和Baidu（百度）统计出排名数据，只是反映某个编程语言的热门程度，并不能说明一门编程语言好不好，或者一门语言所编写的代码数量多少。",
-                    time: "发布时间:2023-07-25",
-                    price: "835.00",
+                    src: require("../img/img2.jpg"),
+                    name: "微服务 & 云原生：搭建 K8S 集群",
+                    title: "基础环境搭建完成后，令当前虚拟机做 Master 主机，利用虚拟机平台，比如 VMWare、VirtualBox 等的克隆功能，克隆一台 Worker 主机（当然也可以克隆多台）。注意，克隆后的多台主机要保证 ip 不同，不同软件的操作不同，具体操作此处此处不做赘述。",
+                    time: "发布时间:2020-11-13",
+                    price: "312.00",
                 },
                 {
                     id: 3,
-                    src: require("../assets/images/avatar.png"),
+                    src: require("../img/img3.jpg"),
                     name: "SystemServer进程",
                     title: "在systemServer启动文章中我们讲了在SystemServer.java的main方法里面调用new SystemServer().run（）方法启动System_server进程。那么我们接着看一下SystemServer.java具体做了哪些事情？",
                     time: "发布时间:2020-11-27",
@@ -98,10 +98,10 @@ export default {
                 {
                     id: 10,
                     src: require("../assets/images/avatar.png"),
-                    name: "微服务 & 云原生：搭建 K8S 集群",
-                    title: "基础环境搭建完成后，令当前虚拟机做 Master 主机，利用虚拟机平台，比如 VMWare、VirtualBox 等的克隆功能，克隆一台 Worker 主机（当然也可以克隆多台）。注意，克隆后的多台主机要保证 ip 不同，不同软件的操作不同，具体操作此处此处不做赘述。",
-                    time: "发布时间:2020-11-13",
-                    price: "312.00",
+                    name: "2023十大最牛编程语言排行榜以及个语言的优缺点",
+                    title: "Tips：TIOBE排行榜 是根据互联网上有经验的程序员、课程和第三方厂商的数量，并使用搜索引擎（如Google、Bing、Yahoo!）以及Wikipedia、Amazon、YouTube和Baidu（百度）统计出排名数据，只是反映某个编程语言的热门程度，并不能说明一门编程语言好不好，或者一门语言所编写的代码数量多少。",
+                    time: "发布时间:2023-07-25",
+                    price: "835.00",
                 },
             ],
         };
@@ -112,6 +112,7 @@ export default {
 .all {
     width: 100%;
 }
+
 /* ul样式 */
 ul {
     width: 810px;

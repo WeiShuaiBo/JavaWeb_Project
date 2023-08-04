@@ -43,18 +43,24 @@
         <ul class="r-c-content">
           <li class="r-c-item">
             <span class="index">1</span>
-            <i class="icon"></i>
-            b/coding
+            <i class="icon">
+              <img src="../img/img1.jpg" alt="">
+            </i>
+            2023扩散模型最新技术进展汇总
           </li>
           <li class="r-c-item">
             <span class="index">2</span>
-            <i class="icon"></i>
-            b/tree_hole
+            <i class="icon">
+              <img src="../img/img2.jpg" alt="">
+            </i>
+            微服务 & 云原生：搭建 K8S 集群
           </li>
           <li class="r-c-item">
             <span class="index">3</span>
-            <i class="icon"></i>
-            b/job
+            <i class="icon">
+              <img src="../img/img3.jpg" alt="">
+            </i>
+            SystemServer进程
           </li>
         </ul>
         <button class="view-all" @click="jumpToFu">查看所有</button>
@@ -424,12 +430,18 @@ export default {
           }
 
           .icon {
+
             width: 32px;
             height: 32px;
             background-image: url("../assets/images/avatar.png");
             background-repeat: no-repeat;
             background-size: cover;
             margin-right: 20px;
+
+            img {
+              width: 32px;
+              height: 32px;
+            }
           }
 
           &:last-child {

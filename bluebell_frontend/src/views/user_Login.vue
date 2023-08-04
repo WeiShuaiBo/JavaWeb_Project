@@ -9,10 +9,11 @@
             <span>Version 1.0.0</span>
             <input type="text" placeholder="账号" v-model="username" />
             <input type="password" placeholder="密码" v-model="password" />
-            <input type="text" class="form-control" v-model="captchaId" name="captcha" id="captcha" placeholder="请输入验证码" />
+            <input type="text" class="form-control" v-model="captchaId" name="captcha" id="captcha"
+              placeholder="请输入验证码" />
             <div class="row">
               <div>
-                <img id="captchaId" :src="captchaUrl" alt="验证码" >
+                <img id="captchaId" :src="captchaUrl" alt="验证码">
                 <button @click="refresh">刷新</button>
               </div>
             </div>
@@ -56,40 +57,40 @@ export default {
     },
     submit() {
       axios
-          .post("/login", {
-            username: this.username,
-            password: this.password,
-            captchaId: this.captchaId // 将 captchaId 作为参数传递给后端
-          })
-          .then((res) => {
-            if (res.code == 1000) {
-              localStorage.setItem("loginResult", JSON.stringify(res.data));
-              this.$store.commit("login", res.data);
-              this.$router.push({ path: this.redirect || "/" });
-              console.log('signup success');
-              Swallow.fire({
-                icon: 'success',
-                title: '登录成功',
-                text: '进入主页'
-              }).then(() => {
-                this.$router.push({ name: "Home" });
-              });
-            } else {
-              alert("登录失败")
-              console.log(res.data.msg);
-              Swallow.fire({
-                icon: 'error',
-                title: '登录失败',
-                text: res.data.msg
-              }).then(() => {
-                this.username = "";
-                this.password = "";
-              });
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        .post("/login", {
+          username: this.username,
+          password: this.password,
+          captchaId: this.captchaId // 将 captchaId 作为参数传递给后端
+        })
+        .then((res) => {
+          if (res.code == 1000) {
+            localStorage.setItem("loginResult", JSON.stringify(res.data));
+            this.$store.commit("login", res.data);
+            this.$router.push({ path: this.redirect || "/" });
+            console.log('signup success');
+            Swallow.fire({
+              icon: 'success',
+              title: '登录成功',
+              text: '进入主页'
+            }).then(() => {
+              this.$router.push({ name: "Home" });
+            });
+          } else {
+            alert("登录失败")
+            console.log(res.data.msg);
+            Swallow.fire({
+              icon: 'error',
+              title: '登录失败',
+              text: res.data.msg
+            }).then(() => {
+              this.username = "";
+              this.password = "";
+            });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };

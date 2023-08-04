@@ -107,21 +107,21 @@ export default {
       // var data = this.formData
       // 向后端发送表单数据
       axios
-          .post("/createProject", this.formData)
-          .then((response) => {
-            // 请求成功后的处理逻辑
-            console.log(response.data); // 输出后端返回的数据
-            this.isSubmitting = false;
-            this.isSubmitted = true;
+        .post("/createProject", this.formData)
+        .then((response) => {
+          // 请求成功后的处理逻辑
+          console.log(response.data); // 输出后端返回的数据
+          this.isSubmitting = false;
+          this.isSubmitted = true;
 
-            // 表单提交成功后，跳转到 DisplayDataPage 并传递表单数据
-            this.$router.push({ path: "/declaration", query: this.formData });
-          })
-          .catch((error) => {
-            // 处理错误情况
-            console.error(error);
-            this.isSubmitting = false;
-          });
+          // 表单提交成功后，跳转到 DisplayDataPage 并传递表单数据
+          this.$router.push({ path: "/declaration", query: this.formData });
+        })
+        .catch((error) => {
+          // 处理错误情况
+          console.error(error);
+          this.isSubmitting = false;
+        });
     },
     validateForm() {
       // 进行表单验证，确保所有字段都填写正确
@@ -149,25 +149,35 @@ export default {
 
 <style scoped>
 label {
-  font-family: Arial, sans-serif; /* 设置字体为 Arial 或者 sans-serif */
-  font-size: 16px; /* 设置字体大小为 16 像素 */
+  font-family: Arial, sans-serif;
+  /* 设置字体为 Arial 或者 sans-serif */
+  font-size: 20px;
+  /* 设置字体大小为 16 像素 */
   /* 其他样式属性，例如字体颜色、字体加粗等，也可以在这里添加 */
 }
-.background{
+
+.background {
+  position: absolute;
   width: 100%;
   height: 100%;
   background-image: url("../img/background.png");
   background-size: cover;
   background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .registration-page {
-  max-width: 600px;
+  text-align: center;
+  min-width: 800px;
   margin: 100px auto;
   padding: 20px;
   background-color: #f8f8f8;
   border-radius: 5px;
 
 }
+
 h2 {
   text-align: center;
   margin-bottom: 20px;
@@ -178,12 +188,16 @@ form {
   gap: 10px;
 }
 
+option {
+  font-size: 20px;
+}
+
 .form-group {
 
   display: grid;
   grid-template-columns: 120px 1fr;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
 }
 
 .form-group label {

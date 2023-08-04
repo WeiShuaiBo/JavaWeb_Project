@@ -25,7 +25,7 @@ export default {
             navs: [
                 {
                     id: 1,
-                    src: require("../assets/images/avatar.png"),
+                    src: require("../img/img2.jpg"),
                     name: "微服务 & 云原生：搭建 K8S 集群",
                     title: "基础环境搭建完成后，令当前虚拟机做 Master 主机，利用虚拟机平台，比如 VMWare、VirtualBox 等的克隆功能，克隆一台 Worker 主机（当然也可以克隆多台）。注意，克隆后的多台主机要保证 ip 不同，不同软件的操作不同，具体操作此处此处不做赘述。",
                     time: "发布时间:2020-11-13",
@@ -33,7 +33,7 @@ export default {
                 },
                 {
                     id: 2,
-                    src: require("../assets/images/avatar.png"),
+                    src: require("../img/img5.png"),
                     name: "2023扩散模型最新技术进展汇总",
                     title: "随着Stable Diffusion和Midjourney等图像生成模型的爆火，今年在模型领域，扩散模型稳占主导地位。因此，与之相关的新技术也层出不穷，短短1个月，扩散模型相关的论文就有上百篇了，可见其发展的火热趋势。这次我整理了一部分最新扩散模型相关论文来和大家分享，有50+ 篇，希望能帮助同学们获取新的思路~",
                     time: "发布时间:2023-07-21",
@@ -41,7 +41,7 @@ export default {
                 },
                 {
                     id: 3,
-                    src: require("../assets/images/avatar.png"),
+                    src: require("../img/img6.jpg"),
                     name: "【Terraform学习】Terraform-docker部署快速入门（快速入门）",
                     title: "导航到IAM在左侧菜单中，单击角色 。单击创建角色该按钮以创建新的 IAM 角色。在创建角色部分，为角色选择可信实体类型：AWS 服务使用案例:EC2",
                     time: "发布时间:2020-10-01",

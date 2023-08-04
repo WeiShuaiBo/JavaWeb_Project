@@ -39,7 +39,9 @@
         </form>
       </div>
       <div class="avatar-container">
-        <img class="avatar" :src="{avatarUrl}" alt="Avatar">
+
+        <img class="avatar" :src="{ avatarUrl }" alt="Avatar">
+
         <input type="file" ref="fileInput" style="display: none" @change="handleFileUpload">
         <button class="btn" @click="selectImage">设置头像</button>
 
@@ -78,11 +80,12 @@ export default {
         this.gender = res.data.gender;
         this.birthDate = res.data.birthDate;
         this.idCard = res.data.idCard,
-        this.address = res.data.address;
+
+          this.address = res.data.address;
         this.email = res.data.email;
       })
     },
-    getData1(){
+    getData1() {
       Axios.post("/")
     },
     // 点击修改按钮切换编辑状态
