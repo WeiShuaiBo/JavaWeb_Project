@@ -39,8 +39,10 @@
         </form>
       </div>
       <div class="avatar-container">
-        <img class="avatar" src="../assets/images/avatar.png" alt="Avatar">
+        <img class="avatar" :src="{avatarUrl}" alt="Avatar">
+        <input type="file" ref="fileInput" style="display: none" @change="handleFileUpload">
         <button class="btn" @click="selectImage">设置头像</button>
+
       </div>
     </div>
 
@@ -58,7 +60,7 @@ export default {
       gender: '',
       birthDate: '',
       idCard: '',
-      avatarUrl: null,
+      avatarUrl: "",
       address: '',
       email: '',
       editing: false // 添加editing变量
@@ -68,17 +70,20 @@ export default {
     this.getData()
   },
   methods: {
+    // 触发文件选择的函数
     getData() {
       Axios.get("/getInf").then((res) => {
         console.log(res)
         this.name = res.data.name;
         this.gender = res.data.gender;
         this.birthDate = res.data.birthDate;
-        this.idCard = res.data.idCard;
-        this.avatarUrl = res.data.avatarUrl;
+        this.idCard = res.data.idCard,
         this.address = res.data.address;
         this.email = res.data.email;
       })
+    },
+    getData1(){
+      Axios.post("/")
     },
     // 点击修改按钮切换编辑状态
     editForm() {
@@ -101,31 +106,31 @@ export default {
     },
     handleFileUpload(event) {
       const file = event.target.files[0];
-      this.avatarUrl = URL.createObjectURL(file);
-    },
-    selectImage() {
-      // 创建一个<input>元素
-      var input = document.createElement('input');
-      input.type = 'file';
+      const formData = new FormData();
+      formData.append('file', file);
 
-      // 当用户选择文件时，触发change事件
-      input.addEventListener('change', function (event) {
-        var file = event.target.files[0];
-
-        var reader = new FileReader();
-
-        // 当文件加载完成时，将图片显示到<img>元素中
-        reader.onload = function (e) {
-          var img = document.querySelector('.avatar');
-          img.src = e.target.result;
-        };
-
-        // 读取图片文件的内容
-        reader.readAsDataURL(file);
+      // Use Axios to send the file to the backend
+      Axios.post("/upload", formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then((res) => {
+        console.log(res);
+        console.log(111)
+        console.log(res.data)
+        console.log(res.data.data)
+        // Set avatarUrl from the response data
+        if (res.data.code === 1000) {
+          this.avatarUrl = res.data.data;
+        }
+      }).catch((error) => {
+        console.error(error);
       });
+    },
 
-      // 触发<input>元素的点击事件，打开文件选择对话框
-      input.click();
+    selectImage() {
+      // Trigger the file input dialog
+      this.$refs.fileInput.click();
     },
     submitForm() {
       // 在这里可以处理表单提交逻辑

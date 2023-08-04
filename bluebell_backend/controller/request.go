@@ -3,7 +3,7 @@ package controller
 import "github.com/gin-gonic/gin"
 
 func getCurrentUserID(c *gin.Context) (userID uint64, err error) {
-	_userID, ok := c.Get(ContextUserIDKey)
+	_userID, ok := c.Get("userid")
 	if !ok {
 		err = ErrorUserNotLogin
 		return
