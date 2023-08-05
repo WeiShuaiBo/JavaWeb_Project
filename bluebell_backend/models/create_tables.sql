@@ -99,3 +99,23 @@ CREATE TABLE `project1`(
     PRIMARY KEY (`id`),
     UNIQUE KEY `uk_ProjectDetail_Name` (project_detail_name)
 )ENGINE = InnoDB DEFAULT CHARSET =utf8mb4 COLLATE = utf8mb4_general_ci;
+
+DROP TABLE IF EXISTS `projects`;
+CREATE TABLE projects (
+                          id bigint(20) NOT NULL AUTO_INCREMENT,
+                          project_name VARCHAR(255) NOT NULL  COMMENT '组长名字',
+                          project_university VARCHAR(255) NOT NULL COMMENT '学校',
+                          project_college VARCHAR(255) NOT NULL Comment '学院',
+                          project_major TEXT NOT NULL COMMENT '专业',
+                          project_email TEXT NOT NULL COMMENT '邮箱',
+                          project_phone TEXT NOT NULL COMMENT '手机号码',
+                          project_Direction VARCHAR(255) NOT NULL COMMENT  '申报类型',
+                          project_sort varchar(255) NOT NULL COMMENT '项目类型',
+                          project_projectName varchar(255) NOT NULL COMMENT  '项目名称',
+                          project_member varchar(255) NOT NULL,
+                          project_introduction varchar(255) NOT NULL,
+                          project_creativity varchar(255) NOT NULL ,
+                          project_advantage varchar(255) NOT NULL,
+                          project_instructor varchar(255) NOT NULL,
+                          PRIMARY KEY (`id`)
+)ENGINE = InnoDB DEFAULT CHARSET =utf8mb4 COLLATE = utf8mb4_general_ci;

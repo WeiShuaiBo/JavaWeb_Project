@@ -22,7 +22,7 @@
           <strong>手机号码：</strong>{{ formData.phone }}
         </div>
         <div>
-          <strong>申报类型：</strong>{{ formData.projectIdea }}
+          <strong>申报类型：</strong>{{ formData.projectDirection }}
         </div>
         <div>
           <strong>项目类型：</strong>{{ formData.projectSort }}
@@ -80,7 +80,7 @@ export default {
   },
   methods: {
     fetchData() {
-      axios.get('/createProject2')
+      axios.get('/listProject')
           .then(response => {
             if (response.code === 1000) {
               const data = response.data;

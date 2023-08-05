@@ -199,7 +199,7 @@ func Uploads(c *gin.Context) {
 		return
 	}
 
-	imageURL := "http:localhost:8081/static/" + currentTime + "/" + file.Filename
+	imageURL := "http://localhost:8081/static/" + currentTime + "/" + file.Filename
 	ResponseSuccess(c, &ResponseData{
 		Data:    imageURL,
 		Code:    CodeSuccess,

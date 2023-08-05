@@ -32,6 +32,24 @@ type Project struct {
 	ProjectDirection string `json:"projectDirection" gorm:"column:projectDirection" form:"projectDirection"`
 }
 
+type ProjectData struct {
+	ID               int     // Primary key (auto-incremented)
+	Name             string  `json:"name" form:"name" gorm:"project_name"`
+	University       string  `json:"university" form:"university" gorm:"project_university"`
+	College          string  `json:"college" form:"college" gorm:"project_college"`
+	Major            string  `json:"major" form:"major" gorm:"project_major"`
+	Email            string  `json:"email" form:"email" gorm:"project_email"`
+	Phone            string  `json:"phone" form:"phone" gorm:"project_phone"`
+	ProjectDirection string  `json:"projectDirection" form:"projectDirection" gorm:"project_Direction"`
+	ProjectSort      string  `json:"projectSort" form:"projectSort" gorm:"project_member"`
+	ProjectName      string  `json:"projectName" form:"projectName" gorm:"project_projectName"`
+	Member           Person  `json:"member" form:"member" gorm:"project_member"`
+	Introduction     string  `json:"introduction" form:"introduction" gorm:"project_introduction"`
+	Creativity       string  `json:"creativity" form:"creativity" gorm:"project_creativity"`
+	Advantage        string  `json:"advantage" form:"advantage" gorm:"project_advantage"`
+	Instructor       TPerson `json:"instructor" form:"instructor" gorm:"project_instructor"`
+}
+
 func (p *Person) Scan(value interface{}) error {
 	byteValue, _ := value.([]byte)
 	return json.Unmarshal(byteValue, p)
@@ -85,4 +103,7 @@ func (p Project) TableName() string {
 }
 func (p ProjectDetail) TableName() string {
 	return "project1"
+}
+func (p ProjectData) TableName() string {
+	return "projects"
 }

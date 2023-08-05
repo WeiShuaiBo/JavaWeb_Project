@@ -31,9 +31,6 @@ func MCreateProject1(p *models.Project) (error, bool) {
 			zap.L().Error("create project failed", zap.Error(err1))
 			return result.Error, false
 		}
-		if err2 := DB.Model(&models.User{}).Where("username=?", test1.UserName).Update("Status", "已申请").Error; err2 != nil {
-			zap.L().Error("修改用户状态失败", zap.Error(err2))
-		}
 	}
 	return nil, true
 }
@@ -46,7 +43,7 @@ func MCreateProject2(p models.ProjectDetail, captain string) (error, bool) {
 			//用户并旗下并没有参与过相关的项目组织，所以可以继续向下进行
 			//然后再查询 项目类型和项目名称是否同时存在
 			result := DB.Where("project_detail_sort=? AND project_detail_name=?", p.ProjectDetailSort, p.ProjectDetailName).First(&project)
-			//如果记录不存在  就创建数据
+			//如果记录不存在 就创建数据
 			fmt.Println(p)
 			if result.Error == gorm.ErrRecordNotFound {
 				if err := DB.Create(&p).Error; err != nil {
@@ -56,11 +53,9 @@ func MCreateProject2(p models.ProjectDetail, captain string) (error, bool) {
 				return nil, true
 			}
 		} else {
-			zap.L().Error("在查询用户数据时候发生了错误")
+			zap.L().Error("该用户已经参与过其他项目了")
 			return nil, false
 		}
 	}
-	//如果存在的话
-	zap.L().Error("该用户已经组过队了，不能在进行组队")
 	return nil, true
 }
