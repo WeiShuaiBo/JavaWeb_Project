@@ -10,6 +10,7 @@ import DisplayDataPage from '../views/user_DisplayDataPage.vue'
 import Declaration from "../views/user_Declaration.vue"
 import UserInformation from '../views/user_Information.vue'
 import Fu from '../views/Fu.vue'
+import Fu1 from '../views/Fu1.vue'
 
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
@@ -70,6 +71,11 @@ const routes = [
     path: '/fu',
     name: "Fu",
     component: Fu,
+  },
+  {
+    path: '/fu1',
+    name: "Fu1",
+    component: Fu1,
   }
 ]
 

@@ -22,7 +22,7 @@
           <strong>手机号码：</strong>{{ formData.phone }}
         </div>
         <div>
-          <strong>申报类型：</strong>{{ formData.projectIdea }}
+          <strong>申报类型：</strong>{{ formData.projectDirection }}
         </div>
         <div>
           <strong>项目类型：</strong>{{ formData.projectSort }}
@@ -72,7 +72,7 @@ export default {
   data() {
     return {
       isSubmitting: false,
-      formData1:[]
+      formData1: []
     };
   },
   mounted() {
@@ -81,23 +81,23 @@ export default {
   methods: {
     fetchData() {
       axios.get('/createProject2')
-          .then(response => {
-            if (response.code === 1000) {
-              const data = response.data;
-              this.formData.projectSort = data.projectSort;
-              this.formData.projectName = data.projectName;
-              this.formData.Member = data.Member;
-              this.formData.Introduction = data.Introduction;
-              this.formData.Creativity = data.Creativity;
-              this.formData.Advantage = data.Advantage;
-              this.formData.Instructor = data.Instructor;
-            } else {
-              console.log(response.message);
-            }
-          })
-          .catch(error => {
-            console.log("An error occurred while fetching data.", error);
-          });
+        .then(response => {
+          if (response.code === 1000) {
+            const data = response.data;
+            this.formData.projectSort = data.projectSort;
+            this.formData.projectName = data.projectName;
+            this.formData.Member = data.Member;
+            this.formData.Introduction = data.Introduction;
+            this.formData.Creativity = data.Creativity;
+            this.formData.Advantage = data.Advantage;
+            this.formData.Instructor = data.Instructor;
+          } else {
+            console.log(response.message);
+          }
+        })
+        .catch(error => {
+          console.log("An error occurred while fetching data.", error);
+        });
     },
     goToHomePage() {
       this.$router.push({ name: 'Home' });
@@ -108,47 +108,48 @@ export default {
 
 <style scoped>
 .display-data-page {
-    max-width: 600px;
-    margin: 100px auto;
-    padding: 20px;
-    background-color: #f8f8f8;
-    border-radius: 5px;
+  max-width: 600px;
+  margin: 100px auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 5px;
 }
 
 h2 {
-    text-align: center;
-    margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .data-table {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 .data-table>div {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
 }
 
 .no-data-message {
-    text-align: center;
-    padding: 20px;
-    font-size: 16px;
-    color: #999;
+  text-align: center;
+  padding: 20px;
+  font-size: 16px;
+  color: #999;
 }
 
-.show{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.show {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 button {
-    padding: 10px;
-    background-color: #4caf50;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    justify-content: center;
-    align-items: center;
+  padding: 10px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
 }
 </style>
