@@ -66,7 +66,7 @@
         <button class="view-all" @click="jumpToFu">查看所有</button>
       </div>
       <div class="r-trending">
-        <h2 class="r-t-title">持续热门频道</h2>
+        <h2 class="r-t-title">持续热门项目</h2>
         <ul class="rank">
           <li class="r-t-cell">
             <div class="r-t-cell-info">
@@ -76,7 +76,7 @@
                 <p class="info-num">7.1k members</p>
               </div>
             </div>
-            <button class="join-btn">JOIN</button>
+            <button class="join-btn" @click="jumpToFu1">JOIN</button>
           </li>
           <li class="r-t-cell">
             <div class="r-t-cell-info">
@@ -86,7 +86,7 @@
                 <p class="info-num">3.2k members</p>
               </div>
             </div>
-            <button class="join-btn">JOIN</button>
+            <button class="join-btn" @click="jumpToFu1">JOIN</button>
           </li>
           <li class="r-t-cell">
             <div class="r-t-cell-info">
@@ -96,7 +96,7 @@
                 <p class="info-num">2.5k members</p>
               </div>
             </div>
-            <button class="join-btn">JOIN</button>
+            <button class="join-btn" @click="jumpToFu1">JOIN</button>
           </li>
         </ul>
       </div>
@@ -127,6 +127,9 @@ export default {
     },
     jumpToFu() {
       this.$router.push({ name: "Fu" });
+    },
+    jumpToFu1() {
+      this.$router.push({ name: "Fu1" });
     },
     goDetail(id) {
       this.$router.push({ name: "Content", params: { id: id } });

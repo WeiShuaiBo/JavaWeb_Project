@@ -18,7 +18,7 @@
 
 <script>
 export default {
-    name: "YingPian",
+    name: "YingPing1",
     data() {
         return {
             // 将所有的数据放入对象中  随后将每个对象为一部分，添加到数组中

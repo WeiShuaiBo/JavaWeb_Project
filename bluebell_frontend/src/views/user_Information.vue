@@ -39,8 +39,8 @@
         </form>
       </div>
       <div class="avatar-container">
-
         <img class="avatar" :src="avatarUrl" alt="Avatar">
+
 
         <input type="file" ref="fileInput" style="display: none" @change="handleFileUpload">
         <button class="btn" @click="selectImage">设置头像</button>
@@ -112,7 +112,6 @@ export default {
       const file = event.target.files[0];
       const formData = new FormData();
       formData.append('file', file);
-
       // Use Axios to send the file to the backend
       Axios.post("/upload", formData, {
         headers: {
