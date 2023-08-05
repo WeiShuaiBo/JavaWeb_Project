@@ -1,11 +1,18 @@
 <template>
     <div class="all">
+        <div class="first">
+            <p class="lingshi">
+                网上开店对成本的要求低，占用资金少，经营方式灵活，不受时间、地域等因素的限制，客户范围广泛。网上开店成本低，回收快，适合小商店和个人创业。网上开店所需的启动资金少，网上商店比同等规模的地面商店要低得多，不需要增加租金和延长营业时间。网上开店是简便、实惠的创业模式，只要创新和持之以恒，成功就在眼前。
+            </p>
+        </div>
         <ul>
             <li v-for="(item, index) in navs" :key="index">
                 <span :class="index + 1 > 3 ? 'geshu1' : 'geshu'">{{ index + 1 }}</span>
                 <img :src="item.src" />
                 <div class="hang">
-                    <p class="pingming">{{ item.name }}</p>
+                    <p class="pingming">
+                        <a :href="item.link" target="_blank">{{ item.name }}</a>
+                    </p>
                     <p class="zhuyan">{{ item.title }}</p>
                     <p class="shangying">{{ item.time }}</p>
                     <p class="piao">总票数：<span class="buy">{{ item.price }}</span>万</p>
@@ -25,81 +32,81 @@ export default {
             navs: [
                 {
                     id: 1,
-                    src: require("../img/img7.jpg"),
-                    name: "网络安全（黑客）自学笔记",
-                    title: "1.计算机基础知识了解了计算机的硬件、软件、操作系统和网络结构等基础知识，可以帮助您更好地理解网络安全的概念和技术。2.网络基础知识了解了网络的结构、协议、服务和安全问题，可以帮助您更好地解决网络安全的原理和技术。3.安全基础知识了解了安全的概念、原则、威吓和攻击方式，可以帮助您更好地理解网络安全的意义和必要性。",
+                    name: "高校大学生的创业创新项目3篇",
+                    link: 'http://w.51tietu.net/wenku/811977.html',
+                    title: "行业分析网上开店对成本的要求低它占用资金少,也基本不需要水、电、管理费等方面的支出;这样就解决了大学生没有创业资金的问题; 网店经营方式灵活, 基本不受时间、地域等因素的限制, 只要有时间、能上网就能正常营业, 而且只要少量存货就能开店, 所以也可以随时更换经营其他商品; 网店的客户范围十分广, 只要是..",
                     time: "发布时间:2020-11-27",
                     price: "100.00",
                 },
                 {
                     id: 2,
-                    src: require("../img/img3.jpg"),
-                    name: "SystemServer进程",
-                    title: "在systemServer启动文章中我们讲了在SystemServer.java的main方法里面调用new SystemServer().run（）方法启动System_server进程。那么我们接着看一下SystemServer.java具体做了哪些事情？",
+                    name: "大学生创新创业项目汇总",
+                    link: 'https://www.cnrencai.com/goldjob/xiangmu/760028.html',
+                    title: "网上开店网上创业、网上购物已经不是新鲜的事情开网店的人群比例也在增加，无论网店店主有多少,对于缺少创业资金又有创业想法的人来讲。在网上开店都是一个不错的选择这种简便、实惠的创业模式还将在继续延续下去，要想成功只要创新和持之以恒就可以。",
                     time: "发布时间:2020-11-27",
                     price: "300.00",
                 },
                 {
                     id: 3,
-                    src: require("../img/img8.jpg"),
-                    name: "基于jackson对bean的序列号和反序列化",
-                    title: "通过观察控制台输出的SQL发现页面传递过来的员工id的值和数据库中的id值不一致，这是怎么回事呢?分页查询时服务端响应给页面的数据中id的值为19位数字，类型为long页面中js处理long型数字只能精确到前16位，所以最终通过ajax请求提交给服务端的时候id就改变了前面我们已经发现了问题的原因，即js对long型数据进行处理时丢失精度，导致提交的id和数据库中的id不一致。",
+                    name: "大学生创新创业项目计划书(精选84篇)",
+                    link: 'https://www.cnrencai.com/goldjob/xiangmu/760028.html',
+                    title: "网上开店网上创业、网上购物已经不是新鲜的事情开网店的人群比例也在增加，无论网店店主有多少,对于缺少创业资金又有创业想法的人来讲。在网上开店都是一个不错的选择这种简便、实惠的创业模式还将在继续延续下去，要想成功只要创新和持之以恒就可以。",
                     time: "发布时间:2020-11-13",
                     price: "723.00",
                 },
                 {
                     id: 4,
-                    src: require("../assets/images/avatar.png"),
-                    name: "【Terraform学习】Terraform-docker部署快速入门（快速入门）",
-                    title: "导航到IAM在左侧菜单中，单击角色 。单击创建角色该按钮以创建新的 IAM 角色。在创建角色部分，为角色选择可信实体类型：AWS 服务使用案例:EC2",
+                    name: "大学生创新创业项目(推荐8篇)",
+                    link: 'https://www.cnrencai.com/goldjob/xiangmu/760028.html',
+                    title: "市场环境网上开店,好处多多,最主要的有以几个突出的优势: (一)投资少,回收快,并且无所谓存货，所以特别适合小商店和个人在网上创业。(1)从启动资金来看, 传统的地面开店，门]面租金加装修费还有首批进货资金,少说也需要几万元的启动资金。而网上开店所需的启动资金却少得多按照我们的计划, 你只要有一台能够...",
                     time: "发布时间:2020-10-01",
                     price: "280.00",
                 },
                 {
                     id: 5,
-                    src: require("../assets/images/avatar.png"),
-                    name: "2023扩散模型最新技术进展汇总",
-                    title: "随着Stable Diffusion和Midjourney等图像生成模型的爆火，今年在模型领域，扩散模型稳占主导地位。因此，与之相关的新技术也层出不穷，短短1个月，扩散模型相关的论文就有上百篇了，可见其发展的火热趋势。这次我整理了一部分最新扩散模型相关论文来和大家分享，有50+ 篇，希望能帮助同学们获取新的思路~",
+                    name: "大学生创新创业项目计划书(精选16篇)",
+                    link: 'https://www.cnrencai.com/goldjob/xiangmu/760028.html',
+                    title: "部分创新及其特色(线上与线下结合)网上开店,好处多多,最主要的有以下几个突出的优势: (- -)投资少,回收快, 而且无所谓存货, 所以特别适合小商店和个人在网上创业。(1)从启动资金 来看传统的地面开店，门面租金加装修费, 还有首批进货资金，少说也需要几万元的启动资金。而网上开店所需的启动资金却少得多按照我...",
                     time: "发布时间:2023-07-21",
                     price: "310.00",
                 },
                 {
                     id: 6,
-                    src: require("../assets/images/avatar.png"),
-                    name: "2023十大最牛编程语言排行榜以及个语言的优缺点",
-                    title: "Tips：TIOBE排行榜 是根据互联网上有经验的程序员、课程和第三方厂商的数量，并使用搜索引擎（如Google、Bing、Yahoo!）以及Wikipedia、Amazon、YouTube和Baidu（百度）统计出排名数据，只是反映某个编程语言的热门程度，并不能说明一门编程语言好不好，或者一门语言所编写的代码数量多少。",
+                    name: "最新大学生创新创业项目计划书(精选5篇)",
+                    link: 'https://www.cnrencai.com/goldjob/xiangmu/760028.html',
+                    title: "网上开店网上创业、网_上购物已经不是新鲜的事情开网店的人群比例也在增加，无论网店店主有多少，对于缺少创业资金又有创业想法的人来讲。在网上开店都是一个不错的选择, 这种简便、实惠的创业模式还将在继续延续下去, 要想成功只要创新和持之以恒就可以。",
                     time: "发布时间:2023-07-25",
                     price: "835.00",
                 },
                 {
                     id: 7,
-                    src: require("../assets/images/avatar.png"),
-                    name: "k8s Label 2",
-                    title: "在 k8s 中，我们会轻轻松松的部署几十上百个微服务，这些微服务的版本，副本数的不同进而会带出更多的 pod这么多的 pod ，如何才能高效的将他们组织起来的，如果组织不好便会让管理微服务变得混乱不堪，杂乱无章",
+                    name: "大学生创新创业项目计划书6篇",
+                    link: 'https://www.cnrencai.com/goldjob/xiangmu/760028.html',
+                    title: "大学生创新创业项目:网上开店,一分耕耘一分收获从全球网上经营的情况看,以下几类较易取得成功:",
                     time: "发布时间:2020-11-09",
                     price: "859.00",
                 },
                 {
                     id: 8,
-                    src: require("../assets/images/avatar.png"),
-                    name: "微服务 & 云原生：搭建 K8S 集群",
-                    title: "基础环境搭建完成后，令当前虚拟机做 Master 主机，利用虚拟机平台，比如 VMWare、VirtualBox 等的克隆功能，克隆一台 Worker 主机（当然也可以克隆多台）。注意，克隆后的多台主机要保证 ip 不同，不同软件的操作不同，具体操作此处此处不做赘述。",
+                    name: "大学生创新创业项目集锦",
+                    link: 'https://www.cnrencai.com/goldjob/xiangmu/760028.html',
+                    title: "市场环境网上开店,好处多多,最主要的有以几个突出的优势: (一)投资少,回收快,并且无所谓存货，所以特别适合小商店和个人在网上创业。(1)从启动资金来看, 传统的地面开店，门]面租金加装修费还有首批进货资金,少说也需要几万元的启动资金。而网上开店所需的启动资金却少得多按照我们的计划, 你只要有一台能够...",
                     time: "发布时间:2020-11-13",
                     price: "312.00",
                 },
                 {
                     id: 9,
-                    src: require("../assets/images/avatar.png"),
-                    name: "j2ee相关知识点",
-                    title: "浏览器栏中，输入的是servlet的mapping映射，请求到servlet中去，jsp路径，会跳转到对应的页面Servlet接口位于最顶端，GenericServlet实现了Servlet，HttpServlet继承了GenericServlet浏览器中访问Servlet映射时，会去调用service()方法，并且会在适当的时候调用doGet",
+                    name: "最新大学生创新创业项目计划书_百度文库",
+                    link: 'https://www.cnrencai.com/goldjob/xiangmu/760028.html',
+                    title: "市场环境网上开店,好处多多,最主要的有以几个突出的优势: (一)投资少,回收快,并且无所谓存货，所以特别适合小商店和个人在网上创业。(1)从启动资金来看, 传统的地面开店，门]面租金加装修费还有首批进货资金,少说也需要几万元的启动资金。而网上开店所需的启动资金却少得多按照我们的计划, 你只要有一台能够...",
                     time: "发布时间:2020-11-13",
                     price: "648.00",
                 },
                 {
                     id: 10,
-                    src: require("../assets/images/avatar.png"),
-                    name: "Docker consul的容器服务更新与发现",
-                    title: "consul服务器 192.168.44.100 运行consul服务、nginx服务、consul-template守护进程registrator服务器 192.168.44.101 运行registrator容器、运行nginx容器",
+                    name: "适合大学生的创新创业项目——知乎",
+                    link: 'https://www.cnrencai.com/goldjob/xiangmu/760028.html',
+                    title: "市场环境网上开店,好处多多,最主要的有以几个突出的优势: (一)投资少,回收快,并且无所谓存货，所以特别适合小商店和个人在网上创业。(1)从启动资金来看, 传统的地面开店，门]面租金加装修费还有首批进货资金,少说也需要几万元的启动资金。而网上开店所需的启动资金却少得多按照我们的计划, 你只要有一台能够...",
                     time: "发布时间:2020-11-30",
                     price: "319.00",
                 },
@@ -111,6 +118,7 @@ export default {
 <style scoped>
 .all {
     width: 100%;
+    position: relative;
 }
 
 /* ul样式 */
@@ -151,6 +159,30 @@ li:hover {
     color: #fff;
 }
 
+.first {
+    position: absolute;
+    top: -110px;
+    /* 调整距离ul的上方距离 */
+    left: 120px;
+    width: 600px;
+    height: 100%;
+    bottom: 300px;
+}
+
+
+.lingshi {
+    font-size: 17px;
+    margin: 0;
+    padding: 10px 5px;
+    border-radius: 24px;
+    background-color: #fff;
+}
+
+ul {
+    margin-top: 100px;
+    /* 调整ul与上方内容之间的距离 */
+}
+
 /* 所有的li左侧的序列号除前三个外 采用 */
 .geshu1 {
     display: block;
@@ -167,20 +199,14 @@ li:hover {
 }
 
 /* 设置图片的位置 采用绝对定位 */
-img {
-    position: absolute;
-    left: 100px;
-    margin-top: 10PX;
-    height: 100px;
-    width: 100px;
-}
+
 
 /* 对右侧包裹的div进行设置样式 */
 .hang {
     width: 600px;
     height: 100%;
     position: absolute;
-    left: 300px;
+    left: 120px;
     top: 70px;
 }
 
