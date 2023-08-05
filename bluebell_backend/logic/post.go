@@ -68,6 +68,7 @@ func GetPostList2() (data []*models.ApiPostDetail, err error) {
 		zap.L().Error("获取帖子列表出错，请你重新查看")
 		return
 	}
+	fmt.Println(postList)
 	data = make([]*models.ApiPostDetail, 0, len(postList))
 	for _, post := range postList {
 		user, err := mysql.GetUserByID(fmt.Sprint(post.AuthorId))

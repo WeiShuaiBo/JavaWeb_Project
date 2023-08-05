@@ -40,6 +40,7 @@ func VoteHandler(c *gin.Context) {
 		ResponseErrorWithMsg(c, CodeInvalidParams, err.Error())
 		return
 	}
+	fmt.Println(&vote)
 	userID, err := getCurrentUserID(c)
 	if err != nil {
 		ResponseError(c, CodeNotLogin)
@@ -50,4 +51,5 @@ func VoteHandler(c *gin.Context) {
 		return
 	}
 	ResponseSuccess(c, nil)
+	return
 }

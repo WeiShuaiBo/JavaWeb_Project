@@ -63,6 +63,7 @@ func PostList2Handler(c *gin.Context) {
 		return
 	}
 	ResponseSuccess(c, data)
+	return
 }
 
 // PostDetailHandler 帖子详情
