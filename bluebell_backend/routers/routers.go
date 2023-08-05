@@ -33,6 +33,7 @@ func SetupRouter() *gin.Engine {
 	v1.GET("/captcha", func(c *gin.Context) {
 		utils.Captcha(c, 4)
 	})
+	r.Static("/static", "./temp/pic")
 	v1.POST("/login", controller.LoginHandler)
 	v1.POST("/signup", controller.SignUpHandler)
 	v1.GET("/refresh_token", controller.RefreshTokenHandler)
@@ -59,7 +60,8 @@ func SetupRouter() *gin.Engine {
 		v1.GET("/getInf", controller.ListUserInformation)
 		//用户修改个人信息
 		v1.POST("/updateInf", controller.UpdateUserInformation)
-
+		//用户上传个人头像
+		v1.POST("/upload", controller.Uploads)
 	}
 
 	//quit := make(chan os.Signal, 1)

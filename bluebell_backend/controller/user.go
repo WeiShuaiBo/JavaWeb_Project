@@ -9,6 +9,8 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"os"
+	"path"
 	"strings"
 	"time"
 
@@ -74,7 +76,7 @@ func LoginHandler(c *gin.Context) {
 		"username":     u.UserName,
 		"code":         http.StatusOK,
 	})
-	fmt.Println(aToken)
+	c.Request.Header.Set("Authorization", aToken)
 	return
 }
 
@@ -108,13 +110,11 @@ func RefreshTokenHandler(c *gin.Context) {
 func ListUserInformation(c *gin.Context) {
 	var user models.User
 	var u models.UserInformation
-	username, _ := c.Get("username")
-	fmt.Println(username)
-	if err1 := mysql.DB.Table("user").Where("username=?", username).First(&user).Error; err1 != nil {
+	userid, _ := c.Get("userid")
+	if err1 := mysql.DB.Table("user").Where("user_id=?", userid).First(&user).Error; err1 != nil {
 		ResponseErrorWithMsg(c, CodeError, "从数据库中拿取相应的用户信息失败")
 		return
 	}
-	fmt.Println(user)
 	u.Name = user.UserName
 	u.Gender = user.Sex
 	u.IdCard = user.PostId
@@ -136,23 +136,22 @@ func UpdateUserInformation(c *gin.Context) {
 		ResponseError(c, CodeError)
 		return
 	}
-	username, _ := c.Get("username")
-	err1 := mysql.DB.Where("username=?", username).First(&u).Error
+	userid, _ := c.Get("userid")
+	err1 := mysql.DB.Where("user_id=?", userid).First(&u).Error
 	if err1 != nil {
 		zap.L().Error("获取用户的数据失败")
 		ResponseError(c, CodeError)
 		return
 	}
 	u.UserName = user.Name
-	fmt.Println(user.Name)
-	c.Set("username", user.Name)
+	zap.L().Info("jwt已经更新了")
 	u.Sex = user.Gender
 	u.PostId = user.IdCard
 	u.Address = user.Address
 	u.Email = user.Email
 	u.Birth = user.BirthDate
 	//保存更改后的数据
-	err2 := mysql.DB.Debug().Table("user").Where("username=?", u.UserName).Save(&u).Error
+	err2 := mysql.DB.Debug().Table("user").Where("user_id=?", userid).Save(&u).Error
 	if err2 != nil {
 		zap.L().Error("保存数据失败")
 		ResponseError(c, CodeError)
@@ -161,4 +160,49 @@ func UpdateUserInformation(c *gin.Context) {
 	zap.L().Info("修改成功")
 	ResponseSuccess(c, CodeSuccess)
 	return
+}
+
+func Uploads(c *gin.Context) {
+	file, err := c.FormFile("file")
+	if err != nil {
+		zap.L().Error("未上传文件")
+		c.JSON(http.StatusBadRequest, gin.H{"error": "未上传文件"})
+		return
+	}
+
+	extName := path.Ext(file.Filename)
+	allowedExtMap := map[string]bool{
+		".jpg":  true,
+		".png":  true,
+		".jpeg": true,
+	}
+	if !allowedExtMap[extName] {
+		zap.L().Error("无效的图片类型，请上传JPG、PNG或JPEG格式的图片")
+		c.JSON(http.StatusBadRequest, gin.H{"error": "无效的图片类型，请上传JPG、PNG或JPEG格式的图片"})
+		return
+	}
+
+	currentTime := time.Now().Format("2006-01-02")
+	saveDir := fmt.Sprintf("./temp/pic/%s", currentTime)
+	if err1 := os.MkdirAll(saveDir, 0755); err1 != nil {
+		zap.L().Error("目录创建失败")
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "目录创建失败"})
+		return
+	}
+
+	savePath := path.Join(saveDir, file.Filename)
+
+	err2 := c.SaveUploadedFile(file, savePath)
+	if err2 != nil {
+		zap.L().Error("图片保存失败")
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "图片保存失败"})
+		return
+	}
+
+	imageURL := "http:localhost:8081/static/" + currentTime + "/" + file.Filename
+	ResponseSuccess(c, &ResponseData{
+		Data:    imageURL,
+		Code:    CodeSuccess,
+		Message: CodeSuccess.Msg(),
+	})
 }
