@@ -80,7 +80,6 @@ export default {
   },
   methods: {
     fetchData() {
-<<<<<<< HEAD
       axios.get('/listProject')
           .then(response => {
             if (response.code === 1000) {

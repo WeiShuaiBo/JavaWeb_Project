@@ -73,6 +73,7 @@ func CreateProject2(c *gin.Context) {
 			Name:             project1.UserName,
 			University:       project1.University,
 			College:          project1.College,
+			Major:            project1.Major,
 			Email:            project1.Email,
 			Phone:            project1.Phone,
 			ProjectDirection: project1.ProjectDirection,
@@ -90,7 +91,7 @@ func CreateProject2(c *gin.Context) {
 			zap.L().Error("创建项目信息列表失败")
 			return
 		}
-		err3 := mysql.DB.Table("user").Where("user_id=?", userId1).Update("Status", "已申请").Error
+		err3 := mysql.DB.Table("user").Debug().Where("user_id=?", userId1).Update("user_status", "已申请").Error
 		if err3 != nil {
 			zap.L().Error("修改用户申请状态失败")
 			ResponseError(c, CodeError)
@@ -105,5 +106,19 @@ func CreateProject2(c *gin.Context) {
 	}
 }
 func ListProject(c *gin.Context) {
+	var ps []*models.ProjectData
+	err := mysql.DB.Debug().Find(&ps).Error
+	if err != nil {
+		zap.L().Error("获取项目列表失败")
+		ResponseError(c, CodeError)
+		return
+	}
 
+	zap.L().Info("获取项目信息成功")
+	ResponseSuccess(c, &ResponseData{
+		Data:    ps,
+		Code:    CodeSuccess,
+		Message: CodeSuccess.Msg(),
+	})
+	return
 }
