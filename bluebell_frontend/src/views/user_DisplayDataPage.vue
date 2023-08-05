@@ -81,23 +81,23 @@ export default {
   methods: {
     fetchData() {
       axios.get('/listProject')
-          .then(response => {
-            if (response.code === 1000) {
-              const data = response.data;
-              this.formData.projectSort = data.projectSort;
-              this.formData.projectName = data.projectName;
-              this.formData.Member = data.Member;
-              this.formData.Introduction = data.Introduction;
-              this.formData.Creativity = data.Creativity;
-              this.formData.Advantage = data.Advantage;
-              this.formData.Instructor = data.Instructor;
-            } else {
-              console.log(response.message);
-            }
-          })
-          .catch(error => {
-            console.log("An error occurred while fetching data.", error);
-          });
+        .then(response => {
+          if (response.code === 1000) {
+            const data = response.data;
+            this.formData.projectSort = data.projectSort;
+            this.formData.projectName = data.projectName;
+            this.formData.Member = data.Member;
+            this.formData.Introduction = data.Introduction;
+            this.formData.Creativity = data.Creativity;
+            this.formData.Advantage = data.Advantage;
+            this.formData.Instructor = data.Instructor;
+          } else {
+            console.log(response.message);
+          }
+        })
+        .catch(error => {
+          console.log("An error occurred while fetching data.", error);
+        });
     },
     goToHomePage() {
       this.$router.push({ name: 'Home' });

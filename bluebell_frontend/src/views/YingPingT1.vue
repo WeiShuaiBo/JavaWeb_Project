@@ -1,11 +1,18 @@
 <template>
     <div class="all">
+        <div class="first">
+            <p class="lingshi">
+                奶茶铺是适合大学生创业的项目。奶茶铺是小规模店铺，但市场规模惊人。投资少、见效快、收入稳定、风险小、无技术难度。奶茶店的成本低、回报快、获利高，适合大学毕业生加入创业好项目。奶茶行业投资小，无需太大的门面，装修也没有过多要求。开一家奶茶店在学校里面，吸引很多学生。
+            </p>
+        </div>
         <ul>
             <li v-for="(item, index) in navs" :key="index">
                 <span :class="index + 1 > 3 ? 'geshu1' : 'geshu'">{{ index + 1 }}</span>
                 <img :src="item.src" />
                 <div class="hang">
-                    <p class="pingming">{{ item.name }}</p>
+                    <p class="pingming">
+                        <a :href="item.link" target="_blank">{{ item.name }}</a>
+                    </p>
                     <p class="zhuyan">{{ item.title }}</p>
                     <p class="shangying">{{ item.time }}</p>
                     <p class="piao">总票数：<span class="buy">{{ item.price }}</span>万</p>
@@ -25,81 +32,81 @@ export default {
             navs: [
                 {
                     id: 1,
-                    src: require("../img/img1.jpg"),
-                    name: "2023扩散模型最新技术进展汇总",
-                    title: "随着Stable Diffusion和Midjourney等图像生成模型的爆火，今年在模型领域，扩散模型稳占主导地位。因此，与之相关的新技术也层出不穷，短短1个月，扩散模型相关的论文就有上百篇了，可见其发展的火热趋势。这次我整理了一部分最新扩散模型相关论文来和大家分享，有50+ 篇，希望能帮助同学们获取新的思路~",
+                    name: "适合大学生的创新创业项目推荐(精选8篇)",
+                    link: 'https://www.wcqjyw.com/wendang/qitafanwen/188294.html',
+                    title: "奶茶店现在的饮品加盟店做的越来越火,不断有不同的品牌走向市场。因为人们生活水平的提高,使得人们对于相关消费的追去越来越高。而加盟奶茶店的的成本低、回报快、获利高, 正是适合当今大学毕业生加入的创业好项目。",
                     time: "发布时间:2023-07-21",
                     price: "310.00",
                 },
                 {
                     id: 2,
-                    src: require("../img/img2.jpg"),
-                    name: "微服务 & 云原生：搭建 K8S 集群",
-                    title: "基础环境搭建完成后，令当前虚拟机做 Master 主机，利用虚拟机平台，比如 VMWare、VirtualBox 等的克隆功能，克隆一台 Worker 主机（当然也可以克隆多台）。注意，克隆后的多台主机要保证 ip 不同，不同软件的操作不同，具体操作此处此处不做赘述。",
+                    name: "大学生创新创业项目有哪些项目-百度知了好学",
+                    link: 'https://localsite.baidu.com/okam/pages/article/index?categoryLv1=%E6%95%99%E8%82%B2%E5%9F%B9%E8%AE%AD&ch=54&srcid=10004&strategyId=127502045499766&source=natural',
+                    title: "奶茶店国内奶茶饮食的传统和历史源远流长,奶茶已经成了人们生活中不可或缺的一部分。相比很多创业项目来说奶茶行业的投资是非常小的。无需太大的门面, 装修方面也没有过多要求，奶茶成本也不高。要说大学生做什么生意好?开什么店赚钱投资小?非奶茶店莫属。",
                     time: "发布时间:2020-11-13",
                     price: "312.00",
                 },
                 {
                     id: 3,
-                    src: require("../img/img3.jpg"),
-                    name: "SystemServer进程",
-                    title: "在systemServer启动文章中我们讲了在SystemServer.java的main方法里面调用new SystemServer().run（）方法启动System_server进程。那么我们接着看一下SystemServer.java具体做了哪些事情？",
+                    name: "适合大学生创业的几个项目",
+                    link: 'http://www.ddnx.com/zhichang/889872.html',
+                    title: "奶茶店如果你将你的目标消费群体定在学生群体,你可以开一家奶茶店在学校里面现在年轻人都非常喜欢喝奶茶, 开一家奶茶店会吸弓| 很多学生的。",
                     time: "发布时间:2020-11-27",
                     price: "300.00",
                 },
                 {
                     id: 4,
-                    src: require("../assets/images/avatar.png"),
-                    name: "【Terraform学习】Terraform-docker部署快速入门（快速入门）",
-                    title: "导航到IAM在左侧菜单中，单击角色 。单击创建角色该按钮以创建新的 IAM 角色。在创建角色部分，为角色选择可信实体类型：AWS 服务使用案例:EC2",
+                    name: "8个大学生创新创业项目",
+                    link: 'https://tongxiehui.net/bm/62616bd27eaa4.html',
+                    title: "大学生创业项目:奶茶铺时下年轻人最钟爱的休闲饮品非珍珠奶茶莫属。目前，奶茶铺大多都是以外卖形式经营的小型店铺, 虽然店铺规模不大, 但市场规模惊人。投资分析: 奶茶铺具有投入少、见效快、收入稳定、风险小、无技术难度等特点。奶茶铺的门面一般10至15平方米即可, 月租金约2000 ~5000元。开店所需的..",
                     time: "发布时间:2020-10-01",
                     price: "280.00",
                 },
                 {
                     id: 5,
-                    src: require("../assets/images/avatar.png"),
-                    name: "网络安全（黑客）自学笔记",
-                    title: "1.计算机基础知识了解了计算机的硬件、软件、操作系统和网络结构等基础知识，可以帮助您更好地理解网络安全的概念和技术。2.网络基础知识了解了网络的结构、协议、服务和安全问题，可以帮助您更好地解决网络安全的原理和技术。3.安全基础知识了解了安全的概念、原则、威吓和攻击方式，可以帮助您更好地理解网络安全的意义和必要性。",
-                    time: "发布时间:2020-11-27",
+                    name: "8个大学生创新创业项目",
+                    link: 'https://tongxiehui.net/bm/62616bd27eaa4.html',
+                    title: "大学生创业项目:奶茶铺时下年轻人最钟爱的休闲饮品非珍珠奶茶莫属。目前，奶茶铺大多都是以外卖形式经营的小型店铺, 虽然店铺规模不大, 但市场规模惊人。投资分析: 奶茶铺具有投入少、见效快、收入稳定、风险小、无技术难度等特点。奶茶铺的门面一般10至15平方米即可, 月租金约2000 ~5000元。开店所需的..",
+                    time: "发布时间:2020-10-01",
                     price: "100.00",
                 },
                 {
                     id: 6,
-                    src: require("../assets/images/avatar.png"),
-                    name: "k8s Label 2",
-                    title: "在 k8s 中，我们会轻轻松松的部署几十上百个微服务，这些微服务的版本，副本数的不同进而会带出更多的 pod这么多的 pod ，如何才能高效的将他们组织起来的，如果组织不好便会让管理微服务变得混乱不堪，杂乱无章",
+                    name: "大学生创新创业项目汇总",
+                    link: 'http://www.pincai.com/article/2537331.htm',
+                    title: "大学生创新创业项目:奶茶店国内奶茶饮食的传统和历史源远流长,奶茶已经成了人们生活中不可或缺的一部分。相比很多创业项目来说奶茶行业的投资是非常小的。无需太大的i门面, 装修方面也没有过多要求，奶茶成本也不高。要说大学生做什么生意好?开什么店最赚钱投资小?非奶茶店莫属。",
                     time: "发布时间:2020-11-09",
                     price: "859.00",
                 },
                 {
                     id: 7,
-                    src: require("../assets/images/avatar.png"),
-                    name: "基于jackson对bean的序列号和反序列化",
-                    title: "通过观察控制台输出的SQL发现页面传递过来的员工id的值和数据库中的id值不一致，这是怎么回事呢?分页查询时服务端响应给页面的数据中id的值为19位数字，类型为long页面中js处理long型数字只能精确到前16位，所以最终通过ajax请求提交给服务端的时候id就改变了前面我们已经发现了问题的原因，即js对long型数据进行处理时丢失精度，导致提交的id和数据库中的id不一致。",
+                    name: "大学生创业项目方案(精选11篇)",
+                    link: 'http://www.yjbys.com/qiuzhizhinan/show-582010.html',
+                    title: "市场调查奶茶店就是一个资金投入低、 消费人群广、回收获本快，而且i ]面非常好找的创业项目,正常除了保存3个月左右的店租、人工和日常开销外，奶茶店经营治理不必太多周转金, 非常适合小本自主创业。奶茶, 发展趋势很好, 而且有非常宏大的潜力。",
                     time: "发布时间:2020-11-13",
                     price: "723.00",
                 },
                 {
                     id: 8,
-                    src: require("../assets/images/avatar.png"),
-                    name: "j2ee相关知识点",
-                    title: "浏览器栏中，输入的是servlet的mapping映射，请求到servlet中去，jsp路径，会跳转到对应的页面Servlet接口位于最顶端，GenericServlet实现了Servlet，HttpServlet继承了GenericServlet浏览器中访问Servlet映射时，会去调用service()方法，并且会在适当的时候调用doGet",
+                    name: "关于大学生创业项目介绍(通用12篇)",
+                    link: 'https://www.sohu.com/a/128431161_572178',
+                    title: "大学生创新创业项目奶茶店国内奶茶饮食的传统和历史源远流长，奶茶已经成了人们生活中不可或缺的一部分。相比很多创业项目来说奶茶行业的投资是非常小的。无需太大的]面, 装修方面也没有过多要求，奶茶成本也不高。要说大学生做什么生意好?开什么店最赚钱投资小?非奶茶店莫属。",
                     time: "发布时间:2020-11-13",
                     price: "648.00",
                 },
                 {
                     id: 9,
-                    src: require("../assets/images/avatar.png"),
-                    name: "Docker consul的容器服务更新与发现",
-                    title: "consul服务器 192.168.44.100 运行consul服务、nginx服务、consul-template守护进程registrator服务器 192.168.44.101 运行registrator容器、运行nginx容器",
+                    name: "大学生创业创新项目有哪些",
+                    link: 'https://www.sohu.com/a/128431161_572178',
+                    title: "适合大学生创业的项目3大学生创业项目:奶茶铺时下年轻人最钟爱的休闲饮品非珍珠奶茶莫属。目前，奶茶铺大多都是以外卖形式经营的小型店铺, 虽然店铺规模不大, 但市场规模惊人。投资分析: 奶茶铺具有投入少、见效快、收入稳定、风险小、无技术难度等特点。奶茶铺的门面一般10至1 5平方米即可, 月租金约20...",
                     time: "发布时间:2020-11-30",
                     price: "319.00",
                 },
                 {
                     id: 10,
-                    src: require("../assets/images/avatar.png"),
-                    name: "2023十大最牛编程语言排行榜以及个语言的优缺点",
-                    title: "Tips：TIOBE排行榜 是根据互联网上有经验的程序员、课程和第三方厂商的数量，并使用搜索引擎（如Google、Bing、Yahoo!）以及Wikipedia、Amazon、YouTube和Baidu（百度）统计出排名数据，只是反映某个编程语言的热门程度，并不能说明一门编程语言好不好，或者一门语言所编写的代码数量多少。",
+                    name: "精选8个大学生创新创业项目，总有一个满意的",
+                    link: 'https://www.sohu.com/a/128431161_572178',
+                    title: "大学生创新创业项目:奶茶店国内奶茶饮食的传统和历史源远流长，奶茶已经成了人们生活中不可或缺的一部分。相比很多创业项目来说，奶茶行业的投资是非常小的。无需太大的i ]面, 装修方面也没有过多要求，奶茶成本也不高。要说大学生做什么生意好?开什么店最赚钱投资小?非奶茶店莫属。",
                     time: "发布时间:2023-07-25",
                     price: "835.00",
                 },
@@ -111,6 +118,7 @@ export default {
 <style scoped>
 .all {
     width: 100%;
+    position: relative;
 }
 
 /* ul样式 */
@@ -151,6 +159,30 @@ li:hover {
     color: #fff;
 }
 
+.first {
+    position: absolute;
+    top: -110px;
+    /* 调整距离ul的上方距离 */
+    left: 120px;
+    width: 600px;
+    height: 100%;
+    bottom: 300px;
+}
+
+
+.lingshi {
+    font-size: 17px;
+    margin: 0;
+    padding: 10px 5px;
+    border-radius: 24px;
+    background-color: #fff;
+}
+
+ul {
+    margin-top: 100px;
+    /* 调整ul与上方内容之间的距离 */
+}
+
 /* 所有的li左侧的序列号除前三个外 采用 */
 .geshu1 {
     display: block;
@@ -167,20 +199,14 @@ li:hover {
 }
 
 /* 设置图片的位置 采用绝对定位 */
-img {
-    position: absolute;
-    left: 100px;
-    margin-top: 10PX;
-    height: 100px;
-    width: 100px;
-}
+
 
 /* 对右侧包裹的div进行设置样式 */
 .hang {
     width: 600px;
     height: 100%;
     position: absolute;
-    left: 300px;
+    left: 120px;
     top: 70px;
 }
 

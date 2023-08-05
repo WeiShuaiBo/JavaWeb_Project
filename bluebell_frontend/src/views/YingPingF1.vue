@@ -9,7 +9,9 @@
             <li v-for="(item, index) in navs" :key="index">
                 <span :class="index + 1 > 3 ? 'geshu1' : 'geshu'">{{ index + 1 }}</span>
                 <div class="hang">
-                    <p class="pingming">{{ item.name }}</p>
+                    <p class="pingming">
+                        <a :href="item.link" target="_blank">{{ item.name }}</a>
+                    </p>
                     <p class="zhuyan">{{ item.title }}</p>
                     <p class="shangying">{{ item.time }}</p>
                     <p class="piao">总票数：<span class="buy">{{ item.price }}</span>万</p>
@@ -29,75 +31,81 @@ export default {
             navs: [
                 {
                     id: 1,
-                    name: "适合大学生创业的项目有哪些",
+                    name: "适合大学生创业的项目有哪些(精选9篇)",
+                    link: 'http://www.gdyjs.com/chuangye/145749.html',
                     title: "甜食小吃店开甜食小吃店相对比较简单但由于开的人多，竞争就相对的激烈。甜食小吃店比较适合女性开。由于这类店的特点决定了顾客以女性为主，所以在选址时要开在女性来往较多的地方, 譬如临近商店、女子学校或工厂, 以及街口附近。开店前, 首先要分析顾客的身 份，如家庭主妇、女学生或女职员等。",
-                    time: "发布时间:2020-11-13",
+                    time: "发布时间:2022-11-13",
                     price: "312.00",
                 },
                 {
                     id: 2,
-                    name: "2023扩散模型最新技术进展汇总",
-                    title: "随着Stable Diffusion和Midjourney等图像生成模型的爆火，今年在模型领域，扩散模型稳占主导地位。因此，与之相关的新技术也层出不穷，短短1个月，扩散模型相关的论文就有上百篇了，可见其发展的火热趋势。这次我整理了一部分最新扩散模型相关论文来和大家分享，有50+ 篇，希望能帮助同学们获取新的思路~",
+                    name: "适合大学生的创业项目推荐(精选8篇)",
+                    link: 'https://www.wcqjyw.com/wendang/qitafanwen/188294.html',
+                    title: "零食店近年来随着休闲食品市场需求量的不断上涨加之本小利大的优势,零食店成为了万人青睐的创业项目。众所周知休闲食品主要的目标消费群体为年轻人, 因此对于大学毕业生来说开一家零食店是一 个非常不错的创业方向。很多人倾向于这类商品的消费和购买, 因此这种零食店的加盟也是很火的。",
                     time: "发布时间:2023-07-21",
                     price: "310.00",
                 },
                 {
                     id: 3,
-                    name: "【Terraform学习】Terraform-docker部署快速入门（快速入门）",
-                    title: "导航到IAM在左侧菜单中，单击角色 。单击创建角色该按钮以创建新的 IAM 角色。在创建角色部分，为角色选择可信实体类型：AWS 服务使用案例:EC2",
+                    name: "大学生创业创新项目有",
+                    link: 'https://jiameng.baidu.com/content/detail/106962826846?from=search&rid=1.24.27.89',
+                    title: "零食店近年来随着休闲食品市场需求量的不断上涨,加之本小利大的优垫，零食店成为了万人青睐的创业项目, 众所周知休闲食品主要的目标消费群体为年轻人, 因此对于大学毕业生来说开一家零食店是一个非常不错的创业方向。很多人倾向于这类商品的消费和购买因此这种零食店的加盟也是很火的。",
                     time: "发布时间:2020-10-01",
                     price: "280.00",
                 },
                 {
                     id: 4,
-                    name: "网络安全（黑客）自学笔记",
-                    title: "1.计算机基础知识了解了计算机的硬件、软件、操作系统和网络结构等基础知识，可以帮助您更好地理解网络安全的概念和技术。2.网络基础知识了解了网络的结构、协议、服务和安全问题，可以帮助您更好地解决网络安全的原理和技术。3.安全基础知识了解了安全的概念、原则、威吓和攻击方式，可以帮助您更好地理解网络安全的意义和必要性。",
+                    name: "大学生创新创业项目有哪些项目-百度知了好学",
+                    link: 'https://jiameng.baidu.com/content/detail/106962826846?from=search&rid=1.24.27.89',
+                    title: "低热量零食店零食对于小孩还有女孩子都是他们专属的东西,相信很多人都会有吃这些东西的习惯，可是零食里面的热量含量高, 只要多吃的话, 就会造成发胖的现象, 那么现在就是需要含量低的东西。弥补了市场当中比较大的缺陷。目前的市场需求还是在不断的扩大当中, 他们主打健康, 而且在很多方面比较的便利, 也是大学...",
                     time: "发布时间:2020-11-27",
                     price: "100.00",
                 },
                 {
                     id: 5,
-                    name: "2023十大最牛编程语言排行榜以及个语言的优缺点",
-                    title: "Tips：TIOBE排行榜 是根据互联网上有经验的程序员、课程和第三方厂商的数量，并使用搜索引擎（如Google、Bing、Yahoo!）以及Wikipedia、Amazon、YouTube和Baidu（百度）统计出排名数据，只是反映某个编程语言的热门程度，并不能说明一门编程语言好不好，或者一门语言所编写的代码数量多少。",
+                    name: "大学生创业创新项目3篇",
+                    link: 'https://localsite.baidu.com/okam/pages/article/index?categoryLv1=%E6%95%99%E8%82%B2%E5%9F%B9%E8%AE%AD&ch=54&srcid=10004&strategyId=127502045499766&source=natural',
+                    title: "低热量零食店零食对于小孩还有女孩子都是他们专属的东西,相信很多人都会有吃这些东西的习惯，可是零食里面的热量含量高, 只要多吃的话, 就会造成发胖的现象, 那么现在就是需要含量低的东西。弥补了市场当中比较大的缺陷。目前的市场需求还是在不断的扩大当中, 他们主打健康, 而且在很多方面比较的便利, 也是大学...",
                     time: "发布时间:2023-07-25",
                     price: "835.00",
                 },
                 {
                     id: 6,
-                    name: "SystemServer进程",
-                    title: "在systemServer启动文章中我们讲了在SystemServer.java的main方法里面调用new SystemServer().run（）方法启动System_server进程。那么我们接着看一下SystemServer.java具体做了哪些事情？",
+                    name: "适合大学生创业的几个项目",
+                    link: 'http://wen.51tietu.net/gushi/1303253.html',
+                    title: "小吃店或者可以开一家小吃店,可以开在学校内,也可以选择走出学校开在学校外面,例如商圈附近或者是居民楼附近都是可以的。",
                     time: "发布时间:2020-11-27",
                     price: "300.00",
                 },
                 {
                     id: 7,
-                    src: require("../assets/images/avatar.png"),
-                    name: "k8s Label 2",
-                    title: "在 k8s 中，我们会轻轻松松的部署几十上百个微服务，这些微服务的版本，副本数的不同进而会带出更多的 pod这么多的 pod ，如何才能高效的将他们组织起来的，如果组织不好便会让管理微服务变得混乱不堪，杂乱无章",
+                    name: "8个大学生创新创业项目",
+                    link: 'http://www.ddnx.com/zhichang/889872.html',
+                    title: "大学生创新创业项目:小吃店大学生如何快速赚钱?选对行业选对创业项目,其实赚钱很容易!今年1 -9月，我国小吃业的营业收入达到了14737.1亿元, 同比增长达到16.5%, 占社会消费品零售总额比重11.3%。有没有快速致富好项目?现在小吃行业的发展前景十分广阔投资者在创业时, 选择经营一家小吃加盟店可以获得好的..",
                     time: "发布时间:2020-11-09",
                     price: "859.00",
                 },
                 {
                     id: 8,
-                    src: require("../assets/images/avatar.png"),
-                    name: "基于jackson对bean的序列号和反序列化",
+                    name: "大学生创新创业项目哪些好(集锦8篇)",
+                    link: 'https://www.gerenjianli.cn/fwdq/shiyongwen/10332667.html',
                     title: "通过观察控制台输出的SQL发现页面传递过来的员工id的值和数据库中的id值不一致，这是怎么回事呢?分页查询时服务端响应给页面的数据中id的值为19位数字，类型为long页面中js处理long型数字只能精确到前16位，所以最终通过ajax请求提交给服务端的时候id就改变了前面我们已经发现了问题的原因，即js对long型数据进行处理时丢失精度，导致提交的id和数据库中的id不一致。",
                     time: "发布时间:2020-11-13",
                     price: "723.00",
                 },
                 {
                     id: 9,
-                    src: require("../assets/images/avatar.png"),
-                    name: "Docker consul的容器服务更新与发现",
-                    title: "consul服务器 192.168.44.100 运行consul服务、nginx服务、consul-template守护进程registrator服务器 192.168.44.101 运行registrator容器、运行nginx容器",
+                    name: "大学生的创业项目有哪些_百度知道",
+                    link: 'https://zhidao.baidu.com/question/1804164917568011987.html?device=mobile&ssid=0&from=0&uid=0&pu=usm%400%2Csz%40224_220%2Cta%40sf___24_114.0&bd_page_type=1&baiduid=5F9014AE4050DF91F50204E22D26BF90&tj=tc',
+                    title: "炸鸡小吃店金黄香脆的外皮鲜嫩多汁的鸡肉,满口香辣咸麻,掀起了-股全民吃炸鸡的热浪。对于大学生来说, 不管是在学校附近还是在休闲娱乐地段, 开一家炸鸡小吃店都是相当棒的选择。开一家炸鸡小吃店的投资也不多, 5-7万元即可开业。大学生资金不足, 可以和三五亲朋好友合伙开店, 各自分: 工店面运营的相关事宜。",
                     time: "发布时间:2020-11-30",
                     price: "319.00",
                 },
                 {
                     id: 10,
-                    src: require("../assets/images/avatar.png"),
-                    name: "j2ee相关知识点",
-                    title: "浏览器栏中，输入的是servlet的mapping映射，请求到servlet中去，jsp路径，会跳转到对应的页面Servlet接口位于最顶端，GenericServlet实现了Servlet，HttpServlet继承了GenericServlet浏览器中访问Servlet映射时，会去调用service()方法，并且会在适当的时候调用doGet",
+                    name: "大学生创新创业项目汇总",
+                    link: 'http://www.cnrencai.com/goldjob/xiangmu/760028.html',
+                    title: "炸鸡小吃店金黄香脆的外皮鲜嫩多汁的鸡肉,满口香辣咸麻,掀起了-股全民吃炸鸡的热浪。对于大学生来说, 不管是在学校附近还是在休闲娱乐地段, 开一家炸鸡小吃店都是相当棒的选择。开一家炸鸡小吃店的投资也不多, 5-7万元即可开业。大学生资金不足, 可以和三五亲朋好友合伙开店, 各自分: 工店面运营的相关事宜。",
                     time: "发布时间:2020-11-13",
                     price: "648.00",
                 },
