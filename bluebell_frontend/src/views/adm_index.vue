@@ -42,7 +42,7 @@
                                 </div>
                                 <span class="navbar-page-title"> 信息列表 </span>
                             </div>
-                            <span class="navbar-page-title">剩余投票数: {{ status }}票</span>
+                            <span class="navbar-page-title">管理员平台</span>
                             <div class="topbar-right">
                                 <ul class="dropdown dropdown-profile">
                                     <li>
@@ -103,35 +103,38 @@
                                                                 <input type="checkbox" v-model="selectAll"><span></span>
                                                             </label>
                                                         </th>
-                                                        <th>编号</th>
-                                                        <th>类型</th>
-                                                        <th>名字</th>
-                                                        <th>内容</th>
-                                                        <th>发起时间</th>
-                                                        <th>截止时间</th>
-                                                        <th>剩余时间</th>
-                                                        <th>投票票数</th>
+                                                        <th>申报类型</th>
+                                                        <th>项目名称</th>
+                                                        <th>项目成员</th>
+                                                        <th>项目介绍</th>
+                                                        <th>项目创意</th>
+                                                        <th>申请优势</th>
+                                                        <th>指导老师</th>
                                                         <th>操作</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr v-for="item in res" :key="item.Id">
+                                                    <tr v-for="(item, index) in formData" :key="index">
                                                         <td>
                                                             <label class="lyear-checkbox checkbox-primary">
                                                                 <input type="checkbox" v-model="selectedItems"
                                                                     :value="item.Id"><span></span>
                                                             </label>
                                                         </td>
-                                                        <td>{{ item.Id }}</td>
-                                                        <td>{{ item.TicketKind }}</td>
-                                                        <td>{{ item.TickName }}</td>
-                                                        <td>{{ item.Context }}</td>
-                                                        <td>{{ item.TicketCreateTime }}</td>
-                                                        <td>{{ item.TicketEndTime }}</td>
-                                                        <td>{{ item.CountdownFormatted }}</td>
-                                                        <td>{{ item.TicketNum }}</td>
+                                                        <td>{{ item.projectSort }}</td>
+                                                        <td>{{ item.projectName }}</td>
+                                                        <td>{{ item.member }}</td>
+                                                        <td>{{ item.introduction }}</td>
+                                                        <td>{{ item.creativity }}</td>
+                                                        <td>{{ item.advantage }}</td>
+                                                        <td>{{ item.instructor }}</td>
+
                                                         <td>
-                                                            <button type="button" @click="submitForm(item.Id)">投票</button>
+                                                            <button class="button1" type="button"
+                                                                @click="sendto">审批</button>
+
+                                                            <button class="button1" type="button"
+                                                                @click="submitForm(item.Id)">删除</button>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -158,23 +161,47 @@
 
 <script>
 import axios from 'axios';
-// import "../../public/static/css/bootstrap.min.css";
-// import "../../public/static/css/materialdesignicons.min.css";
-// import "../../public/static/css/style.min.css";
-// import "../../public/static/css/eye.css";
+
 export default {
     name: 'admindex',
     data() {
         return {
-            status: 0, // 剩余投票数
-            res: [], // 投票信息列表
+            formData: {
+                projectSort: '',
+                projectName: '',
+                Member: [''], // Initialize with an empty member input
+                Introduction: '',
+                Creativity: '',
+                Advantage: '',
+                Instructor: [''] // Initialize with an empty instructor input
+            },
             keyword: '', // 搜索关键词
             selectAll: false, // 是否全选
             selectedItems: [], // 已选中的投票项
             showHeadBar: false, // 控制是否显示 HeadBar 组件
         };
     },
+    mounted() {
+        this.fetchData();
+    },
     methods: {
+        fetchData() {
+            axios.get('/listProject')
+                .then(response => {
+                    if (response.data.code === 1000) {
+                        this.formData = response.data.data
+                        console.log(response.data.data)
+                    } else {
+                        console.log(response.message);
+                    }
+                })
+                .catch(error => {
+                    console.log("An error occurred while fetching data.", error);
+                });
+        },
+        sendto() {
+            this.$router.push({ name: "admadd" });
+        },
         // 设置搜索字段
         setSearchField(field) {
             document.getElementById('search-field').value = field;
@@ -186,7 +213,7 @@ export default {
             const formData = new FormData(form);
             axios.post('/submit', formData)
                 .then((response) => {
-                    alert(response.data);
+                    console.log(response.data);
                     this.refreshData();
                 })
                 .catch((error) => {
@@ -240,26 +267,27 @@ export default {
             //     console.error(error);
             //   });
         },
-        // 更新倒计时
-        updateCountdown() {
-            this.res.forEach((item) => {
-                if (item.Countdown > 0) {
-                    item.Countdown -= 1000;
-                    const days = Math.floor(item.Countdown / (24 * 60 * 60 * 1000));
-                    const hours = Math.floor((item.Countdown % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
-                    const minutes = Math.floor((item.Countdown % (60 * 60 * 1000)) / (60 * 1000));
-                    const seconds = Math.floor((item.Countdown % (60 * 1000)) / 1000);
-                    item.CountdownFormatted = `${days}天${hours}时${minutes}分${seconds}秒`;
-                } else {
-                    item.CountdownFormatted = '已结束';
-                }
-            });
-        },
+        // // 更新倒计时
+        // updateCountdown() {
+        //     this.res.forEach((item) => {
+        //         if (item.Countdown > 0) {
+        //             item.Countdown -= 1000;
+        //             const days = Math.floor(item.Countdown / (24 * 60 * 60 * 1000));
+        //             const hours = Math.floor((item.Countdown % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+        //             const minutes = Math.floor((item.Countdown % (60 * 60 * 1000)) / (60 * 1000));
+        //             const seconds = Math.floor((item.Countdown % (60 * 1000)) / 1000);
+        //             item.CountdownFormatted = `${days}天${hours}时${minutes}分${seconds}秒`;
+        //         } else {
+        //             item.CountdownFormatted = '已结束';
+        //         }
+        //     });
+        // },
+
     },
-    mounted() {
-        this.refreshData();
-        setInterval(this.updateCountdown, 1000);
-    },
+    // mounted() {
+    //     this.refreshData();
+    //     setInterval(this.updateCountdown, 1000);
+    // },
 };
 </script>
 <style>
@@ -267,5 +295,17 @@ export default {
     width: 60px;
     height: 40px;
     background-color: aquamarine;
+}
+
+.button1 {
+
+    width: 60px;
+    /* 调整宽度以适应你的需要 */
+    text-align: center;
+    padding: 0.5em;
+    background-color: #1e90ff;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 30px;
 }
 </style>

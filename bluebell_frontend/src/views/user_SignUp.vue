@@ -9,7 +9,9 @@
             <input type="text" placeholder="账号" v-model="username" />
             <input type="password" placeholder="密码" v-model="password" />
             <input type="password" placeholder="确认密码" v-model="re_password" />
-            <div class="button" @click="submit()">注册</div>
+            <div class="button-container">
+              <div class="button" @click="submit()">注册</div>
+            </div>
           </form>
         </div>
         <div class="overlay-container">
@@ -171,7 +173,15 @@ a {
   width: 100%;
 }
 
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
 .button {
+  display: block;
   cursor: pointer;
   border-radius: 20px;
   /* border: 1px solid #ff4b2b;
@@ -189,6 +199,12 @@ a {
   text-transform: uppercase;
   transition: transform 80ms ease-in;
   font-size: 15px;
+  text-align: center;
+  padding: 0.5em;
+  background-color: #1e90ff;
+  color: #fff;
+  cursor: pointer;
+  width: 190px;
 }
 
 input[type="text"] {

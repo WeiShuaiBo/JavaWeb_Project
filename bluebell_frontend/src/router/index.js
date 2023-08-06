@@ -13,6 +13,7 @@ import Fu from '../views/Fu.vue'
 import Fu1 from '../views/Fu1.vue'
 import admlogin from '../views/adm_login.vue'
 import admindex from '../views/adm_index.vue'
+import admadd from '../views/adm_add.vue'
 
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
@@ -88,6 +89,11 @@ const routes = [
     path: '/admindex',
     name: "admindex",
     component: admindex,
+  },
+  {
+    path: '/admadd',
+    name: "admadd",
+    component: admadd,
   }
 ]
 

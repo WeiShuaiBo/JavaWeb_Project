@@ -17,8 +17,16 @@
                 <button @click="refresh">刷新</button>
               </div>
             </div>
-            <div class="button" @click="submit()">登录</div>
-            <div class="button" @click="sendadm()">管理员登录</div>
+            <div class="button-container">
+              <div class="button" @click="submit()">登录</div>
+
+            </div>
+            <div class="button-container">
+
+              <div class="button" @click="sendadm()">管理员登录</div>
+            </div>
+            <!-- <div class="button" @click="submit()">登录</div>
+            <div class="button" @click="sendadm()">管理员登录</div> -->
           </form>
         </div>
         <div class="overlay-container">
@@ -191,7 +199,15 @@ a {
   width: 100%;
 }
 
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
 .button {
+  display: block;
   cursor: pointer;
   border-radius: 20px;
   /* border: 1px solid #ff4b2b;
@@ -208,8 +224,13 @@ a {
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: transform 80ms ease-in;
-  text-align: center;
   font-size: 15px;
+  text-align: center;
+  padding: 0.5em;
+  background-color: #1e90ff;
+  color: #fff;
+  cursor: pointer;
+  width: 190px;
 }
 
 input[type="text"] {
