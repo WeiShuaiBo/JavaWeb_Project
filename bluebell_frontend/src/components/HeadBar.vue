@@ -1,49 +1,66 @@
 <template>
-  <header class="header">
+  <div v-if="shouldShowComponent">
+    <header class="header">
       <span class="logo" @click="goIndex">bluebell</span>
-    <div class="search">
-      <label class="s-logo"></label>
-      <input type="text" class="s-input" placeholder="搜索" />
-    </div>
-    <div class="btns">
-      <div v-show="!isLogin">
-        <a class="login-btn" @click="goLogin">登录</a>
-        <a class="login-btn" @click="goSignUp">注册</a>
+      <div class="search">
+        <label class="s-logo"></label>
+        <input type="text" class="s-input" placeholder="搜索" />
       </div>
-      <div class="user-box" v-show="isLogin">
-        <span class="user">{{ currUsername }}</span>
-        <div class="dropdown-content">
-          <a @click="goRegistration">点击报名</a>
-          <a @click="goDisplayDataPage">报名信息</a>
-          <a @click="goDisplayInformation">个人信息</a>
-          <a @click="goLogout">登出</a>
+      <div class="btns">
+        <div v-show="!isLogin">
+          <a class="login-btn" @click="goLogin">登录</a>
+          <a class="login-btn" @click="goSignUp">注册</a>
+        </div>
+        <div class="user-box" v-show="isLogin">
+          <img class="user" :src="this.url !== '' ? this.url : '/static/img/img1.7b6ff569.jpg'" alt="Avatar">
+          <div class="dropdown-content">
+            <a @click="goRegistration">点击报名</a>
+            <a @click="goDisplayDataPage">报名信息</a>
+            <a @click="goDisplayInformation">个人信息</a>
+            <a @click="goLogout">登出</a>
+          </div>
         </div>
       </div>
-    </div>
-  </header>
+    </header>
+  </div>
 </template>
 
 <script>
+
 //将组件导出
 export default {
   name: "HeadBar",
   //created生命周期钩子函数用于在组件创建时调用this.$store.commit("init")来初始化一些数据
-  created(){
-    this.$store.commit("init");
+  data() {
+    return {
+      url: '',
+      shouldShowComponent: true, // 控制是否显示公共组件
+    }
   },
+  created() {
+    this.$store.commit("init");
+    this.$root.$on('sendToheader', (value) => {
+      this.url = value
+      console.log(value)
+    })
+    if (this.$route.path === '/admindex') {
+      this.shouldShowComponent = false;
+    }
+  },
+
   //computed属性中的isLogin和currUsername用于获取和计算一些数据
   computed: {
     isLogin() {
       return this.$store.getters.isLogin;
     },
-    currUsername(){
+    currUsername() {
       console.log(this.$store.getters.username);
       return this.$store.getters.username;
-    }
+    },
   },
   //methods部分定义了一些方法，如goIndex，用于路由跳转。
   methods: {
-    goIndex(){
+    goIndex() {
       this.$router.push({ name: "Home" });
     },
     goLogin() {
@@ -53,17 +70,17 @@ export default {
       this.$router.push({ name: "SignUp" });
     },
     goRegistration() {
-      this.$router.push({ name: "Registration"})
+      this.$router.push({ name: "Registration" })
     },
     goDisplayDataPage() {
-      this.$router.push({name:"DisplayDataPage"})
+      this.$router.push({ name: "DisplayDataPage" })
     },
-    goDisplayInformation(){
-      this.$router.push({name:"UserInformation"})
+    goDisplayInformation() {
+      this.$router.push({ name: "UserInformation" })
     },
-    goLogout(){
+    goLogout() {
       this.$store.commit("logout");
-    }
+    },
   }
 };
 </script>
@@ -80,6 +97,7 @@ export default {
   align-items: center;
   top: 0;
   z-index: 1;
+
   .logo {
     margin-left: 10px;
     height: 32px;
@@ -92,6 +110,7 @@ export default {
     margin-right: 16px;
     cursor: pointer;
   }
+
   .search {
     flex-grow: 1;
     margin: 0 auto;
@@ -99,6 +118,7 @@ export default {
     position: relative;
     display: flex;
     display: -webkit-flex;
+
     .s-logo {
       width: 18px;
       height: 18px;
@@ -110,6 +130,7 @@ export default {
       margin-top: -9px;
       left: 15px;
     }
+
     .s-input {
       flex-grow: 1;
       -webkit-appearance: none;
@@ -126,6 +147,7 @@ export default {
       width: 100%;
     }
   }
+
   .btns {
     flex-grow: 0;
     margin-left: 16px;
@@ -133,6 +155,7 @@ export default {
     display: flex;
     display: -webkit-flex;
     align-items: center;
+
     .login-btn {
       border: 1px solid transparent;
       border-radius: 4px;
@@ -151,25 +174,29 @@ export default {
       fill: #0079d3;
       display: inline-block;
       cursor: pointer;
+
       &:nth-child(1) {
         margin-right: 5px;
       }
+
       &:nth-child(2) {
         margin-right: 10px;
       }
     }
+
     .user {
       width: auto;
-      height: 24px;
-      background: url("../assets/images/avatar.png") no-repeat;
-      background-size: 24px 24px;
-      background-position: left center;
-      padding-left: 28px;
+      height: 36px;
+      background-size: 54px 24px;
+      // background-position: left center;
+      // padding-left: 28px;
       display: flex;
-      display: -webkit-flex;
-      align-items: center;
+      // display: -webkit-flex;
+      // align-items: center;
       cursor: pointer;
       padding: 12px 71px 12px 28px;
+      border-radius: 25%;
+
       &::after {
         content: "";
         width: 0;
@@ -182,12 +209,14 @@ export default {
         margin-left: 10px;
       }
     }
+
     .dropdown-content {
       display: none;
       position: absolute;
       background-color: #f9f9f9;
       min-width: 160px;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+
       a {
         color: black;
         padding: 12px 16px;
@@ -195,12 +224,16 @@ export default {
         display: block;
         cursor: pointer;
       }
-      a:hover {background-color: #f1f1f1}
+
+      a:hover {
+        background-color: #f1f1f1
+      }
     }
+
     .user-box:hover .dropdown-content {
       display: block;
     }
   }
-  
+
 }
 </style>

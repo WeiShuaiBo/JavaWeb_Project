@@ -11,6 +11,8 @@ import Declaration from "../views/user_Declaration.vue"
 import UserInformation from '../views/user_Information.vue'
 import Fu from '../views/Fu.vue'
 import Fu1 from '../views/Fu1.vue'
+import admlogin from '../views/adm_login.vue'
+import admindex from '../views/adm_index.vue'
 
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
@@ -76,6 +78,16 @@ const routes = [
     path: '/fu1',
     name: "Fu1",
     component: Fu1,
+  },
+  {
+    path: '/admlogin',
+    name: "admlogin",
+    component: admlogin,
+  },
+  {
+    path: '/admindex',
+    name: "admindex",
+    component: admindex,
   }
 ]
 

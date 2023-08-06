@@ -27,12 +27,12 @@
             <div class="con-memo">
               <p>{{ post.content }}</p>
             </div>
-            <!-- <div class="user-btn">
+            <div class="user-btn">
               <span class="btn-item">
                 <i class="iconfont icon-comment"></i>
-                <span>{{post.comments}} comments</span>
+                <span>{{ post.comments }} comments</span>
               </span>
-            </div> -->
+            </div>
           </div>
         </li>
       </ul>

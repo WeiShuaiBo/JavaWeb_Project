@@ -1,0 +1,14 @@
+body {
+    background-color: #e3d5ad;
+    color: #333333;
+}
+
+/* 侧边栏 */
+.lyear-layout-web .lyear-layout-sidebar  .lyear-layout-sideba{
+    background-color: #e3d5ad;
+}
+
+/* 头部 */
+.lyear-layout-web .lyear-layout-header {
+    background-color: rgba(173, 227, 206, 0.89);
+}

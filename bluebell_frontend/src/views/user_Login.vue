@@ -18,6 +18,7 @@
               </div>
             </div>
             <div class="button" @click="submit()">登录</div>
+            <div class="button" @click="sendadm()">管理员登录</div>
           </form>
         </div>
         <div class="overlay-container">
@@ -41,7 +42,7 @@
 import axios from "axios";
 import Swallow from "sweetalert2";
 export default {
-  name: "SignUp",
+  name: "Login",
   data() {
     return {
       username: "",
@@ -92,6 +93,9 @@ export default {
           console.log(error);
         });
     },
+    sendadm() {
+      this.$router.push({ name: "admlogin" });
+    }
   },
 };
 </script>
@@ -204,6 +208,8 @@ a {
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: transform 80ms ease-in;
+  text-align: center;
+  font-size: 15px;
 }
 
 input[type="text"] {

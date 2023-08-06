@@ -1,54 +1,52 @@
 <template>
   <div class="display">
-    <div class="display-data-page">
+    <div class="display-data-page" v-for="(item, index) in formData" :key="index">
       <h2>已提交申请信息</h2>
-      <div v-if="formData" class="data-table">
+      <div class="data-table">
         <div>
-          <strong>组长姓名：</strong>{{ formData.name }}
+          <strong>组长姓名：</strong>{{ item.name }}
         </div>
         <div>
-          <strong>学校：</strong>{{ formData.university }}
+          <strong>学校：</strong>{{ item.university }}
         </div>
         <div>
-          <strong>学院：</strong>{{ formData.college }}
+          <strong>学院：</strong>{{ item.college }}
         </div>
         <div>
-          <strong>专业：</strong>{{ formData.major }}
+          <strong>专业：</strong>{{ item.major }}
         </div>
         <div>
-          <strong>邮箱：</strong>{{ formData.email }}
+          <strong>邮箱：</strong>{{ item.email }}
         </div>
         <div>
-          <strong>手机号码：</strong>{{ formData.phone }}
+          <strong>手机号码：</strong>{{ item.phone }}
         </div>
         <div>
-          <strong>申报类型：</strong>{{ formData.projectDirection }}
+          <strong>申报类型：</strong>{{ item.projectDirection }}
         </div>
         <div>
-          <strong>项目类型：</strong>{{ formData.projectSort }}
+          <strong>项目类型：</strong>{{ item.projectSort }}
         </div>
         <div>
-          <strong>项目名称：</strong>{{ formData.projectName }}
+          <strong>项目名称：</strong>{{ item.projectName }}
         </div>
         <div>
-          <strong>项目成员：</strong>{{ formData.Member }}
+          <strong>项目成员：</strong>{{ item.member }}
         </div>
         <div>
-          <strong>项目介绍：</strong>{{ formData.Introduction }}
+          <strong>项目介绍：</strong>{{ item.introduction }}
         </div>
         <div>
-          <strong>项目创意：</strong>{{ formData.Creativity }}
+          <strong>项目创意：</strong>{{ item.creativity }}
         </div>
         <div>
-          <strong>申请优势：</strong>{{ formData.Advantage }}
+          <strong>申请优势：</strong>{{ item.advantage }}
         </div>
         <div>
-          <strong>指导老师：</strong>{{ formData.Instructor }}
+          <strong>指导老师：</strong>{{ item.instructor }}
         </div>
       </div>
-      <div v-else class="no-data-message">
-        暂无数据
-      </div>
+
     </div>
     <div class="show">
       <button :disabled="isSubmitting" type="submit" @click="goToHomePage">
@@ -63,16 +61,10 @@ import axios from 'axios';
 
 export default {
   name: "DisplayDataPage",
-
-  computed: {
-    formData() {
-      return this.$store.state.formData;
-    },
-  },
   data() {
     return {
       isSubmitting: false,
-      formData1: []
+      formData: []
     };
   },
   mounted() {
@@ -82,15 +74,9 @@ export default {
     fetchData() {
       axios.get('/listProject')
         .then(response => {
-          if (response.code === 1000) {
-            const data = response.data;
-            this.formData.projectSort = data.projectSort;
-            this.formData.projectName = data.projectName;
-            this.formData.Member = data.Member;
-            this.formData.Introduction = data.Introduction;
-            this.formData.Creativity = data.Creativity;
-            this.formData.Advantage = data.Advantage;
-            this.formData.Instructor = data.Instructor;
+          if (response.data.code === 1000) {
+            this.formData = response.data.data
+            console.log(response.data.data)
           } else {
             console.log(response.message);
           }

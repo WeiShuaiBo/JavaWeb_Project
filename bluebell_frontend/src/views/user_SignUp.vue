@@ -188,6 +188,7 @@ a {
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: transform 80ms ease-in;
+  font-size: 15px;
 }
 
 input[type="text"] {
