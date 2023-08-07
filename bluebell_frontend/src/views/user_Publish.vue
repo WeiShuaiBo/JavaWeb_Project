@@ -35,8 +35,8 @@
         </div>
         <div class="post-footer">
           <div class="btns">
-            <button class="btn">取消</button>
             <button class="btn" @click="submit()">发表</button>
+            <button class="btn">取消</button>
           </div>
         </div>
       </div>
@@ -93,7 +93,7 @@ export default {
         })
       })
         .then(response => {
-          alert("fabiao")
+          alert("发表成功")
           if (response.code == 1000) {
             this.$router.push({ path: this.redirect || "/" });
           } else {
@@ -368,6 +368,8 @@ export default {
         }
 
         .btns {
+          display: flex;
+
           .btn {
             border: 1px solid transparent;
             border-radius: 4px;

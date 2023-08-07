@@ -71,6 +71,9 @@
                                 <div class="card-body">
                                     <form @submit.prevent="submitForm" class="row">
                                         <div class="form-group col-md-12">
+                                            <strong>项目名称：</strong>{{ projectName }}
+                                        </div>
+                                        <div class="form-group col-md-12">
                                             <label for="type">审批结果</label>
                                             <div class="form-controls">
                                                 <select v-model="tickKind" name="tickKind" class="form-control" id="type">
@@ -117,12 +120,19 @@ export default {
     name: 'admadd',
     data() {
         return {
+            projectName: '',
             tickKind: '', // 投票类型
             tickReason: '', // 投票标题
             context: '', // 投票描述
             ticketCreateTime: '', // 开始时间
 
         };
+    },
+    created() {
+        // 使用$route.params来获取传递的参数
+        const projectName = this.$route.params.projectName;
+        this.projectName = projectName
+        // 在这里处理projectName的逻辑
     },
     methods: {
         // 处理表单提交

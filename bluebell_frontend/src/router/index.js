@@ -91,7 +91,7 @@ const routes = [
     component: admindex,
   },
   {
-    path: '/admadd',
+    path: '/admadd/:projectName',
     name: "admadd",
     component: admadd,
   }

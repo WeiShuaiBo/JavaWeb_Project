@@ -45,6 +45,9 @@
         <div>
           <strong>指导老师：</strong>{{ item.instructor }}
         </div>
+        <div>
+          <strong style="color: brown;">申请状态：</strong>{{ item.instatus }}
+        </div>
       </div>
 
     </div>
