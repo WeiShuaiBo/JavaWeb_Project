@@ -222,7 +222,7 @@ export default {
                 });
         },
         sendTohome() {
-            this.$router.push({ name: "SignUp" })
+            this.$router.push({ name: "Login" })
         },
         // 处理删除按钮点击
         handleDelete() {
