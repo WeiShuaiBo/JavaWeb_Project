@@ -84,6 +84,7 @@ func CreateProject2(c *gin.Context) {
 			Creativity:       p.ProjectDetailIdea,
 			Advantage:        p.ProjectDetailAdv,
 			Instructor:       p.ProjectDetailTea,
+			Status:           "待审批",
 		}
 		fmt.Println(p3)
 		err2 := mysql.DB.Debug().Create(&p3).Error
@@ -120,5 +121,41 @@ func ListProject(c *gin.Context) {
 		Code:    CodeSuccess,
 		Message: CodeSuccess.Msg(),
 	})
+	return
+}
+
+type Shenpi struct {
+	ProjectName string `json:"projectName" form:"projectName"`
+	TickKind    string `json:"tickKind" form:"tickKind"`
+	TickReason  string `json:"tickReason" form:"tickReason"`
+	Context     string `json:"context" form:"context"`
+	ShenpiTime  string `json:"ticketCreateTime" form:"ticketCreateTime"`
+}
+
+func ShenPi(c *gin.Context) {
+	var s Shenpi
+	var p models.ProjectData
+	err := c.ShouldBind(&s)
+	if err != nil {
+		zap.L().Error("绑定失败")
+		ResponseError(c, CodeError)
+		return
+	}
+	//查询
+	err2 := mysql.DB.Table("projects").Where("name=?", s.ProjectName).First(&p).Error
+	if err2 != nil {
+		zap.L().Error("存储失败")
+		ResponseError(c, CodeError)
+		return
+	}
+	p.Status = "审批结果：" + s.TickKind + "   审批理由：" + s.TickReason + " 审批具体描述：" + s.Context + "   审批时间：" + s.ShenpiTime
+	err3 := mysql.DB.Table("projects").Save(&p).Error
+	if err3 != nil {
+		zap.L().Error("存储更新后的数据失败")
+		ResponseError(c, CodeError)
+		return
+	}
+	ResponseSuccess(c, CodeSuccess)
+	zap.L().Info("成功")
 	return
 }

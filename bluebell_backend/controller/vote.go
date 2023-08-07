@@ -43,6 +43,7 @@ func VoteHandler(c *gin.Context) {
 		ResponseError(c, CodeNotLogin)
 		return
 	}
+	fmt.Println(vote)
 	if err1 := redis.PostVote(vote.PostID, fmt.Sprint(userID), vote.Direction); err1 != nil {
 		ResponseError(c, CodeServerBusy)
 		return

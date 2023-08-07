@@ -39,6 +39,7 @@ func SetupRouter() *gin.Engine {
 	v1.POST("/signup", controller.SignUpHandler)
 	v1.GET("/refresh_token", controller.RefreshTokenHandler)
 	v1.GET("/listProject", controller.ListProject)
+	v1.POST("/shenpi", controller.ShenPi)
 	v1.Use(controller.JWTAuthMiddleware())
 	{
 		v1.GET("/community", controller.CommunityHandler)

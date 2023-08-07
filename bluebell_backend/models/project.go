@@ -45,6 +45,7 @@ type ProjectData struct {
 	Member           Person  `json:"member" form:"member" gorm:"member"`
 	Introduction     string  `json:"introduction" form:"introduction" gorm:"introduction"`
 	Creativity       string  `json:"creativity" form:"creativity" gorm:"creativity"`
+	Status           string  `json:"instatus" form:"instatus" gorm:"status"`
 	Advantage        string  `json:"advantage" form:"advantage" gorm:"advantage"`
 	Instructor       TPerson `json:"instructor" form:"instructor" gorm:"instructor"`
 }

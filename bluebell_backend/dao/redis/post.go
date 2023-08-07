@@ -62,7 +62,7 @@ func CreatePost(postID, userID, title, summary, communityName string) (err error
 		"post:id":  postID,
 		"user:id":  userID,
 		"time":     now,
-		"votes":    1,
+		"votes":    0,
 		"comments": 0,
 	}
 
@@ -76,7 +76,7 @@ func CreatePost(postID, userID, title, summary, communityName string) (err error
 
 	pipeline.HMSet(KeyPostInfoHashPrefix+postID, postInfo)
 	pipeline.ZAdd(KeyPostScoreZSet, redis.Z{ // 添加到分数的ZSet
-		Score:  VoteScore,
+		Score:  0,
 		Member: postID,
 	})
 	pipeline.ZAdd(KeyPostTimeZSet, redis.Z{ // 添加到时间的ZSet
