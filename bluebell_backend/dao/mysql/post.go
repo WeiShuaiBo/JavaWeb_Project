@@ -20,8 +20,8 @@ func CreatePost(post *models.Post) (err error) {
 
 func GetPostByID(idStr string) (*models.ApiPostDetail, error) {
 	var post *models.Post
-	var postapi *models.ApiPostDetail
-	err := DB.Table("post").Select("post_id,title,content,author_id,community_id,update_time").First(&post).Error
+	var postapi = &models.ApiPostDetail{}
+	err := DB.Table("post").Select("post_id,title,content,author_id,community_id,update_time").Where("post_id=?", idStr).First(&post).Error
 	if err == gorm.ErrRecordNotFound {
 		zap.L().Error("数据没有找到")
 		err = ErrorInvalidID

@@ -88,7 +88,7 @@ func LoginHandler1(c *gin.Context) {
 		return
 	}
 	fmt.Println(u)
-	err := mysql.DB.Table("admins").Where("username = ? AND pasword =?", u.UserName, u.Password).Error
+	err := mysql.DB.Table("admins").Where("username = ? AND password =?", u.UserName, u.Password).Error
 	if err != nil {
 		zap.L().Error("管理员登录失败")
 		ResponseError(c, CodeError)
@@ -96,15 +96,14 @@ func LoginHandler1(c *gin.Context) {
 	}
 	redis.Client.Set("bluebell:userID:", u.UserID, 12*time.Hour)
 	//生成Token
-	aToken, rToken, _ := jwt.GenToken(u.UserID, u.UserName)
-	ResponseSuccess(c, gin.H{
-		"accessToken":  aToken,
-		"refreshToken": rToken,
-		"userID":       u.UserID,
-		"username":     u.UserName,
-		"code":         http.StatusOK,
+	aToken, _, _ := jwt.GenToken(u.UserID, u.UserName)
+	ResponseSuccess(c, &ResponseData{
+		Data:    aToken,
+		Code:    CodeSuccess,
+		Message: CodeSuccess.Msg() + "1",
 	})
 	c.Request.Header.Set("Authorization", aToken)
+	zap.L().Info("成功验证")
 	return
 }
 

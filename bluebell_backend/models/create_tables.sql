@@ -120,7 +120,7 @@ CREATE TABLE projects (
                           PRIMARY KEY (`id`)
 )ENGINE = InnoDB DEFAULT CHARSET =utf8mb4 COLLATE = utf8mb4_general_ci;
 
-
+use bluebell;
 CREATE TABLE IF NOT EXISTS admins (
                                       user_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
                                       username VARCHAR(255) NOT NULL,

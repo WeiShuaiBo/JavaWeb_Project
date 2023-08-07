@@ -11,7 +11,8 @@
             <div class="lyear-logo text-center">
                 <a href="#!"><img src="../img/logo-sidebar.png" alt="logo" /></a>
             </div>
-            <form >
+
+            <form>
                 <div class="form-group">
                     <label for="username">用户名</label>
                     <input type="text" class="form-control" v-model="username" id="username" name="username"
@@ -48,10 +49,8 @@ export default {
     // 可以在这里添加组件的其他属性和方法
     data() {
         return {
-
             username: '',
             password: '',
-
             rules: {
                 username: [
                     { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -63,38 +62,29 @@ export default {
         };
     },
     methods: {
-        // submitForm() {
-        //     if (this.param.username === 'admin' && this.param.password === '123456') {
-        //         // 登录成功，跳转到另一个页面
-        //         // 可以使用Vue Router进行页面导航
-        //         this.$router.push('/admindex');
-        //     } else {
-        //         // 登录失败
-        //         alert('登录失败，请检查用户名和密码');
-        //     }
-        // },
         submit() {
-            axios
-                .post("/login1", {
-                    username: this.username,
-                    password: this.password,
-                })
+            axios.post("/login1", {
+                username: this.username,
+                password: this.password,
+            })
                 .then((res) => {
+                    console.log(res + "管理员数据")
                     if (res.code == 1000) {
                         localStorage.setItem("loginResult", JSON.stringify(res.data));
                         this.$store.commit("login", res.data);
                         // this.$router.push({ path: this.redirect || "/" });
                         console.log('signup success');
+                        // debugger
+                        this.$router.push({ name: "admindex" });
                         Swallow.fire({
                             icon: 'success',
                             title: '登录成功',
                             text: '进入主页'
-                        }).then(() => {
-                            this.$router.push({ name: "admindex" });
-                        });
+                        })
                     } else {
+                        console.log(333333, res)
                         alert("登录失败")
-                        console.log(res.data.msg);
+                        // console.log(res.data.msg);
                         Swallow.fire({
                             icon: 'error',
                             title: '登录失败',
