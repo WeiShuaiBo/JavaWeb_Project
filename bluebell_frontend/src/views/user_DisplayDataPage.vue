@@ -46,7 +46,7 @@
           <strong>指导老师：</strong>{{ item.instructor }}
         </div>
         <div>
-          <strong>审批结果：</strong>{{ item.instatus }}
+          <strong style="color: brown;">申请状态：</strong>{{ item.instatus }}
         </div>
       </div>
 

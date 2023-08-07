@@ -189,16 +189,12 @@ export default {
 
     .user {
       width: auto;
-      height: 36px;
+      height: 60px;
       background-size: 54px 24px;
-      // background-position: left center;
-      // padding-left: 28px;
       display: flex;
-      // display: -webkit-flex;
-      // align-items: center;
       cursor: pointer;
       padding: 12px 71px 12px 28px;
-      border-radius: 25%;
+      border-radius: 25px;
 
       &::after {
         content: "";

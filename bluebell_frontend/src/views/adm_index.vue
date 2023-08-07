@@ -89,7 +89,6 @@
                                             <table class="table table-bordered">
                                                 <thead>
                                                     <tr>
-
                                                         <th>申报类型</th>
                                                         <th>项目名称</th>
                                                         <th>项目成员</th>
@@ -97,12 +96,12 @@
                                                         <th>项目创意</th>
                                                         <th>申请优势</th>
                                                         <th>指导老师</th>
+                                                        <th>审批状态</th>
                                                         <th>操作</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr v-for="(item, index) in formData" :key="index">
-
                                                         <td>{{ item.projectSort }}</td>
                                                         <td>{{ item.projectName }}</td>
                                                         <td>{{ item.member }}</td>
@@ -110,10 +109,11 @@
                                                         <td>{{ item.creativity }}</td>
                                                         <td>{{ item.advantage }}</td>
                                                         <td>{{ item.instructor }}</td>
+                                                        <td>{{ item.instatus }}</td>
 
                                                         <td>
                                                             <button class="button1" type="button"
-                                                                @click="sendto">审批</button>
+                                                                @click="approve(index, item.projectName)">审批</button>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -177,8 +177,9 @@ export default {
                     console.log("An error occurred while fetching data.", error);
                 });
         },
-        sendto() {
-            this.$router.push({ name: "admadd" });
+        approve(index, projectName) {
+            // 跳转到DetailComponent，并传递projectName作为参数
+            this.$router.push({ name: 'admadd', params: { projectName } });
         },
         // 设置搜索字段
         setSearchField(field) {
