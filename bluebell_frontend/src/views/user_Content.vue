@@ -22,7 +22,7 @@
         </div>
       </div>
 
-      <!-- <div class="comment">
+       <div class="comment">
         <div class="c-left">
           <div class="line"></div>
           <div class="c-arrow">
@@ -40,7 +40,7 @@
             class="c-content"
           >We're having the same experience in Yerevan, Armenia. Though you can see mountains all around the city on good days, now you can see even farther into Turkey and Iran. Every crag on the mountains around us is now clearer than ever.</p>
         </div>
-      </div> -->
+      </div>
     </div>
     <div class="right">
       <div class="topic-info">
