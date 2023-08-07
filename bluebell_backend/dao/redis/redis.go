@@ -3,7 +3,6 @@ package redis
 import (
 	"bluebell_backend/settings"
 	"fmt"
-
 	"github.com/go-redis/redis"
 )
 

@@ -39,6 +39,7 @@
         </form>
       </div>
       <div class="avatar-container">
+
         <!-- <img class="avatar" :src="this.avatarUrl !== '' ? this.avatarUrl : require('../img/img1.jpg')" alt="Avatar"> -->
         <img class="avatar" :avatarUrl="avatarUrl"
           :src="this.avatarUrl !== '' ? this.avatarUrl : '/static/img/img1.7b6ff569.jpg'" alt="Avatar">

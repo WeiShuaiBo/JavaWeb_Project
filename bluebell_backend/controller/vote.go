@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-
 	"github.com/gin-gonic/gin"
+	"strconv"
 )
 
 type VoteData struct {
@@ -15,28 +15,26 @@ type VoteData struct {
 }
 
 func (v *VoteData) UnmarshalJSON(data []byte) (err error) {
-	required := struct {
-		PostID    string  `json:"post_id"`
-		Direction float64 `json:"direction"`
-	}{}
+	var required struct {
+		PostID    int    `json:"post_id"`
+		Direction string `json:"direction"`
+	}
 	err = json.Unmarshal(data, &required)
 	if err != nil {
-		return
-	} else if len(required.PostID) == 0 {
-		err = errors.New("缺少必填字段post_id")
-	} else if required.Direction == 0 {
-		err = errors.New("缺少必填字段direction")
-	} else {
-		v.PostID = required.PostID
-		v.Direction = required.Direction
+		return err // 返回解析错误
 	}
-	return
+	v.PostID = strconv.Itoa(required.PostID) // 将整数转换为字符串类型
+	v.Direction, err = strconv.ParseFloat(required.Direction, 64)
+	if err != nil {
+		return errors.New("direction 不是有效的数字") // 返回direction格式错误
+	}
+	return nil // 没有错误，返回nil
 }
 
 func VoteHandler(c *gin.Context) {
 	// 给哪个文章投什么票
 	var vote VoteData
-	if err := c.ShouldBindJSON(&vote); err != nil {
+	if err := c.BindJSON(&vote); err != nil {
 		ResponseErrorWithMsg(c, CodeInvalidParams, err.Error())
 		return
 	}
@@ -45,9 +43,10 @@ func VoteHandler(c *gin.Context) {
 		ResponseError(c, CodeNotLogin)
 		return
 	}
-	if err := redis.PostVote(vote.PostID, fmt.Sprint(userID), vote.Direction); err != nil {
+	if err1 := redis.PostVote(vote.PostID, fmt.Sprint(userID), vote.Direction); err1 != nil {
 		ResponseError(c, CodeServerBusy)
 		return
 	}
 	ResponseSuccess(c, nil)
+	return
 }

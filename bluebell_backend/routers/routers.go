@@ -35,6 +35,7 @@ func SetupRouter() *gin.Engine {
 	})
 	r.Static("/static", "./temp/pic")
 	v1.POST("/login", controller.LoginHandler)
+	v1.POST("/login1", controller.LoginHandler1)
 	v1.POST("/signup", controller.SignUpHandler)
 	v1.GET("/refresh_token", controller.RefreshTokenHandler)
 

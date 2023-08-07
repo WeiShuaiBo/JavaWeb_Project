@@ -61,6 +61,7 @@ import axios from 'axios';
 
 export default {
   name: "DisplayDataPage",
+
   data() {
     return {
       isSubmitting: false,
@@ -74,6 +75,7 @@ export default {
     fetchData() {
       axios.get('/listProject')
         .then(response => {
+
           if (response.data.code === 1000) {
             this.formData = response.data.data
             console.log(response.data.data)

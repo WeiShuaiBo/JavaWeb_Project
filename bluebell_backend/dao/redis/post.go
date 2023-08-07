@@ -1,6 +1,8 @@
 package redis
 
 import (
+	"fmt"
+	"go.uber.org/zap"
 	"math"
 	"time"
 
@@ -44,41 +46,46 @@ v=-1时，有两种情况
 	2.之前投过赞成票，现在要改为反对票
 */
 func PostVote(postID, userID string, v float64) (err error) {
-	// 1. 取帖子发布时间
-	postTime := Client.ZScore(KeyPostTimeZSet, postID).Val()
-	if float64(time.Now().Unix())-postTime > OneWeekInSeconds {
-		// 不允许投票了
-		return ErrorVoteTimeExpire
-	}
+	//if float64(time.Now().Unix())-postTime > OneWeekInSeconds {
+	//	zap.L().Error("距离帖子发布已经一周了，不能在进行投票了")
+	//	return ErrorVoteTimeExpire
+	//}
 	// 判断是否已经投过票
+	flag, err := Client.Get("bluebell:post:IsPost:" + postID + userID).Result()
+	if flag == "已投票" {
+		zap.L().Error("该用户已经投票了")
+		return err
+	}
 	key := KeyPostVotedZSetPrefix + postID
 	ov := Client.ZScore(key, userID).Val() // 获取当前分数
-
-	diffAbs := math.Abs(ov - v)
+	fmt.Println(ov)
+	diffAbs := v
+	fmt.Println(diffAbs)
 	pipeline := Client.TxPipeline()
 	pipeline.ZAdd(key, redis.Z{ // 记录已投票
 		Score:  v,
 		Member: userID,
 	})
-	pipeline.ZIncrBy(KeyPostScoreZSet, VoteScore*diffAbs*v, postID) // 更新分数
+	pipeline.ZIncrBy(KeyPostScoreZSet, VoteScore*v, postID) // 更新分数
 
-	switch math.Abs(ov) - math.Abs(v) {
+	switch v {
 	case 1:
 		// 取消投票 ov=1/-1 v=0
 		// 投票数-1
-		pipeline.HIncrBy(KeyPostInfoHashPrefix+postID, "votes", -1)
-	case 0:
-		// 反转投票 ov=-1/1 v=1/-1
-		// 投票数不用更新
+		pipeline.HIncrBy(KeyPostInfoHashPrefix+postID, "votes", 1)
 	case -1:
 		// 新增投票 ov=0 v=1/-1
 		// 投票数+1
-		pipeline.HIncrBy(KeyPostInfoHashPrefix+postID, "votes", 1)
+		pipeline.HIncrBy(KeyPostInfoHashPrefix+postID, "votes", -1)
 	default:
 		// 已经投过票了
+		zap.L().Error("报错了，传入的v不正确")
 		return ErrorVoted
 	}
+	_ = pipeline.Set("bluebell:post:IsPost:"+postID+userID, "已投票", 7*24*time.Hour)
+
 	_, err = pipeline.Exec()
+
 	return
 }
 
@@ -93,24 +100,22 @@ func CreatePost(postID, userID, title, summary, communityName string) (err error
 		"post:id":  postID,
 		"user:id":  userID,
 		"time":     now,
-		"votes":    1,
+		"votes":    0,
 		"comments": 0,
 	}
-
 	// 事务操作
 	pipeline := Client.TxPipeline()
 	pipeline.ZAdd(votedKey, redis.Z{ // 作者默认投赞成票
-		Score:  1,
+		Score:  0,
 		Member: userID,
 	})
 	pipeline.Expire(votedKey, time.Second*OneWeekInSeconds) // 一周时间
-
 	pipeline.HMSet(KeyPostInfoHashPrefix+postID, postInfo)
 	pipeline.ZAdd(KeyPostScoreZSet, redis.Z{ // 添加到分数的ZSet
-		Score:  now + VoteScore,
+		Score:  0,
 		Member: postID,
 	})
-	pipeline.ZAdd(KeyPostTimeZSet, redis.Z{ // 添加到时间的ZSet
+	pipeline.ZAdd(KeyPostTimeZSet+postID, redis.Z{ // 添加到时间的ZSet
 		Score:  now,
 		Member: postID,
 	})
