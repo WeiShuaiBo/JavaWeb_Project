@@ -84,6 +84,7 @@ func CreateProject2(c *gin.Context) {
 			Creativity:       p.ProjectDetailIdea,
 			Advantage:        p.ProjectDetailAdv,
 			Instructor:       p.ProjectDetailTea,
+			Status:           "待审批",
 		}
 		fmt.Println(p3)
 		err2 := mysql.DB.Debug().Create(&p3).Error
@@ -121,4 +122,23 @@ func ListProject(c *gin.Context) {
 		Message: CodeSuccess.Msg(),
 	})
 	return
+}
+
+type Shenpi struct {
+	ProjectName string `json:"projectname" form:"projectname"`
+	TickKind    string `json:"tickKind" form:"tickKind"`
+	TickReason  string `json:"tickReason" form:"tickReason"`
+	Context     string `json:"context" form:"context"`
+	ShenpiTime  string `json:"ticketCreateTime" form:"ticketCreateTime"`
+}
+
+func ShenPi(c *gin.Context) {
+	var s Shenpi
+	err := c.ShouldBind(&s)
+	if err != nil {
+		zap.L().Error("绑定失败")
+		ResponseError(c, CodeError)
+		return
+	}
+
 }
