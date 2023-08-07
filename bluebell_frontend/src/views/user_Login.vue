@@ -19,10 +19,8 @@
             </div>
             <div class="button-container">
               <div class="button" @click="submit()">登录</div>
-
             </div>
             <div class="button-container">
-
               <div class="button" @click="sendadm()">管理员登录</div>
             </div>
             <!-- <div class="button" @click="submit()">登录</div>

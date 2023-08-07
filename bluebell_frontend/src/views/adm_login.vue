@@ -14,13 +14,13 @@
             <form action="/user/login" method="post">
                 <div class="form-group">
                     <label for="username">用户名</label>
-                    <input type="text" class="form-control" v-model="param.username" id="username" name="username"
+                    <input type="text" class="form-control" v-model="username" id="username" name="username"
                         placeholder="请输入您的用户名">
                 </div>
 
                 <div class="form-group">
                     <label for="password">密码</label>
-                    <input type="password" class="form-control" v-model="param.password" id="password" name="password"
+                    <input type="password" class="form-control" v-model="password" id="password" name="password"
                         placeholder="请输入您的密码">
                 </div>
 
@@ -28,7 +28,7 @@
 
 
                     <div class="form-group">
-                        <button class="btn btn-block btn-primary" type="submit" @click="submitForm()">立即登录</button>
+                        <button class="btn btn-block btn-primary" type="submit" @click="submit()">立即登录</button>
                     </div>
                 </div>
                 <footer class="text-center">
@@ -41,15 +41,17 @@
 </template>
 
 <script>
+import axios from "axios";
+import Swallow from "sweetalert2";
 export default {
     name: 'admlogin',
     // 可以在这里添加组件的其他属性和方法
     data() {
         return {
-            param: {
-                username: '',
-                password: '',
-            },
+
+            username: '',
+            password: '',
+
             rules: {
                 username: [
                     { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -61,16 +63,52 @@ export default {
         };
     },
     methods: {
-        submitForm() {
-            if (this.param.username === 'admin' && this.param.password === '123456') {
-                // 登录成功，跳转到另一个页面
-                // 可以使用Vue Router进行页面导航
-                this.$router.push('/admindex');
-            } else {
-                // 登录失败
-                alert('登录失败，请检查用户名和密码');
-            }
-        }
+        // submitForm() {
+        //     if (this.param.username === 'admin' && this.param.password === '123456') {
+        //         // 登录成功，跳转到另一个页面
+        //         // 可以使用Vue Router进行页面导航
+        //         this.$router.push('/admindex');
+        //     } else {
+        //         // 登录失败
+        //         alert('登录失败，请检查用户名和密码');
+        //     }
+        // },
+        submit() {
+            axios
+                .post("/login1", {
+                    username: this.username,
+                    password: this.password,
+                })
+                .then((res) => {
+                    if (res.code == 1000) {
+                        localStorage.setItem("loginResult", JSON.stringify(res.data));
+                        this.$store.commit("login", res.data);
+                        this.$router.push({ path: this.redirect || "/" });
+                        console.log('signup success');
+                        Swallow.fire({
+                            icon: 'success',
+                            title: '登录成功',
+                            text: '进入主页'
+                        }).then(() => {
+                            this.$router.push({ name: "admindex" });
+                        });
+                    } else {
+                        alert("登录失败")
+                        console.log(res.data.msg);
+                        Swallow.fire({
+                            icon: 'error',
+                            title: '登录失败',
+                            text: res.data.msg
+                        }).then(() => {
+                            this.username = "";
+                            this.password = "";
+                        });
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
     }
 }
 </script>

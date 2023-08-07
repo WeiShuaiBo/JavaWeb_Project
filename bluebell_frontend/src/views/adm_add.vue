@@ -10,10 +10,10 @@
                 <div class="lyear-layout-sidebar-scroll">
                     <nav class="sidebar-main">
                         <ul class="nav nav-drawer">
-                            <li class="nav-item active"> <router-link to="/index"><i class="mdi mdi-home"></i>
+                            <li class="nav-item active"> <router-link to="/admindex">
                                     后台首页</router-link> </li>
                             <li class="nav-item nav-item-has-subnav">
-                                <a href="javascript:void(0)"><i class="mdi mdi-file-outline"></i> 功能列表</a>
+                                <a href="javascript:void(0)">功能列表</a>
                                 <ul class="nav nav-subnav">
                                     <li> <router-link to="/list">投票信息</router-link> </li>
                                     <li> <router-link to="/add">发起投票</router-link> </li>
@@ -23,7 +23,7 @@
                         </ul>
                     </nav>
                     <div class="sidebar-footer">
-                        <p class="copyright">版权所有 &copy; 2023. <a target="_blank" href="http://lyear.itshubao.com">haha</a>
+                        <p class="copyright">版权所有 &copy; 2023. <a target="_blank" href="http://lyear.itshubao.com">数据202</a>
                             All rights reserved.</p>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                                 <span class="lyear-toggler-bar"></span>
                                 <span class="lyear-toggler-bar"></span>
                             </div>
-                            <span class="navbar-page-title"> 功能页面 - 发起投票活动 </span>
+                            <span class="navbar-page-title"> 功能页面 - 审批项目 </span>
                         </div>
 
                         <ul class="topbar-right">
@@ -48,7 +48,9 @@
                                 <a href="javascript:void(0)" data-toggle="dropdown">
                                     <img class="img-avatar img-avatar-48 m-r-10" src="../img/user.jpg" alt="小波" />
                                     <span>小波 <span class="caret"></span></span>
+                                    <button class="button" @click="sendTohome">退出登录</button>
                                 </a>
+
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li> <router-link to="/user"><i class="mdi mdi-account"></i> 个人信息</router-link> </li>
                                     <li> <router-link to="/edit"><i class="mdi mdi-lock-outline"></i> 修改密码</router-link>
@@ -81,20 +83,18 @@
                                 <div class="card-body">
                                     <form @submit.prevent="submitForm" class="row">
                                         <div class="form-group col-md-12">
-                                            <label for="type">投票类型</label>
+                                            <label for="type">审批结果</label>
                                             <div class="form-controls">
                                                 <select v-model="tickKind" name="tickKind" class="form-control" id="type">
-                                                    <option value="音乐">音乐</option>
-                                                    <option value="书籍">书籍</option>
-                                                    <option value="运动">运动</option>
-                                                    <option value="游戏">游戏</option>
+                                                    <option value="同意">同意</option>
+                                                    <option value="拒绝">拒绝</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="form-group col-md-12">
-                                            <label for="title">标题</label>
+                                            <label for="title">审批原因</label>
                                             <input v-model="tickName" type="text" class="form-control" id="title"
-                                                name="tickName" placeholder="请输入标题" />
+                                                name="tickName" placeholder="请输入审批原因" />
                                         </div>
                                         <div class="form-group col-md-12">
                                             <label for="seo_description">描述</label>
@@ -112,7 +112,7 @@
                                             <input v-model="ticketEndTime" type="datetime-local" id="end-time"
                                                 name="ticketEndTime">
                                         </div>
-                                        <div class="form-group col-md-12">
+                                        <div class="form-group col-md-12 button-group">
                                             <button type="submit" class="btn btn-primary ajax-post"
                                                 target-form="add-form">确定</button>
                                             <button type="button" class="btn btn-default" @click="goBack">返回</button>
@@ -180,6 +180,9 @@ export default {
         goBack() {
             this.$router.go(-1);
         },
+        sendTohome() {
+            this.$router.push({ name: "Login" })
+        },
     },
     mounted() {
         // 初始化开始时间和结束时间输入框
@@ -191,4 +194,8 @@ export default {
 
 <style>
 /* 这里省略样式部分 */
+.button-group {
+    display: flex;
+    justify-content: space-evenly;
+}
 </style>

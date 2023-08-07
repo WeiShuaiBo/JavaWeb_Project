@@ -46,6 +46,9 @@ export default {
     if (this.$route.path === '/admindex') {
       this.shouldShowComponent = false;
     }
+    if (this.$route.path === '/admadd') {
+      this.shouldShowComponent = false;
+    }
   },
 
   //computed属性中的isLogin和currUsername用于获取和计算一些数据
