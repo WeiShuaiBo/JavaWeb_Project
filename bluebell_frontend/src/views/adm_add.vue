@@ -14,11 +14,6 @@
                                     后台首页</router-link> </li>
                             <li class="nav-item nav-item-has-subnav">
                                 <a href="javascript:void(0)">功能列表</a>
-                                <ul class="nav nav-subnav">
-                                    <li> <router-link to="/list">投票信息</router-link> </li>
-                                    <li> <router-link to="/add">发起投票</router-link> </li>
-                                    <li> <router-link to="/step">表单向导</router-link> </li>
-                                </ul>
                             </li>
                         </ul>
                     </nav>
@@ -51,18 +46,11 @@
                                     <button class="button" @click="sendTohome">退出登录</button>
                                 </a>
 
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li> <router-link to="/user"><i class="mdi mdi-account"></i> 个人信息</router-link> </li>
-                                    <li> <router-link to="/edit"><i class="mdi mdi-lock-outline"></i> 修改密码</router-link>
-                                    </li>
-                                    <li> <a href="javascript:void(0)"><i class="mdi mdi-delete"></i> 清空缓存</a></li>
-                                    <li class="divider"></li>
-                                    <li> <a @click="logout" href="#"><i class="mdi mdi-logout-variant"></i> 退出登录</a> </li>
-                                </ul>
+
                             </li>
                             <!--切换主题配色-->
                             <li class="dropdown dropdown-skin">
-                                <span data-toggle="dropdown" class="icon-palette"><i class="mdi mdi-palette"></i></span>
+                                <span data-toggle="dropdown" class="icon-palette"></span>
                                 <ul class="dropdown-menu dropdown-menu-right" data-stopPropagation="true">
                                     <!-- 这里省略主题配色的部分 -->
                                 </ul>
@@ -93,8 +81,8 @@
                                         </div>
                                         <div class="form-group col-md-12">
                                             <label for="title">审批原因</label>
-                                            <input v-model="tickName" type="text" class="form-control" id="title"
-                                                name="tickName" placeholder="请输入审批原因" />
+                                            <input v-model="tickReason" type="text" class="form-control" id="title"
+                                                name="tickReason" placeholder="请输入审批原因" />
                                         </div>
                                         <div class="form-group col-md-12">
                                             <label for="seo_description">描述</label>
@@ -102,15 +90,10 @@
                                                 name="context" rows="5" placeholder="描述"></textarea>
                                         </div>
                                         <div class="form-group col-md-12">
-                                            <label for="start-time">开始时间:</label>
+                                            <label for="start-time">审批时间:</label>
                                             <input v-model="ticketCreateTime" type="datetime-local" id="start-time"
                                                 name="ticketCreateTime">
                                             <br>
-                                        </div>
-                                        <div class="form-group col-md-12">
-                                            <label for="end-time">结束时间:</label>
-                                            <input v-model="ticketEndTime" type="datetime-local" id="end-time"
-                                                name="ticketEndTime">
                                         </div>
                                         <div class="form-group col-md-12 button-group">
                                             <button type="submit" class="btn btn-primary ajax-post"
@@ -134,12 +117,11 @@ export default {
     name: 'admadd',
     data() {
         return {
-            status: 0, // 剩余投票数
-            tickKind: '音乐', // 投票类型
-            tickName: '', // 投票标题
+            tickKind: '', // 投票类型
+            tickReason: '', // 投票标题
             context: '', // 投票描述
             ticketCreateTime: '', // 开始时间
-            ticketEndTime: '', // 结束时间
+
         };
     },
     methods: {
