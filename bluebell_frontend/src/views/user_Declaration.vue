@@ -19,16 +19,6 @@
           <label for="projectName">项目名称：</label>
           <input type="text" id="projectName" v-model.trim="formData.projectName" required />
         </div>
-
-        <div class="form-group">
-          <label for="Member">项目成员：</label>
-          <div v-for="(member, index) in formData.Member" :key="index">
-            <input type="text" id="Member" v-model.trim="formData.Member[index]" required />
-            <button type="button" @click="removeMember(index)" v-show="index > 0">删除</button>
-          </div>
-          <button type="button" @click="addMember">添加成员</button>
-        </div>
-
         <div class="form-group">
           <label for="Introduction">项目介绍：</label>
           <textarea id="Introduction" v-model.trim="formData.Introduction" required></textarea>
@@ -44,13 +34,35 @@
           <textarea id="Advantage" v-model.trim="formData.Advantage" required></textarea>
         </div>
 
+
+        <div class="form-group">
+          <label for="Member">项目成员：</label>
+          <div class="member-input-container">
+            <div v-for="(member, index) in formData.Member" :key="index" class="member-input">
+              <div class="member-input-row">
+                <input type="text" id="Member" v-model.trim="formData.Member[index]" required />
+                <button type="button" @click="removeMember(index)" v-show="index > 0" class="delete-button">删除</button>
+              </div>
+            </div>
+            <button type="button" @click="addMember" class="add-button">添加成员</button>
+          </div>
+        </div>
+
+
+
         <div class="form-group">
           <label for="Instructor">指导老师：</label>
-          <div v-for="(instructor, index) in formData.Instructor" :key="index">
-            <input type="text" id="Instructor" v-model.trim="formData.Instructor[index]" required />
-            <button type="button" @click="removeInstructor(index)" v-show="index > 0">删除</button>
+          <div class="member-input-container">
+            <div v-for="(instructor, index) in formData.Instructor" :key="index" class="member-input">
+              <div class="member-input-row">
+                <input type="text" id="Instructor" v-model.trim="formData.Instructor[index]" required />
+                <button type="button" @click="removeInstructor(index)" v-show="index > 0"
+                  class="delete-button">删除</button>
+
+              </div>
+            </div>
+            <button type="button" @click="addInstructor" class="add-button">添加老师</button>
           </div>
-          <button type="button" @click="addInstructor">添加老师</button>
         </div>
 
         <button :disabled="isSubmitting" type="submit">
@@ -237,4 +249,58 @@ button {
   text-align: center;
   color: green;
 }
+
+.add-button {
+  width: 100px;
+}
+
+.delete-button {
+  width: 100px;
+}
+
+.member-input-container {
+  display: block;
+}
+
+.member-input {
+  margin-bottom: 5px;
+}
+
+.member-input-row {
+  display: flex;
+  align-items: center;
+}
+
+.member-label {
+  margin-right: 5px;
+}
+
+.member-input-row input {
+  display: inline-block;
+  margin-right: 5px;
+  padding: 5px;
+}
+
+.delete-button {
+  background-color: #ff5252;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.add-button {
+  background-color: #2196f3;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* #Member {
+  width: 100px;
+} */
 </style>
