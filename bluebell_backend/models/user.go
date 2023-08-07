@@ -36,6 +36,7 @@ func (a Admin) TableName() string {
 	return "admins"
 }
 
+// 11
 func (u *User) UnmarshalJSON(data []byte) (err error) {
 	required := struct {
 		UserName string `json:"username" db:"username"`

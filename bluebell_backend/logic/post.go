@@ -41,7 +41,9 @@ func CreatePost(post *models.Post) (err error) {
 }
 
 func GetPost(postID string) (post *models.ApiPostDetail, err error) {
+	fmt.Println(postID + "asdfasdf")
 	post, err = mysql.GetPostByID(postID)
+	fmt.Println(post, "111222")
 	if err != nil {
 		zap.L().Error("mysql.GetPostByID(postID) failed", zap.String("post_id", postID), zap.Error(err))
 		return nil, err
@@ -75,7 +77,7 @@ func GetPostList2() (data []*models.ApiPostDetail, err error) {
 		score := results[i].Score
 		fmt.Println(member, score)
 		post, _ := GetPost(member)
-		fmt.Println(post)
+		fmt.Println(post, "111")
 		//fmt.Println(post)
 		//	user, err1 := mysql.GetUserByID(fmt.Sprint(post.AuthorId))
 		//	if err1 != nil {

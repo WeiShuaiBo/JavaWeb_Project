@@ -94,12 +94,6 @@ func LoginHandler1(c *gin.Context) {
 		ResponseError(c, CodeError)
 		return
 	}
-	err1 := mysql.DB.Table("admins").Save(&u).Error
-	if err1 != nil {
-		zap.L().Error("保存失败")
-		ResponseError(c, CodeError)
-		return
-	}
 	redis.Client.Set("bluebell:userID:", u.UserID, 12*time.Hour)
 	//生成Token
 	aToken, rToken, _ := jwt.GenToken(u.UserID, u.UserName)

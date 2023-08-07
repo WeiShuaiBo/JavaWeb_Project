@@ -11,7 +11,7 @@
             <div class="lyear-logo text-center">
                 <a href="#!"><img src="../img/logo-sidebar.png" alt="logo" /></a>
             </div>
-            <form action="/user/login" method="post">
+            <form >
                 <div class="form-group">
                     <label for="username">用户名</label>
                     <input type="text" class="form-control" v-model="username" id="username" name="username"

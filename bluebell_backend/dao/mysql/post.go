@@ -2,7 +2,6 @@ package mysql
 
 import (
 	"bluebell_backend/models"
-	"fmt"
 	"gorm.io/gorm"
 
 	"go.uber.org/zap"
@@ -20,9 +19,9 @@ func CreatePost(post *models.Post) (err error) {
 }
 
 func GetPostByID(idStr string) (*models.ApiPostDetail, error) {
-	var post *models.ApiPostDetail
-	fmt.Println(idStr)
-	err := DB.Table("post").Debug().Select("post_id, title, content, author_id, community_id, update_time").Where("post_id = ?", idStr).First(&post).Error
+	var post *models.Post
+	var postapi *models.ApiPostDetail
+	err := DB.Table("post").Select("post_id,title,content,author_id,community_id,update_time").First(&post).Error
 	if err == gorm.ErrRecordNotFound {
 		zap.L().Error("数据没有找到")
 		err = ErrorInvalidID
@@ -33,7 +32,8 @@ func GetPostByID(idStr string) (*models.ApiPostDetail, error) {
 		err = ErrorQueryFailed
 		return nil, err
 	}
-	return post, nil
+	postapi.Post = post
+	return postapi, nil
 }
 
 func GetPostListByIDs(ids []string) (postList []*models.Post, err error) {
