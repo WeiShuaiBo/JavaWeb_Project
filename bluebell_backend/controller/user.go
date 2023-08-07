@@ -80,6 +80,40 @@ func LoginHandler(c *gin.Context) {
 	return
 }
 
+func LoginHandler1(c *gin.Context) {
+	var u models.Admin
+	if err := c.ShouldBind(&u); err != nil {
+		zap.L().Error("用户登录时，信息绑定到结构体失败", zap.Error(err))
+		ResponseErrorWithMsg(c, CodeInvalidParams, err.Error())
+		return
+	}
+	fmt.Println(u)
+	err := mysql.DB.Table("admins").Where("username = ? AND pasword =?", u.UserName, u.Password).Error
+	if err != nil {
+		zap.L().Error("管理员登录失败")
+		ResponseError(c, CodeError)
+		return
+	}
+	err1 := mysql.DB.Table("admins").Save(&u).Error
+	if err1 != nil {
+		zap.L().Error("保存失败")
+		ResponseError(c, CodeError)
+		return
+	}
+	redis.Client.Set("bluebell:userID:", u.UserID, 12*time.Hour)
+	//生成Token
+	aToken, rToken, _ := jwt.GenToken(u.UserID, u.UserName)
+	ResponseSuccess(c, gin.H{
+		"accessToken":  aToken,
+		"refreshToken": rToken,
+		"userID":       u.UserID,
+		"username":     u.UserName,
+		"code":         http.StatusOK,
+	})
+	c.Request.Header.Set("Authorization", aToken)
+	return
+}
+
 func RefreshTokenHandler(c *gin.Context) {
 	rt := c.Query("refresh_token")
 	// 客户端携带Token有三种方式 1.放在请求头 2.放在请求体 3.放在URI

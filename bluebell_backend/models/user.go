@@ -26,6 +26,15 @@ type UserInformation struct {
 	Address   string `json:"address" form:"address"`
 	Email     string `json:"email" form:"email"`
 }
+type Admin struct {
+	UserID   uint64 `json:"user_id" gorm:"column:user_id" `
+	UserName string `json:"user_name" gorm:"column:username" form:"username"`
+	Password string `json:"user_password" gorm:"column:password" form:"password"`
+}
+
+func (a Admin) TableName() string {
+	return "admins"
+}
 
 func (u *User) UnmarshalJSON(data []byte) (err error) {
 	required := struct {

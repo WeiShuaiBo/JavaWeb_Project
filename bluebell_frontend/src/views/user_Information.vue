@@ -39,10 +39,12 @@
         </form>
       </div>
       <div class="avatar-container">
-        <img class="avatar" :src="avatarUrl" alt="Avatar">
+
+        <!-- <img class="avatar" :src="this.avatarUrl !== '' ? this.avatarUrl : require('../img/img1.jpg')" alt="Avatar"> -->
+        <img class="avatar" :avatarUrl="avatarUrl"
+          :src="this.avatarUrl !== '' ? this.avatarUrl : '/static/img/img1.7b6ff569.jpg'" alt="Avatar">
         <input type="file" ref="fileInput" style="display: none" @change="handleFileUpload">
         <button class="btn" @click="selectImage">设置头像</button>
-
       </div>
     </div>
 
@@ -60,7 +62,7 @@ export default {
       gender: '',
       birthDate: '',
       idCard: '',
-      avatarUrl: "",
+      avatarUrl: '',
       address: '',
       email: '',
       editing: false // 添加editing变量
@@ -69,6 +71,11 @@ export default {
   created() {
     this.getData()
   },
+  // computed: {
+  //   avatarUrlComputed() {
+  //     return ;
+  //   },
+  // },
   methods: {
 
     // 触发文件选择的函数
@@ -79,13 +86,9 @@ export default {
         this.gender = res.data.gender;
         this.birthDate = res.data.birthDate;
         this.idCard = res.data.idCard,
-
           this.address = res.data.address;
         this.email = res.data.email;
       })
-    },
-    getData1() {
-      Axios.post("/")
     },
     // 点击修改按钮切换编辑状态
     editForm() {
@@ -123,10 +126,15 @@ export default {
         // Set avatarUrl from the response data
         if (res.data.code === 1000) {
           this.avatarUrl = res.data.data;
+          this.$root.$emit('sendToheader', this.avatarUrl);
+          console.log(this.avatarUrl)
         }
       }).catch((error) => {
         console.error(error);
       });
+      this.$emit('update-avatar', this.avatarUrl);
+
+
     },
 
     selectImage() {
