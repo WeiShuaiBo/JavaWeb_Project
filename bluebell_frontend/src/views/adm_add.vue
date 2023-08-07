@@ -13,7 +13,7 @@
                             <li class="nav-item active"> <router-link to="/admindex">
                                     后台首页</router-link> </li>
                             <li class="nav-item nav-item-has-subnav">
-                                <a href="javascript:void(0)">功能列表</a>
+                                <a href="javascript:void(0)">审批申请</a>
                             </li>
                         </ul>
                     </nav>
@@ -131,8 +131,8 @@ export default {
     created() {
         // 使用$route.params来获取传递的参数
         const projectName = this.$route.params.projectName;
-        this.projectName = projectName
         // 在这里处理projectName的逻辑
+        this.projectName = projectName
     },
     methods: {
         // 处理表单提交

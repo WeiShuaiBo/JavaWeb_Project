@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <footer class="text-center">
-                    <p class="m-b-0">版权所有 © 2020 <a href="http://lyear.itshubao.com">IT书包</a>. 保留所有权利</p>
+                    <p class="m-b-0">版权所有 © 2023 数据202. 保留所有权利</p>
                 </footer>
             </form>
 
