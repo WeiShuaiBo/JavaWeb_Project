@@ -52,7 +52,6 @@ func PostListHandler(c *gin.Context) {
 		pageNum = 1
 	}
 	posts := redis.GetPost(order, pageNum)
-	fmt.Println(len(posts))
 	ResponseSuccess(c, posts)
 }
 

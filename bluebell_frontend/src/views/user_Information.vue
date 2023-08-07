@@ -40,8 +40,6 @@
       </div>
       <div class="avatar-container">
         <img class="avatar" :src="avatarUrl" alt="Avatar">
-
-
         <input type="file" ref="fileInput" style="display: none" @change="handleFileUpload">
         <button class="btn" @click="selectImage">设置头像</button>
 

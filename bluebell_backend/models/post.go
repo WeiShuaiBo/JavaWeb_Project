@@ -3,17 +3,16 @@ package models
 import (
 	"encoding/json"
 	"errors"
-	"time"
 )
 
 type Post struct {
-	PostID      uint64    `json:"post_id" gorm:"column:post_id"`
-	Title       string    `json:"title" gorm:"column:title"`
-	Content     string    `json:"content" gorm:"column:content"`
-	AuthorId    uint64    `json:"author_id" gorm:"column:author_id"`
-	CommunityID int64     `json:"community_id" gorm:"column:community_id"`
-	Status      int32     `json:"status" gorm:"column:status"`
-	CreateTime  time.Time `json:"-" gorm:"column:create_time"`
+	PostID      uint64 `json:"post_id" gorm:"column:post_id"`
+	Title       string `json:"title" gorm:"column:title"`
+	Content     string `json:"content" gorm:"column:content"`
+	AuthorId    uint64 `json:"author_id" gorm:"column:author_id"`
+	CommunityID int64  `json:"community_id" gorm:"column:community_id"`
+	Status      int32  `json:"status" gorm:"column:status"`
+	CreateTime  string `json:"-" gorm:"column:create_time"`
 }
 
 func (p *Post) UnmarshalJSON(data []byte) (err error) {

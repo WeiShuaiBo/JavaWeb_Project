@@ -64,15 +64,15 @@ import axios from 'axios';
 export default {
   name: "DisplayDataPage",
 
-  computed: {
-    formData() {
-      return this.$store.state.formData;
-    },
-  },
+  // computed: {
+  //   formData() {
+  //     return this.$store.state.formData;
+  //   },
+  // },
   data() {
     return {
       isSubmitting: false,
-      formData1: []
+      formData: []
     };
   },
   mounted() {
@@ -83,7 +83,7 @@ export default {
       axios.get('/listProject')
         .then(response => {
           if (response.code === 1000) {
-            const data = response.data;
+            const data = response.data.data;
             this.formData.projectSort = data.projectSort;
             this.formData.projectName = data.projectName;
             this.formData.Member = data.Member;
@@ -91,6 +91,7 @@ export default {
             this.formData.Creativity = data.Creativity;
             this.formData.Advantage = data.Advantage;
             this.formData.Instructor = data.Instructor;
+            console.log(this.formData.Instructor)
           } else {
             console.log(response.message);
           }
