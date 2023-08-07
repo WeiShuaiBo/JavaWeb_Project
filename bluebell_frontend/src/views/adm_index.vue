@@ -11,20 +11,16 @@
                     <div class="lyear-layout-sidebar-scroll">
                         <nav class="sidebar-main">
                             <ul class="nav nav-drawer">
-                                <li class="nav-item active"> <a href="/index">后台首页</a> </li>
+                                <li class="nav-item active"> <a href="">后台首页</a> </li>
                                 <li class="nav-item nav-item-has-subnav">
-                                    <a href="javascript:void(0)"> 功能列表</a>
-                                    <ul class="nav nav-subnav">
-                                        <li> <a href="/list">投票信息</a> </li>
-                                        <li> <a href="/add">新增投票</a> </li>
-                                        <li> <a href="/step">表单向导</a> </li>
-                                    </ul>
+                                    <router-link to="/admadd">
+                                        功能列表</router-link>
                                 </li>
                             </ul>
                         </nav>
                         <div class="sidebar-footer">
                             <p class="copyright">版权所有 &copy; 2019. <a target="_blank"
-                                    href="http://lyear.itshubao.com">IT书包</a> 保留所有权利。</p>
+                                    href="http://lyear.itshubao.com">数据202</a> 保留所有权利。</p>
                         </div>
                     </div>
                 </aside>
@@ -49,12 +45,7 @@
                                         <img class="img-avatar img-avatar-48 m-r-10" src="../img/user.jpg" alt="笔下光年" />
                                         <span>小波 <span class="caret"></span></span>
                                         <button class="button" @click="sendTohome">退出登录</button>
-                                        <ul class="dropdown-menu dropdown-menu-right">
-                                            <li><a href="user.html">个人信息</a></li>
-                                            <li><a href="edit.html"> 修改密码</a></li>
-                                            <li><a href="javascript:void(0)">清空缓存</a></li>
-                                            <li><a @click="logout">退出登录</a></li>
-                                        </ul>
+
                                     </li>
                                 </ul>
                             </div>
@@ -98,11 +89,7 @@
                                             <table class="table table-bordered">
                                                 <thead>
                                                     <tr>
-                                                        <th>
-                                                            <label class="lyear-checkbox checkbox-primary">
-                                                                <input type="checkbox" v-model="selectAll"><span></span>
-                                                            </label>
-                                                        </th>
+
                                                         <th>申报类型</th>
                                                         <th>项目名称</th>
                                                         <th>项目成员</th>
@@ -115,12 +102,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr v-for="(item, index) in formData" :key="index">
-                                                        <td>
-                                                            <label class="lyear-checkbox checkbox-primary">
-                                                                <input type="checkbox" v-model="selectedItems"
-                                                                    :value="item.Id"><span></span>
-                                                            </label>
-                                                        </td>
+
                                                         <td>{{ item.projectSort }}</td>
                                                         <td>{{ item.projectName }}</td>
                                                         <td>{{ item.member }}</td>
@@ -132,9 +114,6 @@
                                                         <td>
                                                             <button class="button1" type="button"
                                                                 @click="sendto">审批</button>
-
-                                                            <button class="button1" type="button"
-                                                                @click="submitForm(item.Id)">删除</button>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -143,8 +122,7 @@
                                         <ul class="pagination">
                                             <li class="disabled"><span>«</span></li>
                                             <li class="active"><span>1</span></li>
-                                            <li><a href="#1">2</a></li>
-                                            <li><a href="#1">3</a></li>
+
                                             <li><a href="#!">»</a></li>
                                         </ul>
                                     </div>
@@ -245,7 +223,7 @@ export default {
         // 刷新数据
         refreshData() {
             // 从服务器获取数据并更新res和status
-            // 示例：
+            // 
             // axios.get('/api/votes')
             //   .then((response) => {
             //     this.res = response.data;
@@ -258,7 +236,7 @@ export default {
         // 处理退出登录
         logout() {
             // 处理退出登录逻辑
-            // 示例：
+            // 
             // axios.post('/api/logout')
             //   .then(() => {
             //     // 退出成功，跳转到登录页或其他处理
