@@ -238,13 +238,13 @@ export default {
         logout() {
             // 处理退出登录逻辑
             // 
-            // axios.post('/api/logout')
-            //   .then(() => {
-            //     // 退出成功，跳转到登录页或其他处理
-            //   })
-            //   .catch((error) => {
-            //     console.error(error);
-            //   });
+            axios.post('/api/logout')
+              .then(() => {
+                // 退出成功，跳转到登录页或其他处理
+              })
+              .catch((error) => {
+                console.error(error);
+              });
         },
         // // 更新倒计时
         // updateCountdown() {

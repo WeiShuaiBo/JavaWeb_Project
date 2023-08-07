@@ -117,8 +117,13 @@ CREATE TABLE projects (
                           creativity varchar(255) NOT NULL ,
                           advantage varchar(255) NOT NULL,
                           instructor varchar(255) NOT NULL,
+<<<<<<< HEAD
                           status varchar(255) ,
                           content varchar(255),
+=======
+                          status varchar(255) NOT NULL ,
+                          content varchar(255) ,
+>>>>>>> a1518829ab829eb2efd1ee7fcfd2989a02d795a2
                           PRIMARY KEY (`id`)
 )ENGINE = InnoDB DEFAULT CHARSET =utf8mb4 COLLATE = utf8mb4_general_ci;
 
