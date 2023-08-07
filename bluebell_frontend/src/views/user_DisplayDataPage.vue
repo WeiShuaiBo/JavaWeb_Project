@@ -49,8 +49,9 @@
           <strong style="color: brown;">申请状态：</strong>{{ item.instatus }}
         </div>
         <div>
-          <strong style="color: brown;">审批描述：</strong>{{ item.content }}
+          <strong>审批描述：</strong>{{ item.content }}
         </div>
+
       </div>
 
     </div>

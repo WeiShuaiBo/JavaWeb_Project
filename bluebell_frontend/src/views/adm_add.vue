@@ -13,7 +13,7 @@
                             <li class="nav-item active"> <router-link to="/admindex">
                                     后台首页</router-link> </li>
                             <li class="nav-item nav-item-has-subnav">
-                                <a href="javascript:void(0)">功能列表</a>
+                                <a href="javascript:void(0)">审批申请</a>
                             </li>
                         </ul>
                     </nav>
@@ -89,8 +89,8 @@
                                         </div>
                                         <div class="form-group col-md-12">
                                             <label for="seo_description">描述</label>
-                                            <textarea v-model="context" class="form-control" id="seo_description"
-                                                name="context" rows="5" placeholder="描述"></textarea>
+                                            <textarea v-model="content" class="form-control" id="seo_description"
+                                                name="content" rows="5" placeholder="描述"></textarea>
                                         </div>
                                         <div class="form-group col-md-12">
                                             <label for="start-time">审批时间:</label>
@@ -99,8 +99,8 @@
                                             <br>
                                         </div>
                                         <div class="form-group col-md-12 button-group">
-                                            <button type="submit" class="btn btn-primary ajax-post"
-                                                target-form="add-form">确定</button>
+                                            <button type="submit" class="btn btn-primary ajax-post" target-form="add-form"
+                                                @click="getData">确定</button>
                                             <button type="button" class="btn btn-default" @click="goBack">返回</button>
                                         </div>
                                     </form>
@@ -116,6 +116,8 @@
 </template>
 
 <script>
+import axios from '../service/api';
+
 export default {
     name: 'admadd',
     data() {
@@ -123,7 +125,7 @@ export default {
             projectName: '',
             tickKind: '', // 投票类型
             tickReason: '', // 投票标题
-            context: '', // 投票描述
+            content: '', // 投票描述
             ticketCreateTime: '', // 开始时间
 
         };
@@ -131,43 +133,10 @@ export default {
     created() {
         // 使用$route.params来获取传递的参数
         const projectName = this.$route.params.projectName;
-        this.projectName = projectName
         // 在这里处理projectName的逻辑
+        this.projectName = projectName
     },
     methods: {
-        // 处理表单提交
-        // submitForm() {
-        //     const formData = {
-        //         tickKind: this.tickKind,
-        //         tickName: this.tickName,
-        //         context: this.context,
-        //         ticketCreateTime: this.ticketCreateTime,
-        //         ticketEndTime: this.ticketEndTime,
-        //     };
-        //     // 发起提交表单请求，处理逻辑
-        //     // 示例：
-        //     // axios.post('/api/add', formData)
-        //     //   .then((response) => {
-        //     //     alert(response.data);
-        //     //     this.goBack();
-        //     //   })
-        //     //   .catch((error) => {
-        //     //     console.error(error);
-        //     //     alert('表单提交失败，请重试。');
-        //     //   });
-        // },
-        // 处理退出登录
-        logout() {
-            // 处理退出登录逻辑
-            // 示例：
-            // axios.post('/api/logout')
-            //   .then(() => {
-            //     // 退出成功，跳转到登录页或其他处理
-            //   })
-            //   .catch((error) => {
-            //     console.error(error);
-            //   });
-        },
         // 返回上一页
         goBack() {
             this.$router.go(-1);
@@ -175,6 +144,19 @@ export default {
         sendTohome() {
             this.$router.push({ name: "Login" })
         },
+        getData() {
+            axios.post('/shenpi', {
+                projectName: this.projectName,
+                tickKind: this.tickKind,
+                tickReason: this.tickReason,
+                content: this.content,
+                ticketCreateTime: this.ticketCreateTime
+            }).then((res) => {
+                console.log(res)
+            })
+            this.$router.push({ name: "admindex" })
+            location.reload();
+        }
     },
     mounted() {
         // 初始化开始时间和结束时间输入框

@@ -1,5 +1,10 @@
 <template>
     <div class="all">
+      <div class="top-message">
+        <p class="message-text">
+          请注意，具体的创新创业项目方向会根据你的兴趣、技能和市场需求来确定。在申请之前，建议你深入研究所选方向的市场、竞争情况以及可行性分析，以确保项目的成功。
+        </p>
+      </div>
         <ul>
             <li v-for="(item, index) in navs" :key="index">
                 <span :class="index + 1 > 3 ? 'geshu1' : 'geshu'">{{ index + 1 }}</span>
@@ -26,84 +31,60 @@ export default {
                 {
                     id: 1,
                     src: require("../img/img2.jpg"),
-                    name: "微服务 & 云原生：搭建 K8S 集群",
-                    title: "基础环境搭建完成后，令当前虚拟机做 Master 主机，利用虚拟机平台，比如 VMWare、VirtualBox 等的克隆功能，克隆一台 Worker 主机（当然也可以克隆多台）。注意，克隆后的多台主机要保证 ip 不同，不同软件的操作不同，具体操作此处此处不做赘述。",
+                    name: "大学生创业项目一: 技术创新项目\n",
+                    title: "涉及新技术、新产品或新服务的研发和实施，例如人工智能、生物技术、清洁能源等领域。",
                     time: "发布时间:2020-11-13",
                     price: "312.00",
                 },
                 {
                     id: 2,
                     src: require("../img/img5.png"),
-                    name: "2023扩散模型最新技术进展汇总",
-                    title: "随着Stable Diffusion和Midjourney等图像生成模型的爆火，今年在模型领域，扩散模型稳占主导地位。因此，与之相关的新技术也层出不穷，短短1个月，扩散模型相关的论文就有上百篇了，可见其发展的火热趋势。这次我整理了一部分最新扩散模型相关论文来和大家分享，有50+ 篇，希望能帮助同学们获取新的思路~",
+                    name: "大学生创业项目二：社会问题解决项目",
+                    title: "针对社会问题提出创新解决方案，如教育、健康、环保等领域的项目。",
                     time: "发布时间:2023-07-21",
                     price: "310.00",
                 },
                 {
                     id: 3,
                     src: require("../img/img6.jpg"),
-                    name: "【Terraform学习】Terraform-docker部署快速入门（快速入门）",
-                    title: "导航到IAM在左侧菜单中，单击角色 。单击创建角色该按钮以创建新的 IAM 角色。在创建角色部分，为角色选择可信实体类型：AWS 服务使用案例:EC2",
+                    name: "大学生创业项目三：文化创意项目",
+                    title: "围绕艺术、文化、设计等方面的创新创业项目，如数字媒体、文化传承等",
                     time: "发布时间:2020-10-01",
                     price: "280.00",
                 },
                 {
                     id: 4,
                     src: require("../assets/images/avatar.png"),
-                    name: "网络安全（黑客）自学笔记",
-                    title: "1.计算机基础知识了解了计算机的硬件、软件、操作系统和网络结构等基础知识，可以帮助您更好地理解网络安全的概念和技术。2.网络基础知识了解了网络的结构、协议、服务和安全问题，可以帮助您更好地解决网络安全的原理和技术。3.安全基础知识了解了安全的概念、原则、威吓和攻击方式，可以帮助您更好地理解网络安全的意义和必要性。",
+                    name: "大学生创业项目四：环保可持续项目",
+                    title: "致力于环境保护、可持续发展的项目，如循环经济、绿色科技等。",
                     time: "发布时间:2020-11-27",
                     price: "100.00",
                 },
                 {
                     id: 5,
                     src: require("../assets/images/avatar.png"),
-                    name: "2023十大最牛编程语言排行榜以及个语言的优缺点",
-                    title: "Tips：TIOBE排行榜 是根据互联网上有经验的程序员、课程和第三方厂商的数量，并使用搜索引擎（如Google、Bing、Yahoo!）以及Wikipedia、Amazon、YouTube和Baidu（百度）统计出排名数据，只是反映某个编程语言的热门程度，并不能说明一门编程语言好不好，或者一门语言所编写的代码数量多少。",
+                    name: "大学生创业项目五：创业孵化器项目",
+                    title: "建立和运营创业孵化器，支持创业者发展和成长。",
                     time: "发布时间:2023-07-25",
                     price: "835.00",
                 },
                 {
                     id: 6,
                     src: require("../assets/images/avatar.png"),
-                    name: "SystemServer进程",
-                    title: "在systemServer启动文章中我们讲了在SystemServer.java的main方法里面调用new SystemServer().run（）方法启动System_server进程。那么我们接着看一下SystemServer.java具体做了哪些事情？",
+                    name: "大学生创业项目六：跨界合作项目",
+                    title: "不同领域之间的合作，例如科技与艺术、医疗与技术等，创造出新的商业模式和价值。",
                     time: "发布时间:2020-11-27",
                     price: "300.00",
                 },
                 {
                     id: 7,
                     src: require("../assets/images/avatar.png"),
-                    name: "k8s Label 2",
-                    title: "在 k8s 中，我们会轻轻松松的部署几十上百个微服务，这些微服务的版本，副本数的不同进而会带出更多的 pod这么多的 pod ，如何才能高效的将他们组织起来的，如果组织不好便会让管理微服务变得混乱不堪，杂乱无章",
+                    name: "大学生创业项目七：教育创新项目",
+                    title: "提出新的教育模式、在线学习平台、职业培训等方面的创新项目。",
                     time: "发布时间:2020-11-09",
                     price: "859.00",
                 },
-                {
-                    id: 8,
-                    src: require("../assets/images/avatar.png"),
-                    name: "基于jackson对bean的序列号和反序列化",
-                    title: "通过观察控制台输出的SQL发现页面传递过来的员工id的值和数据库中的id值不一致，这是怎么回事呢?分页查询时服务端响应给页面的数据中id的值为19位数字，类型为long页面中js处理long型数字只能精确到前16位，所以最终通过ajax请求提交给服务端的时候id就改变了前面我们已经发现了问题的原因，即js对long型数据进行处理时丢失精度，导致提交的id和数据库中的id不一致。",
-                    time: "发布时间:2020-11-13",
-                    price: "723.00",
-                },
-                {
-                    id: 9,
-                    src: require("../assets/images/avatar.png"),
-                    name: "Docker consul的容器服务更新与发现",
-                    title: "consul服务器 192.168.44.100 运行consul服务、nginx服务、consul-template守护进程registrator服务器 192.168.44.101 运行registrator容器、运行nginx容器",
-                    time: "发布时间:2020-11-30",
-                    price: "319.00",
-                },
-                {
-                    id: 10,
-                    src: require("../assets/images/avatar.png"),
-                    name: "j2ee相关知识点",
-                    title: "浏览器栏中，输入的是servlet的mapping映射，请求到servlet中去，jsp路径，会跳转到对应的页面Servlet接口位于最顶端，GenericServlet实现了Servlet，HttpServlet继承了GenericServlet浏览器中访问Servlet映射时，会去调用service()方法，并且会在适当的时候调用doGet",
-                    time: "发布时间:2020-11-13",
-                    price: "648.00",
-                },
-
+                //请注意，具体的创新创业项目方向会根据你的兴趣、技能和市场需求来确定。在申请之前，建议你深入研究所选方向的市场、竞争情况以及可行性分析，以确保项目的成功。
 
             ],
         };
@@ -111,6 +92,23 @@ export default {
 };
 </script>
 <style scoped>
+
+/* Style for the top message */
+.top-message {
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #ddd;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 30px;
+  color: #333;
+}
+
+/* Style for the message text within top message */
+.message-text {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
 .all {
     width: 100%;
 }

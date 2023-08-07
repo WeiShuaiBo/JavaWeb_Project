@@ -11,16 +11,15 @@
                     <div class="lyear-layout-sidebar-scroll">
                         <nav class="sidebar-main">
                             <ul class="nav nav-drawer">
-                                <li class="nav-item active"> <a href="">后台首页</a> </li>
+                                <li class="nav-item active"><a href="javascript:void(0)">后台首页</a></li>
                                 <li class="nav-item nav-item-has-subnav">
-                                    <router-link to="/admadd">
-                                        功能列表</router-link>
+                                    <a href="javascript:void(0)">审批申请</a>
                                 </li>
                             </ul>
                         </nav>
                         <div class="sidebar-footer">
-                            <p class="copyright">版权所有 &copy; 2019. <a target="_blank"
-                                    href="http://lyear.itshubao.com">数据202</a> 保留所有权利。</p>
+                            <p class="copyright">版权所有 &copy; 2023.
+                                数据202 保留所有权利。</p>
                         </div>
                     </div>
                 </aside>
@@ -202,6 +201,7 @@ export default {
         },
         sendTohome() {
             this.$router.push({ name: "Login" })
+            // this.$store.commit("logout");
         },
         // 处理删除按钮点击
         handleDelete() {
