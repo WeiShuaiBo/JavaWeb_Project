@@ -83,7 +83,7 @@ export default {
                     if (res.code == 1000) {
                         localStorage.setItem("loginResult", JSON.stringify(res.data));
                         this.$store.commit("login", res.data);
-                        this.$router.push({ path: this.redirect || "/" });
+                        // this.$router.push({ path: this.redirect || "/" });
                         console.log('signup success');
                         Swallow.fire({
                             icon: 'success',
