@@ -23,6 +23,7 @@ func main() {
 		fmt.Printf("init logger failed, err:%v\n", err)
 		return
 	}
+
 	if err := mysql.Init(settings.Conf.MySQLConfig); err != nil {
 		fmt.Printf("init mysql failed, err:%v\n", err)
 		return

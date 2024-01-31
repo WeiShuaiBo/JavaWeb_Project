@@ -141,21 +141,17 @@ func ShenPi(c *gin.Context) {
 		ResponseError(c, CodeError)
 		return
 	}
-<<<<<<< HEAD
+
 	fmt.Println(s)
 	// 查询
 	err = mysql.DB.Debug().Table("projects").Where("project_name = ?", s.ProjectName).First(&p).Error
-=======
 
-	// 查询
-	err = mysql.DB.Table("projects").Where("name = ?", s.ProjectName).First(&p).Error
->>>>>>> a1518829ab829eb2efd1ee7fcfd2989a02d795a2
 	if err != nil {
 		zap.L().Error("查询失败")
 		ResponseError(c, CodeError)
 		return
 	}
-<<<<<<< HEAD
+
 	// 更新数据
 	p.Status = "审批结果：" + s.TickKind
 	fmt.Println(p.Status)
@@ -163,14 +159,7 @@ func ShenPi(c *gin.Context) {
 	fmt.Println(p.Content)
 	err = mysql.DB.Table("projects").Where("name = ?", s.ProjectName).Save(&p).Error
 	fmt.Println(p)
-=======
 
-	// 更新数据
-	p.Status = "审批结果：" + s.TickKind + "   审批理由：" + s.TickReason + " 审批具体描述：" + s.Context + "   审批时间：" + s.ShenpiTime
-	err = mysql.DB.Table("projects").Where("name = ?", s.ProjectName).Updates(map[string]interface{}{
-		"status": p.Status,
-	}).Error
->>>>>>> a1518829ab829eb2efd1ee7fcfd2989a02d795a2
 	if err != nil {
 		zap.L().Error("存储更新后的数据失败")
 		ResponseError(c, CodeError)
